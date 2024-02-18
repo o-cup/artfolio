@@ -1,19 +1,20 @@
 import React from "react";
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./styles/globalStyle";
-import Portal from "./components/Portal";
-import DetailView from "./components/DetailView";
+import theme from "./styles/theme";
+import Main from "./pages/Main";
 
 function App() {
 	return (
-		<>
+		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			<div className="App">
-				<p>메인</p>
-				<Portal isOpen={false} onClose={() => console.log("close")}>
-					<DetailView />
-				</Portal>
-			</div>
-		</>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Main />} />
+				</Routes>
+			</BrowserRouter>
+		</ThemeProvider>
 	);
 }
 

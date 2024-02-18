@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
+    font-family: "Quattrocento", serif;
   }
 
   body {
