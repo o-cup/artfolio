@@ -29,7 +29,7 @@ export const HeaderContentWrap = styled.div`
 	}
 
 	@media screen and ${MOBILE_DEVICE} {
-		padding: 16px 12px 12px;
+		padding: 18px 12px 12px;
 	}
 
 	h1.title {

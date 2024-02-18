@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "../shared/components/layout";
+import Text from "../shared/components/text";
 
 function Main() {
 	return (
@@ -10,7 +11,7 @@ function Main() {
 			}}
 		>
 			{/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-			<div>// TODO: main</div>
+			<Text typography="body1">// TODO: main</Text>
 		</Layout>
 	);
 }

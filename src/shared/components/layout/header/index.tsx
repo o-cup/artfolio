@@ -13,25 +13,37 @@ const Header = () => {
 				<h1 className="title">Parkmejung</h1>
 				{!isMobile && (
 					<DesktopNavWrap>
-						<TextButton active={false}>works</TextButton>
-						<TextButton active={false}>about</TextButton>
-						<TextButton active={false}>exhibitions</TextButton>
+						<TextButton typography="body1" active={false}>
+							works
+						</TextButton>
+						<TextButton typography="body1" active={false}>
+							about
+						</TextButton>
+						<TextButton typography="body1" active={false}>
+							exhibitions
+						</TextButton>
 					</DesktopNavWrap>
 				)}
 				<LanguageWrap>
-					<TextButton active={false} size="14px">
+					<TextButton typography="body2" active={false}>
 						KO
 					</TextButton>
-					<TextButton active={false} size="14px">
+					<TextButton typography="body2" active={false}>
 						EN
 					</TextButton>
 				</LanguageWrap>
 			</HeaderContentWrap>
 			{isMobile && (
 				<MobileNavWrap>
-					<TextButton active={false}>works</TextButton>
-					<TextButton active={false}>about</TextButton>
-					<TextButton active={false}>exhibitions</TextButton>
+					<TextButton typography="body1" active={false}>
+						works
+					</TextButton>
+					<TextButton typography="body1" active={false}>
+						about
+					</TextButton>
+					<TextButton typography="body1" active={false}>
+						exhibitions
+					</TextButton>
 				</MobileNavWrap>
 			)}
 		</StyledHeader>
