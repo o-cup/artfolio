@@ -11,7 +11,9 @@ function Main() {
 			}}
 		>
 			{/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-			<Text typography="body1">// TODO: main</Text>
+			<Text typography="body1" color="gray">
+				// TODO: main
+			</Text>
 		</Layout>
 	);
 }
