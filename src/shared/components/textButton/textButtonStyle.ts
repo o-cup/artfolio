@@ -16,7 +16,7 @@ export const StyledTextButton = styled.button.attrs(({ customStyle }: ButtonProp
 	border: none;
 	margin: 0;
 	${({ theme, typography }) => theme.text[typography]};
-	color: ${({ theme }) => theme.colors.gray};
+	color: ${({ active, theme }) => (active ? theme.colors.black : theme.colors.gray)};
 	font-weight: ${({ active }) => (active ? "bold" : "regular")};
 
 	&:hover {
