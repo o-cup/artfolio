@@ -12,12 +12,12 @@ type LayoutProps = {
 };
 
 const Layout: React.FC<LayoutProps> = ({ children, mainPaddingBottom }) => (
-	<StyledLayout>
-		<Header />
-		<StyledContent mainPaddingBottom={mainPaddingBottom}>{children}</StyledContent>
-		<Footer />
-	</StyledLayout>
-);
+    <StyledLayout>
+      <Header />
+      <StyledContent mainPaddingBottom={mainPaddingBottom}>{children}</StyledContent>
+      <Footer />
+    </StyledLayout>
+  );
 
 Layout.defaultProps = {
 	mainPaddingBottom: {

@@ -71,13 +71,13 @@ const Header = () => {
 			</HeaderContentWrap>
 			{isMobile && (
 				<MobileNavWrap>
-					<TextButton typography="body1" active={activeNav === ""}>
+					<TextButton typography="body1" active={activeNav === ""} handleClick={() => navigate("/")}>
 						works
 					</TextButton>
-					<TextButton typography="body1" active={activeNav === "about"}>
+					<TextButton typography="body1" active={activeNav === "about"} handleClick={() => navigate("/about")}>
 						about
 					</TextButton>
-					<TextButton typography="body1" active={activeNav === "exhibitions"}>
+					<TextButton typography="body1" active={activeNav === "exhibitions"} handleClick={() => navigate("/exhibitions")}>
 						exhibitions
 					</TextButton>
 				</MobileNavWrap>

@@ -12,6 +12,7 @@ type TextButtonProps = {
 };
 
 const TextButton = ({ children, typography, active, customStyle, handleClick }: TextButtonProps) => (
+	// <StyledTextButton typography={typography} active={active} customStyle={customStyle} onClick={handleClick}>
 	<StyledTextButton typography={typography} active={active} customStyle={customStyle} onClick={handleClick}>
 		{children}
 	</StyledTextButton>

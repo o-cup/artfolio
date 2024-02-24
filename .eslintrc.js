@@ -26,7 +26,7 @@ module.exports = {
 		quotes: ["error", "double"],
 		"react/function-component-definition": "off",
 		"react/jsx-props-no-spreading": "off",
-
+		"react/react-in-jsx-scope": "off",
 		"import/extensions": [
 			"error",
 			"ignorePackages",
