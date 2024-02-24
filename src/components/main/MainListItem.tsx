@@ -13,7 +13,7 @@ function MainListItem({ data }: Props) {
 				<img src={data.imageUrl} alt={data.title} />
 			</MainWorkImageWrap>
 			<MainWorkTitleWrap>
-				<Text typography="body2" color="gray">{`<${data.title}>, ${data.year}`}</Text>
+				<Text typography="body2">{`<${data.title}>, ${data.year}`}</Text>
 			</MainWorkTitleWrap>
 		</MainListItemWrap>
 	);
