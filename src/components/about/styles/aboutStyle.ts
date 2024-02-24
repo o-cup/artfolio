@@ -31,6 +31,9 @@ export const AboutHistoriesWrap = styled.div`
 	gap: 56px;
 
 	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 		padding-top: 16px;
 
 		li {
