@@ -15,6 +15,8 @@ export const StyledText = styled.span.attrs(({ customStyle }: TextProps) => ({
 	display: inline-block;
 	${({ theme, typography }) => theme.text[typography]};
 	color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.black)};
+	white-space: pre-line;
+	word-break: keep-all;
 `;
 
 export default {};

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TextButton from "../../textButton";
 import { DesktopNavWrap, HeaderContentWrap, LanguageWrap, MobileNavWrap, StyledHeader } from "./headerStyle";
 import { MOBILE_DEVICE } from "../../../../styles/theme";
@@ -9,6 +9,7 @@ import { LangContext } from "../../../../context/LanguageProvider";
 const Header = () => {
 	const isMobile = useMediaQuery({ query: MOBILE_DEVICE });
 	const { pathname } = useLocation();
+	const navigate = useNavigate();
 	const { lang, setLang } = useContext(LangContext);
 
 	const [activeNav, setActiveNav] = useState<"" | "about" | "exhibitions">("");
@@ -30,13 +31,31 @@ const Header = () => {
 				<h1 className="title">Parkmejung</h1>
 				{!isMobile && (
 					<DesktopNavWrap>
-						<TextButton typography="body1" active={activeNav === ""}>
+						<TextButton
+							typography="body1"
+							active={activeNav === ""}
+							handleClick={() => {
+								navigate("/");
+							}}
+						>
 							works
 						</TextButton>
-						<TextButton typography="body1" active={activeNav === "about"}>
+						<TextButton
+							typography="body1"
+							active={activeNav === "about"}
+							handleClick={() => {
+								navigate("/about");
+							}}
+						>
 							about
 						</TextButton>
-						<TextButton typography="body1" active={activeNav === "exhibitions"}>
+						<TextButton
+							typography="body1"
+							active={activeNav === "exhibitions"}
+							handleClick={() => {
+								navigate("/exhibitions");
+							}}
+						>
 							exhibitions
 						</TextButton>
 					</DesktopNavWrap>

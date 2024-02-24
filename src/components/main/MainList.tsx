@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MainListWrap } from "./styles/mainStyle";
-import dummyData from "./dummyData.json";
+import mainData from "./mainData.json";
 import MainListItem from "./MainListItem";
+import { LangContext } from "../../context/LanguageProvider";
 
 function MainList() {
+	const { lang } = useContext(LangContext);
+
 	return (
 		<MainListWrap>
-			{dummyData.map((data) => (
+			{mainData[lang].map((data) => (
 				<MainListItem key={data.id} data={data} />
 			))}
 		</MainListWrap>

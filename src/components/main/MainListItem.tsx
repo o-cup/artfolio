@@ -1,5 +1,5 @@
 import React from "react";
-import { MainWorkTitleWrap, MainWorkImageWrap, MainListItemWrap } from "./styles/mainStyle";
+import { MainListItemWrap, MainWorkImageWrap, MainWorkTitleWrap } from "./styles/mainStyle";
 import Text from "../../shared/components/text";
 
 interface Props {
@@ -10,10 +10,10 @@ function MainListItem({ data }: Props) {
 	return (
 		<MainListItemWrap>
 			<MainWorkImageWrap>
-				<img src={data.imageUrl} alt={data.title.en} />
+				<img src={data.imageUrl} alt={data.title} />
 			</MainWorkImageWrap>
 			<MainWorkTitleWrap>
-				<Text typography="body2" color="gray">{`<${data.title.en}>, ${data.year}`}</Text>
+				<Text typography="body2" color="gray">{`<${data.title}>, ${data.year}`}</Text>
 			</MainWorkTitleWrap>
 		</MainListItemWrap>
 	);
