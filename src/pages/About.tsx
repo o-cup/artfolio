@@ -1,8 +1,8 @@
 import React from "react";
 import Layout from "../shared/components/layout";
-import MainList from "../components/main/MainList";
+import AboutContent from "../components/about/AboutContent";
 
-function Main() {
+function About() {
 	return (
 		<Layout
 			mainPaddingBottom={{
@@ -10,9 +10,9 @@ function Main() {
 				mobile: "170px",
 			}}
 		>
-			<MainList />
+			<AboutContent />
 		</Layout>
 	);
 }
 
-export default Main;
+export default About;

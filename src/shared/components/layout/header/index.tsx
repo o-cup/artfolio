@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useLocation, useNavigate } from "react-router-dom";
 import TextButton from "../../textButton";
 import { DesktopNavWrap, HeaderContentWrap, LanguageWrap, MobileNavWrap, StyledHeader } from "./headerStyle";
 import { MOBILE_DEVICE } from "../../../../styles/theme";
+import { LangContext } from "../../../../context/LanguageProvider";
 
 const Header = () => {
 	const isMobile = useMediaQuery({ query: MOBILE_DEVICE });
+	const { pathname } = useLocation();
+	const navigate = useNavigate();
+	const { lang, setLang } = useContext(LangContext);
+
+	const [activeNav, setActiveNav] = useState<"" | "about" | "exhibitions">("");
+
+	useEffect(() => {
+		switch (pathname) {
+			case "/about":
+				return setActiveNav("about");
+			case "/exhibitions":
+				return setActiveNav("exhibitions");
+			default:
+				return setActiveNav("");
+		}
+	}, [pathname]);
 
 	return (
 		<StyledHeader>
@@ -13,35 +31,53 @@ const Header = () => {
 				<h1 className="title">Parkmejung</h1>
 				{!isMobile && (
 					<DesktopNavWrap>
-						<TextButton typography="body1" active={false}>
+						<TextButton
+							typography="body1"
+							active={activeNav === ""}
+							handleClick={() => {
+								navigate("/");
+							}}
+						>
 							works
 						</TextButton>
-						<TextButton typography="body1" active={false}>
+						<TextButton
+							typography="body1"
+							active={activeNav === "about"}
+							handleClick={() => {
+								navigate("/about");
+							}}
+						>
 							about
 						</TextButton>
-						<TextButton typography="body1" active={false}>
+						<TextButton
+							typography="body1"
+							active={activeNav === "exhibitions"}
+							handleClick={() => {
+								navigate("/exhibitions");
+							}}
+						>
 							exhibitions
 						</TextButton>
 					</DesktopNavWrap>
 				)}
 				<LanguageWrap>
-					<TextButton typography="body2" active={false}>
+					<TextButton typography="body2" active={lang === "ko"} handleClick={() => setLang("ko")}>
 						KO
 					</TextButton>
-					<TextButton typography="body2" active={false}>
+					<TextButton typography="body2" active={lang === "en"} handleClick={() => setLang("en")}>
 						EN
 					</TextButton>
 				</LanguageWrap>
 			</HeaderContentWrap>
 			{isMobile && (
 				<MobileNavWrap>
-					<TextButton typography="body1" active={false}>
+					<TextButton typography="body1" active={activeNav === ""}>
 						works
 					</TextButton>
-					<TextButton typography="body1" active={false}>
+					<TextButton typography="body1" active={activeNav === "about"}>
 						about
 					</TextButton>
-					<TextButton typography="body1" active={false}>
+					<TextButton typography="body1" active={activeNav === "exhibitions"}>
 						exhibitions
 					</TextButton>
 				</MobileNavWrap>

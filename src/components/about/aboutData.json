@@ -1,0 +1,86 @@
+{
+  "en": {
+    "artist" : {
+      "name": "Park Mejung",
+      "about": "After majoring in art education at Hanyang University's College of Education, she completed the International Fashion Research Institute.\nShe won the grand prize at the College Student Design Contest in Korea as a student.\nShe later worked as a stylist for commercial commercials, fashion magazines, and broadcasts.\nShe was a full-time fashion director at Ecole Charmant, Face Value, Juad B, Ipoh Makeup School, and gave lectures on fashion styles at several companies, including Samsung Life Insurance and Samsung C&T. \nShe completed the Chung-Ang University Photography Academy."
+    },
+    "histories": [
+      {
+        "title": "solo exhibition",
+        "details": [
+          "2024 <Still life for things that need a goodbye, Mourning> Look Inside Gallery, Seoul, Korea",
+          "2023 <Still life on Baldwin> Bando Camera Leica Store, Seoul, Korea",
+          "2020 <Still Life for things that need a goodbye, Vanity> Lotte Avenue Photo Grabs 291 Gallery, Seoul, Korea",
+          "2019 <Still Life on Baldwin> Space 291, Seoul, Korea"
+        ]
+      },
+      {
+        "title": "group exhibition",
+        "details": [
+          "2023 <Hwang Gyu Tae and Friends> Art Space J, Seongnam, Korea",
+          "2022 <The Ongoing Moment> CCP Wall Gallery, Seoul, Korea",
+          "2021 <The 9th Jamun Outside Cultural Festival “Walk, Love, Art” Jamun Outside Joint Exhibition (various locations)>",
+          "Gallery Sejul, Seoul, Korea",
+          "2021 <2020 BIPF> Art Space Lumos, Daegu, Korea",
+          "2020 <Art in the Post-Corona Era> Osan Museum of Art, Osan, Korea",
+          "2020 <Asiaf & Hidden Artist Festival)> Hongik University, Museum of Contemporary Art, Seoul, Korea",
+          "2019 <Gift Exhibition> Bium Gallery, Seoul, Korea",
+          "2019 <Korea-Belgium Photo Exhibition (STILL LIVES)> Korean Cultural Center Brussels, Brussels, Belgium",
+          "2019 <18th Donggang International Photo Festival Growingup> (Donggang International PhotoFestival, 2019) Yeongwol, Korea",
+          "2019 <Going home> Space 291, Seoul, Korea",
+          "2016, 2017, 2018 <Chung-Ang University Photography, Academy Completion Exhibition> La Mer Gallery, Seoul, Korea"
+        ]
+      },
+      {
+        "title": "awards",
+        "details": [
+          "Korea College Student Design Contest (KDC) Grand Prize Winner",
+          "2020 ASIAFF & Hidden Artist Festival ‘Hidden Artist Prize’ award",
+          "Portfolio 2020 BIPF X LUMOS review Excellent Portfolio Award"
+        ]
+      }
+    ]
+  },
+  "ko": {
+    "artist" : {
+      "name": "박미정",
+      "about": "한양대학교 사범대학 미술교육학을 전공 후, 국제 복장연구원 수료,학창 시절에 대한민국 대학생디자인공모전에서 대상을 수상하였고 이후 CF광고, 패션잡지, 방송 등에서 스타일리스트로 활동했다.\n에꼴 샤르망뜨, 훼이스벨류, 쥬아드비, 이포 메이크업 스쿨 코디전임강사, 삼성생명, 삼성물산 등 여러 기업체에서 패션 코디 관련 강의를 했다. 중앙대 사진 아카데미를 수료했다."
+    },
+    "histories": [
+      {
+        "title": "개인전",
+        "details": [
+          "2024 <보내야 하는 사물들을 위한 정물, Mourning> 룩인사이드, 서울, 한국",
+          "2023 <Baldwin 위의 정물> 반도카메라 라이카 스토어, 서울, 한국",
+          "2020 <보내야하는 사물들을 위한 정물,Vanity> 롯데 에비뉴엘포토 그랩스 291갤러리, 서울, 한국",
+          "2019 <Baldwin 위의 정물> 공간291, 서울, 한국"
+        ]
+      },
+      {
+        "title": "단체전",
+        "details": [
+          "2024 STRANGER <몬테카를로의 사유> 수성방이빌딩 B1-2F, 서울, 한국",
+          "2023 <황규태와 친구들> 아트스페이스 J, 성남, 한국",
+          "2022 <지속의 순간들(The Ongoing Moment)> CCP Wall Gallery, 서울, 한국",
+          "2021 <제9회 자문 밖 문화축제 “걷고, 사랑하고, 예술하라” 자문밖 연합전(곳곳)> 갤러리 세줄, 서울, 한국",
+          "2021 <2020 BIPF X LUMOS Portfolio Review 우수 포트폴리오 수상자전 (이질적 시간)> 아트스페이스 루모스, 대구, 한국",
+          "2020 <포스트 코로나시대의 미술> 오산시립미술관, 오산, 한국",
+          "2020 <아시아프 & 히든아티스트 페스티벌)> 홍익대학교 현대미술관, 서울, 한국",
+          "2019 <선물전> 비움갤러리, 서울, 한국",
+          "2019 <한국-벨기에 사진전 (STILL LIVES)> 브뤼셀 한국문화원, 브뤼셀, 벨기에",
+          "2019 <제18회 동강국제사진제 Growing up> (동강국제사진축제, 2019) 영월, 한국",
+          "2019 <Going home> 공간291, 서울, 한국",
+          "2016, 2017, 2018 <중앙대 사진아카데미 수료전> 라메르 갤러리, 서울, 한국"
+        ]
+      },
+      {
+        "title": "수상",
+        "details": [
+          "대한민국 대학생 디자인 공모전(KDC) 대상 수상",
+          "2020 아시아프 & 히든아티스트 페스티벌 ‘히든아티스트 프라이즈’ 수상",
+          "Portfolio R2020 BIPF X LUMOS review 우수 포트폴리오 장려상 수상"
+        ]
+      }
+    ]
+  }
+}
