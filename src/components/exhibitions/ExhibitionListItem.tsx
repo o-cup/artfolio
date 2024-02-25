@@ -1,17 +1,25 @@
-// import React from "react";
-
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
 
 type Props = {
-	url: string;
+	data: {
+		id: string;
+		imgUrl: string;
+	};
 };
 
-const ExhibitionListItem = ({ url }: Props) => (
-	<Styled.Wrap>
-		<Styled.Poster src={url} />
-	</Styled.Wrap>
-);
+const ExhibitionListItem = ({ data }: Props) => {
+	const navigate = useNavigate();
+
+	const { id, imgUrl } = data;
+
+	return (
+		<Styled.Wrap onClick={() => navigate(`/exhibitions/${id}`)}>
+			<Styled.Poster src={imgUrl} alt="poster" />
+		</Styled.Wrap>
+	);
+};
 
 export default ExhibitionListItem;
 

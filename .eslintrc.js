@@ -11,6 +11,16 @@ module.exports = {
 		"plugin:import/typescript",
 		"plugin:jsx-a11y/recommended",
 	],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "rules": {
+        // TypeScript-specific rules
+      }
+    }
+  ],
 	rules: {
 		"react/jsx-filename-extension": [1, { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
 		"no-console": ["warn", { allow: ["warn", "error"] }],

@@ -1,9 +1,12 @@
-import React from "react";
 import styled from "styled-components";
 
-const Poster = () => (
+type Props = {
+	data: ExhibitionDataType;
+};
+
+const Poster = ({ data }: Props) => (
 	<Styled.Poster>
-		<Styled.Image />
+		<Styled.Image src={data.imgUrl} />
 	</Styled.Poster>
 );
 
@@ -11,13 +14,12 @@ export default Poster;
 
 const Styled = {
 	Poster: styled.section`
-		border: 1px solid blue;
 		margin-bottom: 32px;
+		display: flex;
+		justify-content: center;
 	`,
-	Image: styled.div`
-		width: 300px;
-		height: 400px;
-		border: 1px solid pink;
-		margin: 0 auto;
+	Image: styled.img`
+		width: 80%;
+		border: 1px solid red;
 	`,
 };

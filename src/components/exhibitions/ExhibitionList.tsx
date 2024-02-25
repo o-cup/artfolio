@@ -1,38 +1,15 @@
 import styled from "styled-components";
 import ExhibitionListItem from "./ExhibitionListItem";
 import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
+import exhibitionsData from "./exhibitionsData";
 
-const ExhibitionList = () => {
-	const PREFIX = `${process.env.PUBLIC_URL}/exhibitions`;
-
-	const posterFiles = [
-		{ id: "2019-1", url: `${PREFIX}/2019/2019-1/0_poster.png` },
-		{
-			id: "2019-2",
-			url: `${PREFIX}/2019/2019-2/0_poster.jpeg`,
-		},
-		{
-			id: "2019-3",
-			url: `${PREFIX}/2019/2019-3/0_poster.jpeg`,
-		},
-		{ id: "2020-1", url: `${PREFIX}/2020/2020-1/0_poster.png` },
-		{ id: "2020-2", url: `${PREFIX}/2020/2020-2/0_poster.jpg` },
-		{ id: "2020-3", url: `${PREFIX}/2020/2020-3/0_poster.png` },
-		{ id: "2021-1", url: `${PREFIX}/2021/2021-1/0_poster.jpeg` },
-		{ id: "2021-2", url: `${PREFIX}/2021/2021-2/0_poster.jpeg` },
-		{ id: "2023-1", url: `${PREFIX}/2023/2023-1/0_poster.png` },
-		{ id: "2024-1", url: `${PREFIX}/2024/2024-1/0_poster.jpeg` },
-	];
-
-	return (
-		<Styled.Wrap>
-			{posterFiles.map((item) => (
-				<ExhibitionListItem key={item.id} url={item.url} />
-			))}
-		</Styled.Wrap>
-	);
-};
-
+const ExhibitionList = () => (
+	<Styled.Wrap>
+		{exhibitionsData.kr.map((item) => (
+			<ExhibitionListItem key={item.id} data={item} />
+		))}
+	</Styled.Wrap>
+);
 export default ExhibitionList;
 
 const Styled = {

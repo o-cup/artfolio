@@ -1,4 +1,3 @@
-import React from "react";
 import Layout from "../shared/components/layout";
 import ExhibitionList from "../components/exhibitions/ExhibitionList";
 

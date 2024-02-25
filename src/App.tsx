@@ -7,6 +7,7 @@ import LanguageProvider from "./context/LanguageProvider";
 import Main from "./pages/Main";
 import About from "./pages/About";
 import Exhibitions from "./pages/Exhibitions";
+import ExhibitionDetail from "./components/exhibitions/ExhibitionDetail";
 
 function App() {
 	const [lang, setLang] = useState<Language>("en");
@@ -20,6 +21,7 @@ function App() {
 						<Route path="/" element={<Main />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/exhibitions" element={<Exhibitions />} />
+						<Route path="/exhibitions/:id" element={<ExhibitionDetail />} />
 					</Routes>
 				</BrowserRouter>
 			</ThemeProvider>
