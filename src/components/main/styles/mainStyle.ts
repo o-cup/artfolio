@@ -55,20 +55,9 @@ export const MainListItemWrap = styled.li`
 		width: 45vw;
 	}
 
-	${MainWorkImageWrap}::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: rgba(217, 217, 217, 0.01);
-		backdrop-filter: blur(2px);
-	}
-
 	&:hover {
-		${MainWorkImageWrap}::before {
-			display: none;
-		}
 		${MainWorkTitleWrap} > span {
-			color: ${({ theme }) => theme.colors.black} !important;
+			font-weight: bold;
 		}
 	}
 `;
