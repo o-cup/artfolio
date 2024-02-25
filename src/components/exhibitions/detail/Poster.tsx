@@ -6,7 +6,7 @@ type Props = {
 
 const Poster = ({ data }: Props) => (
 	<Styled.Poster>
-		<Styled.Image src={data.imgUrl} />
+		<Styled.Image src={data.posterUrl} />
 	</Styled.Poster>
 );
 
@@ -20,6 +20,5 @@ const Styled = {
 	`,
 	Image: styled.img`
 		width: 80%;
-		border: 1px solid red;
 	`,
 };

@@ -5,18 +5,17 @@ import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
 type Props = {
 	data: {
 		id: string;
-		imgUrl: string;
+		posterUrl: string;
 	};
 };
 
 const ExhibitionListItem = ({ data }: Props) => {
 	const navigate = useNavigate();
-
-	const { id, imgUrl } = data;
+	const { id, posterUrl } = data;
 
 	return (
 		<Styled.Wrap onClick={() => navigate(`/exhibitions/${id}`)}>
-			<Styled.Poster src={imgUrl} alt="poster" />
+			<Styled.Poster src={posterUrl} alt="poster" />
 		</Styled.Wrap>
 	);
 };

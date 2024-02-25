@@ -7,7 +7,7 @@ import LanguageProvider from "./context/LanguageProvider";
 import Main from "./pages/Main";
 import About from "./pages/About";
 import Exhibitions from "./pages/Exhibitions";
-import ExhibitionDetail from "./components/exhibitions/ExhibitionDetail";
+import ExhibitionDetail from "./components/exhibitions/detail/ExhibitionDetail";
 
 function App() {
 	const [lang, setLang] = useState<Language>("en");

@@ -4,5 +4,6 @@ declare type ExhibitionDataType = {
     title: string;
     date: string;
     location: string;
-    imgUrl: string;
+    posterUrl: string;
+    exhibitionPhotoCount: number;
 };
