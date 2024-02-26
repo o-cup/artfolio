@@ -32,6 +32,7 @@ const Styled = {
 
 		@media screen and (${DESKTOP_DEVICE}) {
 			gap: 24px;
+			padding: 0;
 		}
 	`,
 };

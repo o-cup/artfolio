@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { DESKTOP_DEVICE } from "../../../styles/theme";
 
 type Props = {
 	id: number;
@@ -25,10 +26,22 @@ const ExhibitionPhotoListItem = ({ id: subId, imgUrl }: Props) => {
 export default ExhibitionPhotoListItem;
 
 const Styled = {
-	Wrap: styled.li``,
+	Wrap: styled.li`
+		@media screen and (${DESKTOP_DEVICE}) {
+			aspect-ratio: 1 / 1;
+			position: relative;
+		}
+	`,
 	Image: styled.img`
 		width: 100%;
 		aspect-ratio: 1 / 1;
 		object-fit: cover;
+
+		@media screen and (${DESKTOP_DEVICE}) {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 	`,
 };
