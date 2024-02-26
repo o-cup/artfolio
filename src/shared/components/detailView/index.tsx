@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
 import { MOBILE_DEVICE } from "../../../styles/theme";
 import CloseButton from "./CloseButton";
 import exhibitionsData, { PREFIX } from "../../../components/exhibitions/exhibitionsData";
 import Text from "../text";
+import { LangContext } from "../../../context/LanguageProvider";
 
 const DetailView = () => {
+	const { lang } = useContext(LangContext);
 	const navigate = useNavigate();
 	const isMobile = useMediaQuery({ query: MOBILE_DEVICE });
 
@@ -14,7 +17,7 @@ const DetailView = () => {
 	if (!id || !subId) return null;
 	const formattedSubId = parseInt(subId, 10).toString();
 
-	const data = exhibitionsData.kr.find((item) => item.id === id);
+	const data = exhibitionsData[lang].find((item) => item.id === id);
 	if (!data) return null;
 	const totalCount = data?.exhibitionPhotoCount;
 
@@ -29,7 +32,7 @@ const DetailView = () => {
 	const handleLeftArrowClick = () => {
 		const prevSubId = parseInt(subId, 10) - 1;
 		const formattedPrevSubId = prevSubId < 10 ? `0${prevSubId}` : prevSubId.toString();
-    
+
 		if (prevSubId < 1) return;
 		navigate(`/exhibitions/${id}/${formattedPrevSubId}`);
 	};

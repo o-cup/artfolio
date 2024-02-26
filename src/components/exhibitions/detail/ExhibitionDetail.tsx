@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Poster from "./Poster";
 import Information from "./Information";
 import exhibitionsData from "../exhibitionsData";
@@ -8,15 +8,17 @@ import Layout from "../../../shared/components/layout";
 import BackButton from "./BackButton";
 import ExhibitionPhotoList from "./ExhibitionPhotoList";
 import { DESKTOP_DEVICE } from "../../../styles/theme";
+import { LangContext } from "../../../context/LanguageProvider";
 
 const ExhibitionDetail = () => {
+	const { lang } = useContext(LangContext);
 	const { id } = useParams<{ id: string }>();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	const data = exhibitionsData.kr.find((item) => item.id === id);
+	const data = exhibitionsData[lang].find((item) => item.id === id);
 	if (!data) return null;
 
 	return (

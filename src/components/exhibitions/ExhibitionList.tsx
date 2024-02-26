@@ -1,15 +1,21 @@
 import styled from "styled-components";
+import { useContext } from "react";
 import ExhibitionListItem from "./ExhibitionListItem";
 import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
 import exhibitionsData from "./exhibitionsData";
+import { LangContext } from "../../context/LanguageProvider";
 
-const ExhibitionList = () => (
-	<Styled.Wrap>
-		{exhibitionsData.kr.map((item) => (
-			<ExhibitionListItem key={item.id} data={item} />
-		))}
-	</Styled.Wrap>
-);
+const ExhibitionList = () => {
+	const { lang } = useContext(LangContext);
+
+	return (
+		<Styled.Wrap>
+			{exhibitionsData[lang].map((item) => (
+				<ExhibitionListItem key={item.id} data={item} />
+			))}
+		</Styled.Wrap>
+	);
+};
 export default ExhibitionList;
 
 const Styled = {
