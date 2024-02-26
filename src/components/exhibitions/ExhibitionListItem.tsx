@@ -37,14 +37,10 @@ const itemWidth = "calc((100vw - (30px * 2) - (24px * 4)) / 5)";
 const Styled = {
 	Wrap: styled.li`
 		cursor: pointer;
-		line-height: 24px;
-
-		> span {
-			display: inline-block;
-		}
 
 		@media screen and (${DESKTOP_DEVICE}) {
 			width: ${itemWidth};
+			line-height: 24px;
 		}
 
 		@media screen and (${MOBILE_DEVICE}) {
