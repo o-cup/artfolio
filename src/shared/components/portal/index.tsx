@@ -5,11 +5,13 @@ import styled from "styled-components";
 interface PortalProps {
 	children: React.ReactNode;
 	isOpen: boolean;
-	onClose: () => void;
+	// onClose: () => void;
 }
 
-const Portal: React.FC<PortalProps> = ({ children, isOpen, onClose }) => {
+const Portal: React.FC<PortalProps> = ({ children, isOpen }) => {
 	if (!isOpen) return null;
+
+	console.log("portal");
 
 	const portalRoot = document.getElementById("portal-root");
 	if (!portalRoot) return null;

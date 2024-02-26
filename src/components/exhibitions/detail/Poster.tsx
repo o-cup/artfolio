@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DESKTOP_DEVICE } from "../../../styles/theme";
 
 type Props = {
 	data: ExhibitionDataType;
@@ -20,5 +21,9 @@ const Styled = {
 	`,
 	Image: styled.img`
 		width: 80%;
+
+		@media screen and (${DESKTOP_DEVICE}) {
+			width: 100%;
+		}
 	`,
 };

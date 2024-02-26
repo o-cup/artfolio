@@ -1,3 +1,4 @@
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 type Props = {
@@ -5,11 +6,21 @@ type Props = {
 	imgUrl: string;
 };
 
-const ExhibitionPhotoListItem = ({ id, imgUrl }: Props) => (
-	<Styled.Wrap>
-		<Styled.Image src={imgUrl} alt={id.toString()} />
-	</Styled.Wrap>
-);
+const ExhibitionPhotoListItem = ({ id: subId, imgUrl }: Props) => {
+	const { id } = useParams<{ id: string }>();
+	const navigate = useNavigate();
+
+	const handleClick = () => {
+		const formattedSubId = subId < 10 ? `0${subId}` : subId.toString();
+		navigate(`/exhibitions/${id}/${formattedSubId}`);
+	};
+
+	return (
+		<Styled.Wrap onClick={handleClick}>
+			<Styled.Image src={imgUrl} alt={subId.toString()} />
+		</Styled.Wrap>
+	);
+};
 
 export default ExhibitionPhotoListItem;
 

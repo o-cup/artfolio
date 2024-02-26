@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ExhibitionPhotoListItem from "./ExhibitionPhotoListItem";
 import { PREFIX } from "../exhibitionsData";
+import { DESKTOP_DEVICE } from "../../../styles/theme";
 
 type Props = {
 	data: ExhibitionDataType;
@@ -28,5 +29,9 @@ const Styled = {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 4px;
 		padding: 0 12px;
+
+		@media screen and (${DESKTOP_DEVICE}) {
+			gap: 24px;
+		}
 	`,
 };
