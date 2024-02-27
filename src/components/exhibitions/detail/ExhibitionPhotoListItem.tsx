@@ -1,6 +1,6 @@
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { DESKTOP_DEVICE } from "../../../styles/theme";
+import { useModal } from "../../../context/ModalProvider";
 
 type Props = {
 	id: number;
@@ -8,12 +8,11 @@ type Props = {
 };
 
 const ExhibitionPhotoListItem = ({ id: subId, imgUrl }: Props) => {
-	const { id } = useParams<{ id: string }>();
-	const navigate = useNavigate();
+	const { openModal, setItemId } = useModal();
 
 	const handleClick = () => {
-		const formattedSubId = subId < 10 ? `0${subId}` : subId.toString();
-		navigate(`/exhibitions/${id}/${formattedSubId}`);
+		setItemId(subId);
+		openModal();
 	};
 
 	return (
@@ -27,6 +26,8 @@ export default ExhibitionPhotoListItem;
 
 const Styled = {
 	Wrap: styled.li`
+		cursor: pointer;
+
 		@media screen and (${DESKTOP_DEVICE}) {
 			aspect-ratio: 1 / 1;
 			position: relative;

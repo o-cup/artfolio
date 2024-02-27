@@ -9,10 +9,13 @@ import BackButton from "./BackButton";
 import ExhibitionPhotoList from "./ExhibitionPhotoList";
 import { DESKTOP_DEVICE } from "../../../styles/theme";
 import { LangContext } from "../../../context/LanguageProvider";
+import ModalViewer from "../../../shared/components/modalViewer";
+import { useModal } from "../../../context/ModalProvider";
 
 const ExhibitionDetail = () => {
 	const { lang } = useContext(LangContext);
 	const { id } = useParams<{ id: string }>();
+	const { isModalOpen } = useModal();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -21,22 +24,27 @@ const ExhibitionDetail = () => {
 	const data = exhibitionsData[lang].find((item) => item.id === id);
 	if (!data) return null;
 
+	const totalCount = data?.exhibitionPhotoCount;
+
 	return (
-		<Layout
-			mainPaddingBottom={{
-				desktop: "200px",
-				mobile: "170px",
-			}}
-		>
-			<Styled.Wrap>
-				<StyledDesktop.LeftAreaWrap>
-					<Poster data={data} />
-					<Information data={data} />
-					<BackButton />
-				</StyledDesktop.LeftAreaWrap>
-				<ExhibitionPhotoList data={data} />
-			</Styled.Wrap>
-		</Layout>
+		<>
+			<Layout
+				mainPaddingBottom={{
+					desktop: "200px",
+					mobile: "170px",
+				}}
+			>
+				<Styled.Wrap>
+					<StyledDesktop.LeftAreaWrap>
+						<Poster data={data} />
+						<Information data={data} />
+						<BackButton />
+					</StyledDesktop.LeftAreaWrap>
+					<ExhibitionPhotoList data={data} />
+				</Styled.Wrap>
+			</Layout>
+			{isModalOpen && <ModalViewer totalCount={totalCount} />}
+		</>
 	);
 };
 

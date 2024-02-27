@@ -1,11 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const BackButton = () => (
-	<Styled.Wrap onClick={() => window.history.back()}>
-		<Styled.Icon src="/icons/back.svg" alt="back button" />
-		<Styled.Text>exhibitions</Styled.Text>
-	</Styled.Wrap>
-);
+const BackButton = () => {
+	const navigate = useNavigate();
+	return (
+		<Styled.Wrap onClick={() => navigate("/exhibitions")}>
+			<Styled.Icon src="/icons/back.svg" alt="back button" />
+			<Styled.Text>exhibitions</Styled.Text>
+		</Styled.Wrap>
+	);
+};
 
 export default BackButton;
 

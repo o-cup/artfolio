@@ -8,25 +8,26 @@ import Main from "./pages/Main";
 import About from "./pages/About";
 import Exhibitions from "./pages/Exhibitions";
 import ExhibitionDetail from "./components/exhibitions/detail/ExhibitionDetail";
-import DetailView from "./shared/components/detailView";
+import { ModalProvider } from "./context/ModalProvider";
 
 function App() {
 	const [lang, setLang] = useState<Language>("en");
 
 	return (
 		<LanguageProvider lang={lang} setLang={setLang}>
-			<ThemeProvider theme={theme}>
-				<GlobalStyle />
-				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<Main />} />
-						<Route path="/about" element={<About />} />
-						<Route path="/exhibitions" element={<Exhibitions />} />
-						<Route path="/exhibitions/:id" element={<ExhibitionDetail />} />
-						<Route path="/exhibitions/:id/:subId" element={<DetailView />} />
-					</Routes>
-				</BrowserRouter>
-			</ThemeProvider>
+			<ModalProvider>
+				<ThemeProvider theme={theme}>
+					<GlobalStyle />
+					<BrowserRouter>
+						<Routes>
+							<Route path="/" element={<Main />} />
+							<Route path="/about" element={<About />} />
+							<Route path="/exhibitions" element={<Exhibitions />} />
+							<Route path="/exhibitions/:id" element={<ExhibitionDetail />} />
+						</Routes>
+					</BrowserRouter>
+				</ThemeProvider>
+			</ModalProvider>
 		</LanguageProvider>
 	);
 }

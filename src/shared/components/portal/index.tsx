@@ -1,51 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import { useModal } from "../../../context/ModalProvider";
 
-interface PortalProps {
+type Props = {
+	// subId: number;
 	children: React.ReactNode;
-	isOpen: boolean;
-	// onClose: () => void;
-}
+};
 
-const Portal: React.FC<PortalProps> = ({ children, isOpen }) => {
-	if (!isOpen) return null;
+const Portal: React.FC<Props> = ({ children }) => {
+	const { closeModal, isModalOpen } = useModal();
 
-	console.log("portal");
+	useEffect(() => {
+		const handleKeyUp = (e: KeyboardEvent) => {
+			if (e.key === "Escape") {
+				closeModal();
+			}
+		};
 
-	const portalRoot = document.getElementById("portal-root");
-	if (!portalRoot) return null;
+		window.addEventListener("keyup", handleKeyUp);
+		return () => window.removeEventListener("keyup", handleKeyUp);
+	}, [closeModal]);
+
+	if (!isModalOpen) return null;
 
 	return ReactDOM.createPortal(
-		<Styled.Overlay
-			onClick={() => {
-				console.log("click");
-			}}
-		>
-			<Styled.Content onClick={(e) => e.stopPropagation()}>{children}</Styled.Content>
-		</Styled.Overlay>,
-		portalRoot
+		<ModalContent onClick={(e) => e.stopPropagation()}>{children}</ModalContent>,
+		document.getElementById("portal-root")!
 	);
 };
 
 export default Portal;
 
-const Styled = {
-	Overlay: styled.div`
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: rgba(0, 0, 0, 0.5); // Semi-transparent background
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	`,
-	Content: styled.div`
-		background: white;
-		padding: 20px;
-		border-radius: 5px;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	`,
-};
+const ModalContent = styled.div`
+	background-color: white;
+	padding: 20px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 999;
+`;
