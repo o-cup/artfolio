@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate } from "react-router-dom";
 import TextButton from "../../textButton";
@@ -15,13 +15,12 @@ const Header = () => {
 	const [activeNav, setActiveNav] = useState<"" | "about" | "exhibitions">("");
 
 	useEffect(() => {
-		switch (pathname) {
-			case "/about":
-				return setActiveNav("about");
-			case "/exhibitions":
-				return setActiveNav("exhibitions");
-			default:
-				return setActiveNav("");
+		if (pathname === "/about") {
+			setActiveNav("about");
+		} else if (pathname.startsWith("/exhibitions")) {
+			setActiveNav("exhibitions");
+		} else {
+			setActiveNav(""); // works도 words/:id 생기면 exhibitions 처럼 처리해야됑
 		}
 	}, [pathname]);
 
@@ -77,7 +76,11 @@ const Header = () => {
 					<TextButton typography="body1" active={activeNav === "about"} handleClick={() => navigate("/about")}>
 						about
 					</TextButton>
-					<TextButton typography="body1" active={activeNav === "exhibitions"} handleClick={() => navigate("/exhibitions")}>
+					<TextButton
+						typography="body1"
+						active={activeNav === "exhibitions"}
+						handleClick={() => navigate("/exhibitions")}
+					>
 						exhibitions
 					</TextButton>
 				</MobileNavWrap>
