@@ -20,12 +20,8 @@ const ExhibitionListItem = ({ data }: Props) => {
 			<Text typography="body2" customStyle={{ marginBottom: "12px" }}>
 				{title}
 			</Text>
-			<Text typography="body2" customStyle={{ fontSize: "12px" }}>
-				{date}
-			</Text>
-			<Text typography="body2" customStyle={{ fontSize: "12px" }}>
-				{location}
-			</Text>
+			<StyledText>{date}</StyledText>
+			<StyledText>{location}</StyledText>
 		</Styled.Wrap>
 	);
 };
@@ -49,6 +45,10 @@ const Styled = {
 	`,
 	Poster: styled.img`
 		width: 100%;
-		/* margin-bottom: 8px; */
 	`,
 };
+const StyledText = styled.p`
+	font-size: 12px;
+	color: #37313d;
+	line-height: 16px;
+`;
