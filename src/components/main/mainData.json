@@ -1,7 +1,7 @@
 {
   "en": [
     {
-      "id": "01",
+      "id": "03",
       "imageUrl": "/works/03/01.jpeg",
       "title": "Still Life for Things that Need a Goodbye, Mourning",
       "year": "2023"
@@ -13,7 +13,7 @@
       "year": "2018"
     },
     {
-      "id": "03",
+      "id": "01",
       "imageUrl": "/works/01/01.jpeg",
       "title": "Still Life with Baldwin",
       "year": "2017"
@@ -21,19 +21,19 @@
   ],
   "ko": [
     {
-      "id": "1",
+      "id": "03",
       "imageUrl": "/works/03/01.jpeg",
       "title": "보내야하는 사물들을 위한 정물, Mourning",
       "year": "2023"
     },
     {
-      "id": "2",
+      "id": "02",
       "imageUrl": "/works/02/04.jpeg",
       "title": "보내야하는 사물들을 위한 정물, Vanity",
       "year": "2018"
     },
     {
-      "id": "3",
+      "id": "01",
       "imageUrl": "/works/01/01.jpeg",
       "title": "볼드윈(Baldwin) 위의 정물",
       "year": "2017"

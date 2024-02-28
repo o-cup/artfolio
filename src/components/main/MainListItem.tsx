@@ -1,14 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { MainListItemWrap, MainWorkImageWrap, MainWorkTitleWrap } from "./styles/mainStyle";
 import Text from "../../shared/components/text";
 
 interface Props {
-	data: WorkType;
+	data: MainWorkType;
 }
 
 function MainListItem({ data }: Props) {
+	const navigate = useNavigate();
 	return (
-		<MainListItemWrap>
+		<MainListItemWrap onClick={() => navigate(`/works/${data.id}`)}>
 			<MainWorkImageWrap>
 				<img src={data.imageUrl} alt={data.title} />
 			</MainWorkImageWrap>

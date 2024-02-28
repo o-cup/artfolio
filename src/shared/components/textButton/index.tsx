@@ -4,7 +4,7 @@ import { StyledTextButton } from "./textButtonStyle";
 import defaultTheme from "../../../styles/theme";
 
 type TextButtonProps = {
-	children: string;
+	children: string | React.ReactElement | React.ReactElement[];
 	typography: keyof typeof defaultTheme.text;
 	active?: boolean;
 	customStyle?: CSSObject;
@@ -12,7 +12,6 @@ type TextButtonProps = {
 };
 
 const TextButton = ({ children, typography, active, customStyle, handleClick }: TextButtonProps) => (
-	// <StyledTextButton typography={typography} active={active} customStyle={customStyle} onClick={handleClick}>
 	<StyledTextButton typography={typography} active={active} customStyle={customStyle} onClick={handleClick}>
 		{children}
 	</StyledTextButton>
