@@ -12,6 +12,7 @@ export const StyledTextButton = styled.button.attrs(({ customStyle }: ButtonProp
 		...customStyle,
 	},
 }))<ButtonProps>`
+	background: none;
 	padding: 0;
 	border: none;
 	margin: 0;
