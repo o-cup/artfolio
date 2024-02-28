@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import GlobalStyle from "./styles/globalStyle";
 import theme from "./styles/theme";
 import LanguageProvider from "./context/LanguageProvider";
-import Main from "./pages/Main";
-import About from "./pages/About";
-import Exhibitions from "./pages/Exhibitions";
-import ExhibitionDetail from "./components/exhibitions/detail/ExhibitionDetail";
 import { ModalProvider } from "./context/ModalProvider";
+import AnimatedRoutes from "./components/animatedRoutes";
 
 function App() {
 	const [lang, setLang] = useState<Language>("en");
@@ -19,13 +16,7 @@ function App() {
 				<ThemeProvider theme={theme}>
 					<GlobalStyle />
 					<BrowserRouter>
-						<Routes>
-							<Route path="/" element={<Main />} />
-							<Route path="/works" element={<Main />} />
-							<Route path="/about" element={<About />} />
-							<Route path="/exhibitions" element={<Exhibitions />} />
-							<Route path="/exhibitions/:id" element={<ExhibitionDetail />} />
-						</Routes>
+						<AnimatedRoutes />
 					</BrowserRouter>
 				</ThemeProvider>
 			</ModalProvider>
