@@ -38,16 +38,24 @@ const ModalViewer = ({ totalCount }: Props) => {
 		setItemId(itemId + 1);
 	};
 
+	const renderPageCount = () => (
+		<Text typography="body2" customStyle={{ fontWeight: "bold" }}>
+			{`${itemId}/${totalCount}`}
+		</Text>
+	);
+
 	return (
 		<Portal>
 			<Styled.Wrap>
 				<CloseButton handleClick={handleCloseClick} />
 				{isMobile ? (
 					<StyledMobile.Wrap>
+						<StyledMobile.PageWrap>
+							<StyledMobile.LeftArrow onClick={handleLeftArrowClick} />
+							<StyledMobile.Count>{renderPageCount()}</StyledMobile.Count>
+							<StyledMobile.RightArrow onClick={handleRightArrowClick} />
+						</StyledMobile.PageWrap>
 						<StyledMobile.Image src={imgUrl} alt={`${id}/${itemId}`} />
-						<StyledMobile.LeftArrow />
-						<StyledMobile.RightArrow />
-						<StyledMobile.Count />
 					</StyledMobile.Wrap>
 				) : (
 					<StyledDesktop.Wrap>
@@ -55,11 +63,7 @@ const ModalViewer = ({ totalCount }: Props) => {
 						<StyledDesktop.RightArrow onClick={handleRightArrowClick} />
 						<StyledDesktop.ImageWrap>
 							<StyledDesktop.Image src={imgUrl} alt={`${id}/${itemId}`} />
-							<StyledDesktop.Count>
-								<Text typography="body2" customStyle={{ fontWeight: "bold" }}>
-									{`${itemId}/${totalCount}`}
-								</Text>
-							</StyledDesktop.Count>
+							<StyledDesktop.Count>{renderPageCount()}</StyledDesktop.Count>
 						</StyledDesktop.ImageWrap>
 					</StyledDesktop.Wrap>
 				)}
@@ -85,40 +89,35 @@ const StyledMobile = {
 		width: 100%;
 		height: 100%;
 		align-items: center;
+		position: relative;
+	`,
+	PageWrap: styled.div`
+		position: absolute;
+		top: 16px;
+		left: 6px;
+		display: flex;
+	`,
+	LeftArrow: styled.span`
+		width: 24px;
+		height: 24px;
+		background-image: url("/icons/left-arrow.svg");
+	`,
+	RightArrow: styled.span`
+		width: 24px;
+		height: 24px;
+		background-image: url("/icons/right-arrow.svg");
+	`,
+	Count: styled.div`
+		height: 24px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 3px;
 	`,
 	Image: styled.img`
 		width: 100%;
 		aspect-ratio: 1 / 1;
 		object-fit: cover;
-	`,
-	LeftArrow: styled.span`
-		position: absolute;
-		/* top: 50%;
-		left: 0;
-		transform: translateY(-50%); */
-		width: 24px;
-		height: 24px;
-		background-color: rgba(0, 0, 0, 0.5);
-		background-image: url("/icons/left-arrow.svg") no-repeat;
-		background-size: 24px;
-		border: 1px solid red;
-	`,
-	RightArrow: styled.img`
-		position: absolute;
-		top: 50%;
-		right: 0;
-		transform: translateY(-50%);
-		width: 50px;
-		height: 50px;
-		/* background-color: rgba(0, 0, 0, 0.5); */
-	`,
-	Count: styled.div`
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 50px;
-		/* background-color: rgba(0, 0, 0, 0.5); */
 	`,
 };
 

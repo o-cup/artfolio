@@ -20,7 +20,7 @@ const Header = () => {
 		} else if (pathname.startsWith("/exhibitions")) {
 			setActiveNav("exhibitions");
 		} else {
-			setActiveNav(""); // works도 words/:id 생기면 exhibitions 처럼 처리해야됑
+			setActiveNav(""); // works도 works/:id 생기면 exhibitions 처럼 처리해야됑
 		}
 	}, [pathname]);
 
