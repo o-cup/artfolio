@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useContext } from "react";
 import ExhibitionListItem from "./ExhibitionListItem";
 import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
-import exhibitionsData from "./exhibitionsData";
 import { LangContext } from "../../context/LanguageProvider";
+import exhibitionsData from "./exhibitionsData.json";
 
 const ExhibitionList = () => {
 	const { lang } = useContext(LangContext);

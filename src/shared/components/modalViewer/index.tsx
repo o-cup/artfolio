@@ -4,20 +4,21 @@ import { useMediaQuery } from "react-responsive";
 import CloseButton from "./CloseButton";
 import Portal from "../portal";
 import { MOBILE_DEVICE } from "../../../styles/theme";
-import { PREFIX } from "../../../components/exhibitions/exhibitionsData";
 import Text from "../text";
 import { useModal } from "../../../context/ModalProvider";
 
 type Props = {
+	category: "works" | "exhibitions";
 	totalCount: number;
 };
 
-const ModalViewer = ({ totalCount }: Props) => {
+const ModalViewer = ({ category, totalCount }: Props) => {
 	const isMobile = useMediaQuery({ query: MOBILE_DEVICE });
+	const { id } = useParams<{ id: string }>();
 
 	const { closeModal, itemId, setItemId } = useModal();
 
-	const { id } = useParams<{ id: string }>();
+	const PREFIX = `${process.env.PUBLIC_URL}/${category}`;
 	const imgUrl = `${PREFIX}/${id}/${itemId}.jpeg`;
 
 	const handleCloseClick = () => {

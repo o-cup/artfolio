@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import Poster from "./Poster";
 import Information from "./Information";
-import exhibitionsData from "../exhibitionsData";
+import exhibitionsData from "../exhibitionsData.json";
 import Layout from "../../../shared/components/layout";
 import BackButton from "./BackButton";
 import ExhibitionPhotoList from "./ExhibitionPhotoList";
@@ -25,7 +25,7 @@ const ExhibitionDetail = () => {
 	const data = exhibitionsData[lang].find((item) => item.id === id);
 	if (!data) return null;
 
-	const totalCount = data?.exhibitionPhotoCount;
+	const totalCount = data?.imgCount;
 
 	return (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
@@ -44,7 +44,7 @@ const ExhibitionDetail = () => {
 					<ExhibitionPhotoList data={data} />
 				</Styled.Wrap>
 			</Layout>
-			{isModalOpen && <ModalViewer totalCount={totalCount} />}
+			{isModalOpen && <ModalViewer totalCount={totalCount} category="exhibitions" />}
 		</motion.div>
 	);
 };

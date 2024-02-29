@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ExhibitionPhotoListItem from "./ExhibitionPhotoListItem";
-import { PREFIX } from "../exhibitionsData";
 import { DESKTOP_DEVICE } from "../../../styles/theme";
 
 type Props = {
@@ -8,13 +7,13 @@ type Props = {
 };
 
 const ExhibitionPhotoList = ({ data }: Props) => {
-	const { id, exhibitionPhotoCount } = data;
-	const photoCountArr = Array.from({ length: exhibitionPhotoCount }, (_, i) => i + 1);
+	const { id, imgCount } = data;
+	const imgCountArr = Array.from({ length: imgCount }, (_, i) => i + 1);
 
 	return (
 		<Styled.Wrap>
-			{photoCountArr.map((number) => {
-				const imgUrl = `${PREFIX}/${id}/${number}.jpeg`;
+			{imgCountArr.map((number) => {
+				const imgUrl = `/exhibitions/${id}/${number}.jpeg`;
 				return <ExhibitionPhotoListItem key={number} id={number} imgUrl={imgUrl} />;
 			})}
 		</Styled.Wrap>
