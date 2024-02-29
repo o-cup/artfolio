@@ -14,14 +14,14 @@
 			"id": "02",
 			"type": "개인전",
 			"title": "<Baldwin 위의 정물>",
-			"date": "2019/11/13 - 2020/1/30",
+			"date": "2019/9/3 - 2019/9/22",
 			"location": "브뤼셀 한국문화원, 브뤼셀, 벨기에",
 			"posterUrl": "/exhibitions/02/0_poster.jpeg",
       "imgCount": 15
 		},
 		{
 			"id": "03",
-			"type": "개인전",
+			"type": "단체전",
 			"title": "2019 한-벨 사진전 <STILL LIVES>",
 			"date": "2019/11/13 - 2020/1/30",
 			"location": "브뤼셀 한국문화원, 브뤼셀, 벨기에",
@@ -153,7 +153,7 @@
 		{
 			"id": "07",
 			"type": "group exhibition",
-			"title": "<2020 BIPF X LUMOS Portfolio Review 우수 포트폴리오 수상자전 (이질적 시간)>",
+			"title": "<2020 BIPF X LUMOS Portfolio Review Winners Exhibition (Disparate Time)>",
 			"date": "16/1/2021 - 7/2/2021",
 			"location": "Art Space Lumos, Daegu, South Korea",
 			"posterUrl": "/exhibitions/07/0_poster.png",
@@ -162,18 +162,18 @@
 		{
 			"id": "08",
 			"type": "group exhibition",
-			"title": "<제9회 자문밖문화축제 “걷고, 사랑하고, 예술하라” 자문 밖 연합전(곳곳)>",
-			"date": "2021/10/4 - 2021/10/17",
-			"location": "갤러리 세줄, 서울, 한국",
+      "title": "2021 <The 9th Culture Festival \"Walk, Love, and Art\">",
+			"date": "4/10/2021 - 17/10/2021",
+			"location": "Gallery Sejul, Seoul, South Korea",
 			"posterUrl": "/exhibitions/08/0_poster.png",
       "imgCount": 3
 		},
 		{
 			"id": "09",
 			"type": "solo exhibition",
-      "title": "2021 <The 9th Culture Festival \"Walk, Love, and Art\">",
-			"date": "4/10/2021 - 17/10/2021",
-			"location": "Gallery Sejul, Seoul, South Korea",
+      "title": "<Still Life with Baldwin>",
+			"date": "1/5/2023 - 23/6/2023",
+			"location": "Bando Camera Leica Store, Seoul, Korea",
 			"posterUrl": "/exhibitions/09/0_poster.png",
       "imgCount": 3
 		},
