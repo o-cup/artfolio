@@ -35,6 +35,7 @@ export const HeaderContentWrap = styled.div`
   h1.title {
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
   }
 `;
 
