@@ -16,10 +16,10 @@ const Information = ({ data }: Props) => {
 			<Text typography="title1" color="black">
 				{title}
 			</Text>
-			<Text typography="body2" color="black">
+			<Text typography="body2" color="black" customStyle={{ lineHeight: "20px" }}>
 				{date}
 			</Text>
-			<Text typography="body2" color="black">
+			<Text typography="body2" color="black" customStyle={{ lineHeight: "20px" }}>
 				{location}
 			</Text>
 		</Styled.Information>
@@ -44,7 +44,7 @@ const Styled = {
 		}
 
 		> span:last-child {
-			margin-bottom: 32px;
+			margin-bottom: 34px;
 		}
 	`,
 };
