@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
-import Text from "../../shared/components/text";
 
 type Props = {
 	data: ExhibitionDataType;
@@ -14,14 +13,10 @@ const ExhibitionListItem = ({ data }: Props) => {
 	return (
 		<Styled.Wrap onClick={() => navigate(`/exhibitions/${id}`)}>
 			<Styled.Poster src={posterUrl} alt="poster" />
-			<Text typography="body2" color="gray" customStyle={{ fontSize: "12px" }}>
-				{type}
-			</Text>
-			<Text typography="body2" customStyle={{ marginBottom: "12px" }}>
-				{title}
-			</Text>
-			<StyledText>{date}</StyledText>
-			<StyledText>{location}</StyledText>
+			<StyledText.Type>{type}</StyledText.Type>
+			<StyledText.Title> {title}</StyledText.Title>
+			<StyledText.Date>{date}</StyledText.Date>
+			<StyledText.Location>{location}</StyledText.Location>
 		</Styled.Wrap>
 	);
 };
@@ -47,8 +42,25 @@ const Styled = {
 		width: 100%;
 	`,
 };
-const StyledText = styled.p`
-	font-size: 12px;
-	color: #37313d;
-	line-height: 16px;
-`;
+const StyledText = {
+	Type: styled.p`
+		font-size: 12px;
+		color: ${({ theme }) => theme.colors.gray};
+		line-height: 18px;
+	`,
+	Title: styled.p`
+		font-size: 14px;
+		color: ${({ theme }) => theme.colors.black};
+		margin-bottom: 12px;
+	`,
+	Date: styled.p`
+		font-size: 12px;
+		line-height: 16px;
+		color: ${({ theme }) => theme.colors.black};
+	`,
+	Location: styled.p`
+		font-size: 12px;
+		line-height: 16px;
+		color: ${({ theme }) => theme.colors.black};
+	`,
+};
