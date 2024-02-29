@@ -28,6 +28,7 @@ const Styled = {
 		cursor: pointer;
 		position: relative;
 		width: 100%;
+		aspect-ratio: 1 / 1;
 
 		&:before {
 			content: "";

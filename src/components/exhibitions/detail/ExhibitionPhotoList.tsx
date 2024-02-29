@@ -30,8 +30,10 @@ const Styled = {
 		padding: 0 12px;
 
 		@media screen and (${DESKTOP_DEVICE}) {
-			gap: 24px;
+			gap: 15px;
 			padding: 0;
+			grid-template-columns: repeat(4, 1fr);
+			align-content: start;
 		}
 	`,
 };
