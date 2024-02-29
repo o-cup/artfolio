@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 import Layout from "../shared/components/layout";
 import { LangContext } from "../context/LanguageProvider";
 import worksData from "../components/works/worksData.json";
 import WorksImageCarousel from "../components/works/WorksImageCarousel";
 import WorksDescription from "../components/works/WorksDescription";
+import Motion from "../shared/components/motion";
 
 function Works() {
 	const { lang } = useContext(LangContext);
@@ -19,7 +19,7 @@ function Works() {
 	if (!data) return null;
 
 	return (
-		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+		<Motion>
 			<Layout
 				mainPaddingBottom={{
 					desktop: "500px",
@@ -31,7 +31,7 @@ function Works() {
 					<WorksDescription data={data} />
 				</>
 			</Layout>
-		</motion.div>
+		</Motion>
 	);
 }
 

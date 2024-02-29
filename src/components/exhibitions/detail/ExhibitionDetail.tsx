@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useContext, useEffect } from "react";
-import { motion } from "framer-motion";
 import Poster from "./Poster";
 import Information from "./Information";
 import exhibitionsData from "../exhibitionsData.json";
@@ -12,6 +11,7 @@ import { DESKTOP_DEVICE } from "../../../styles/theme";
 import { LangContext } from "../../../context/LanguageProvider";
 import ModalViewer from "../../../shared/components/modalViewer";
 import { useModal } from "../../../context/ModalProvider";
+import Motion from "../../../shared/components/motion";
 
 const ExhibitionDetail = () => {
 	const { lang } = useContext(LangContext);
@@ -28,7 +28,7 @@ const ExhibitionDetail = () => {
 	const totalCount = data?.imgCount;
 
 	return (
-		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+		<Motion>
 			<Layout
 				mainPaddingBottom={{
 					desktop: "200px",
@@ -45,7 +45,7 @@ const ExhibitionDetail = () => {
 				</Styled.Wrap>
 			</Layout>
 			{isModalOpen && <ModalViewer totalCount={totalCount} category="exhibitions" />}
-		</motion.div>
+		</Motion>
 	);
 };
 

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Layout from "../shared/components/layout";
 import MainList from "../components/main/MainList";
+import Motion from "../shared/components/motion";
 
 function Main() {
 	const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Main() {
 	}, []);
 
 	return (
-		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+		<Motion>
 			<Layout
 				mainPaddingBottom={{
 					desktop: "200px",
@@ -21,7 +22,7 @@ function Main() {
 			>
 				<MainList />
 			</Layout>
-		</motion.div>
+		</Motion>
 	);
 }
 

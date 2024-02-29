@@ -6,6 +6,7 @@ import Portal from "../portal";
 import { MOBILE_DEVICE } from "../../../styles/theme";
 import Text from "../text";
 import { useModal } from "../../../context/ModalProvider";
+import Motion from "../motion";
 
 type Props = {
 	category: "works" | "exhibitions";
@@ -47,28 +48,30 @@ const ModalViewer = ({ category, totalCount }: Props) => {
 
 	return (
 		<Portal>
-			<Styled.Wrap>
-				<CloseButton handleClick={handleCloseClick} />
-				{isMobile ? (
-					<StyledMobile.Wrap>
-						<StyledMobile.PageWrap>
-							<StyledMobile.LeftArrow onClick={handleLeftArrowClick} />
-							<StyledMobile.Count>{renderPageCount()}</StyledMobile.Count>
-							<StyledMobile.RightArrow onClick={handleRightArrowClick} />
-						</StyledMobile.PageWrap>
-						<StyledMobile.Image src={imgUrl} alt={`${id}/${itemId}`} />
-					</StyledMobile.Wrap>
-				) : (
-					<StyledDesktop.Wrap>
-						<StyledDesktop.LeftArrow onClick={handleLeftArrowClick} />
-						<StyledDesktop.RightArrow onClick={handleRightArrowClick} />
-						<StyledDesktop.ImageWrap>
-							<StyledDesktop.Image src={imgUrl} alt={`${id}/${itemId}`} />
-							<StyledDesktop.Count>{renderPageCount()}</StyledDesktop.Count>
-						</StyledDesktop.ImageWrap>
-					</StyledDesktop.Wrap>
-				)}
-			</Styled.Wrap>
+			<Motion>
+				<Styled.Wrap>
+					<CloseButton handleClick={handleCloseClick} />
+					{isMobile ? (
+						<StyledMobile.Wrap>
+							<StyledMobile.PageWrap>
+								<StyledMobile.LeftArrow onClick={handleLeftArrowClick} />
+								<StyledMobile.Count>{renderPageCount()}</StyledMobile.Count>
+								<StyledMobile.RightArrow onClick={handleRightArrowClick} />
+							</StyledMobile.PageWrap>
+							<StyledMobile.Image src={imgUrl} alt={`${id}/${itemId}`} />
+						</StyledMobile.Wrap>
+					) : (
+						<StyledDesktop.Wrap>
+							<StyledDesktop.LeftArrow onClick={handleLeftArrowClick} />
+							<StyledDesktop.RightArrow onClick={handleRightArrowClick} />
+							<StyledDesktop.ImageWrap>
+								<StyledDesktop.Image src={imgUrl} alt={`${id}/${itemId}`} />
+								<StyledDesktop.Count>{renderPageCount()}</StyledDesktop.Count>
+							</StyledDesktop.ImageWrap>
+						</StyledDesktop.Wrap>
+					)}
+				</Styled.Wrap>
+			</Motion>
 		</Portal>
 	);
 };
