@@ -8,9 +8,11 @@ import exhibitionsData from "./exhibitionsData.json";
 const ExhibitionList = () => {
 	const { lang } = useContext(LangContext);
 
+	const data = [...exhibitionsData[lang]].reverse();
+
 	return (
 		<Styled.Wrap>
-			{exhibitionsData[lang].map((item) => (
+			{data.map((item) => (
 				<ExhibitionListItem key={item.id} data={item} />
 			))}
 		</Styled.Wrap>
