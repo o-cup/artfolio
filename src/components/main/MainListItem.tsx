@@ -9,6 +9,7 @@ interface Props {
 
 function MainListItem({ data }: Props) {
 	const navigate = useNavigate();
+
 	return (
 		<MainListItemWrap onClick={() => navigate(`/works/${data.id}`)}>
 			<MainWorkImageWrap>

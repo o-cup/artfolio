@@ -13,9 +13,10 @@ export const CarouselWrap = styled.div`
 
 	> img {
 		scroll-snap-align: start;
+    cursor: pointer;
 	}
 
-	@media screen and ${DESKTOP_DEVICE} {
+	@media screen and (${DESKTOP_DEVICE}) {
 		margin-top: 100px;
 		height: 500px;
 		gap: 48px;
@@ -30,7 +31,7 @@ export const CarouselWrap = styled.div`
 		}
 	}
 
-	@media screen and ${MOBILE_DEVICE} {
+	@media screen and (${MOBILE_DEVICE}) {
 		height: 480px;
 		gap: 8px;
 		scroll-padding-left: 8px;
@@ -51,12 +52,12 @@ export const DescriptionWrap = styled.div`
 	justify-content: flex-start;
 
 	gap: 16px;
-	@media screen and ${DESKTOP_DEVICE} {
+	@media screen and (${DESKTOP_DEVICE}) {
 		padding: 150px 56px 0;
 		max-width: 746px;
 	}
 
-	@media screen and ${MOBILE_DEVICE} {
+	@media screen and (${MOBILE_DEVICE}) {
 		padding: 80px 12px 0;
 	}
 `;

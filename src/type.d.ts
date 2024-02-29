@@ -13,4 +13,5 @@ interface WorkDetailType {
 	year: string;
 	description: string;
 	images: string[];
+  imgCount: number;
 }
