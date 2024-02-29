@@ -20,14 +20,16 @@ const Header = () => {
 		} else if (pathname.startsWith("/exhibitions")) {
 			setActiveNav("exhibitions");
 		} else {
-			setActiveNav(""); // works도 works/:id 생기면 exhibitions 처럼 처리해야됑
+			setActiveNav("");
 		}
 	}, [pathname]);
 
 	return (
 		<StyledHeader>
 			<HeaderContentWrap>
-				<h1 className="title">Parkmejung</h1>
+				<div role="presentation" onClick={() => navigate("/")}>
+					<h1 className="title">Parkmejung</h1>
+				</div>
 				{!isMobile && (
 					<DesktopNavWrap>
 						<TextButton
