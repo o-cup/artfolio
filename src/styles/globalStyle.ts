@@ -19,22 +19,19 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
     unicode-range: U+AC00-D7A3;
   }
-  
-  html {
-    scroll-behavior: auto;
-  }
-  
-  *, *::before, *::after {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    font-family: "SunBatang", "Quattrocento", serif;
-  }
 
-  body {
+  html, body {
     font-family: "SunBatang","Quattrocento", serif;
     padding: 0;
     margin: 0;
-    background-color: "#F0F0EF",
+    background-color: #f0f0ef;
+    scroll-behavior: auto;
+  }
+
+    *, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    font-family: "SunBatang", "Quattrocento", serif;
   }
 
   input, textarea, select {
