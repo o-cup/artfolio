@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "SunBatang","Quattrocento", serif;
     padding: 0;
     margin: 0;
+    background-color: "#F0F0EF",
   }
 
   input, textarea, select {
