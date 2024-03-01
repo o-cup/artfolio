@@ -24,7 +24,7 @@ const Styled = {
 		display: flex;
 		align-items: center;
 		cursor: pointer;
-		z-index: 1;
+		z-index: 999;
 
 		@media screen and (${DESKTOP_DEVICE}) {
 			top: 24px;

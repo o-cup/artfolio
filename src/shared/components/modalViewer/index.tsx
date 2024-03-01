@@ -100,6 +100,7 @@ const StyledMobile = {
 		top: 16px;
 		left: 6px;
 		display: flex;
+		z-index: 999;
 	`,
 	LeftArrow: styled.span`
 		width: 24px;
