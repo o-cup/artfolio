@@ -38,10 +38,12 @@ export default Portal;
 
 const ModalContent = styled.div`
 	background-color: white;
-	padding: 20px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 999;
+	z-index: 99;
+
+	width: 100vw;
+	height: 100%;
 `;

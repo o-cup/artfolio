@@ -11,7 +11,6 @@ export default DetailView;
 
 const Styled = {
 	DetailView: styled.div`
-		border: 1px solid blue;
 		width: 100vw;
 		height: 100vh;
 	`,
