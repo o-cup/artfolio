@@ -49,6 +49,10 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     cursor: pointer;
   }
+
+  .no-scroll {
+    overflow: hidden;
+  }
 `;
 
 export default GlobalStyle;

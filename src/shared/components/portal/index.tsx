@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useModal } from "../../../context/ModalProvider";
 
 type Props = {
-	// subId: number;
 	children: React.ReactNode;
 };
 
@@ -19,7 +18,12 @@ const Portal: React.FC<Props> = ({ children }) => {
 		};
 
 		window.addEventListener("keyup", handleKeyUp);
-		return () => window.removeEventListener("keyup", handleKeyUp);
+		document.body.classList.add("no-scroll");
+
+		return () => {
+			window.removeEventListener("keyup", handleKeyUp);
+			document.body.classList.remove("no-scroll");
+		};
 	}, [closeModal]);
 
 	if (!isModalOpen) return null;
