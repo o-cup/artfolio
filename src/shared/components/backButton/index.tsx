@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react"; // Import useState
 
@@ -7,13 +6,12 @@ type Props = {
 };
 
 const BackButton = ({ text }: Props) => {
-	const navigate = useNavigate();
 	const [isHovering, setIsHovering] = useState(false);
 	return (
 		<Styled.Wrap
 			onMouseEnter={() => setIsHovering(true)}
 			onMouseLeave={() => setIsHovering(false)}
-			onClick={() => navigate("/")}
+			onClick={() => window.history.back()}
 		>
 			<Styled.Icon src={isHovering ? "/icons/back-black.svg" : "/icons/back-gray.svg"} alt="back button" />
 			<Styled.Text isHovering={isHovering}>{text}</Styled.Text>
