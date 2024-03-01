@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 const BackButton = () => {
 	const navigate = useNavigate();
+
 	return (
 		<Styled.Wrap onClick={() => navigate("/")}>
-			<Styled.Icon src="/icons/back.svg" alt="back button" />
+			<Styled.Icon src="/icons/back-gray.svg" alt="back button" />
 			<Styled.Text>works</Styled.Text>
 		</Styled.Wrap>
 	);
@@ -26,6 +27,10 @@ const Styled = {
 	`,
 	Text: styled.span`
 		font-size: 15px;
-		color: #99959d;
+		color: ${({ theme }) => theme.colors.gray};
+
+		&:hover {
+			color: ${({ theme }) => theme.colors.black};
+		}
 	`,
 };

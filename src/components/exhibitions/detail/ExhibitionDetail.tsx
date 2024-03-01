@@ -5,7 +5,6 @@ import Poster from "./Poster";
 import Information from "./Information";
 import exhibitionsData from "../exhibitionsData.json";
 import Layout from "../../../shared/components/layout";
-import BackButton from "./BackButton";
 import ExhibitionPhotoList from "./ExhibitionPhotoList";
 import { DESKTOP_DEVICE } from "../../../styles/theme";
 import { LangContext } from "../../../context/LanguageProvider";
@@ -39,7 +38,6 @@ const ExhibitionDetail = () => {
 					<StyledDesktop.LeftAreaWrap>
 						<Poster data={data} />
 						<Information data={data} />
-						<BackButton />
 					</StyledDesktop.LeftAreaWrap>
 					<ExhibitionPhotoList data={data} />
 				</Styled.Wrap>

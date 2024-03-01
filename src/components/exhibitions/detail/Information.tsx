@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Text from "../../../shared/components/text";
+import BackButton from "../../../shared/components/backButton";
 
 type Props = {
 	data: ExhibitionDataType;
@@ -22,6 +23,7 @@ const Information = ({ data }: Props) => {
 			<Text typography="body2" color="black" customStyle={{ lineHeight: "20px" }}>
 				{location}
 			</Text>
+			<BackButton text="exhibitions" />
 		</Styled.Information>
 	);
 };
@@ -43,7 +45,7 @@ const Styled = {
 			margin-bottom: 24px;
 		}
 
-		> span:last-child {
+		> span:nth-child(4) {
 			margin-bottom: 34px;
 		}
 	`,
