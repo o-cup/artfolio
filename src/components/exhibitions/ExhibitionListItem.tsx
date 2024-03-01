@@ -37,6 +37,12 @@ const Styled = {
 		@media screen and (${MOBILE_DEVICE}) {
 			width: 45vw;
 		}
+
+		&:hover {
+			p:nth-child(3) {
+				font-weight: bold;
+			}
+		}
 	`,
 	Poster: styled.img`
 		width: 100%;
@@ -46,12 +52,13 @@ const StyledText = {
 	Type: styled.p`
 		font-size: 12px;
 		color: ${({ theme }) => theme.colors.gray};
-		line-height: 18px;
+		line-height: 16px;
 	`,
 	Title: styled.p`
 		font-size: 14px;
 		color: ${({ theme }) => theme.colors.black};
 		margin-bottom: 12px;
+		line-height: 16px;
 	`,
 	Date: styled.p`
 		font-size: 12px;
