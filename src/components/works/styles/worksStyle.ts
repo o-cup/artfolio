@@ -13,7 +13,7 @@ export const CarouselWrap = styled.div`
 
 	> img {
 		scroll-snap-align: start;
-    cursor: pointer;
+		cursor: pointer;
 	}
 
 	@media screen and (${DESKTOP_DEVICE}) {
@@ -61,4 +61,5 @@ export const DescriptionWrap = styled.div`
 		padding: 80px 12px 0;
 	}
 `;
+
 export default {};
