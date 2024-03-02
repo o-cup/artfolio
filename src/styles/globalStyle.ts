@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: auto;
   }
 
-    *, *::before, *::after {
+  *, *::before, *::after {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
     font-family: "SunBatang", "Quattrocento", serif;

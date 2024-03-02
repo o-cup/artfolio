@@ -12,19 +12,26 @@ export const StyledTextButton = styled.button.attrs(({ customStyle }: ButtonProp
 		...customStyle,
 	},
 }))<ButtonProps>`
+	display: inline-block;
 	background: none;
-	padding: 0;
 	border: none;
+	outline: none;
 	margin: 0;
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	${({ theme, typography }) => theme.text[typography]};
-	color: ${({ active, theme }) => (active ? theme.colors.black : theme.colors.gray)};
-	font-weight: ${({ active }) => (active ? "bold" : "regular")};
+	padding: 0;
+	font-size: 0;
+
+	> span {
+		display: inline-block;
+		vertical-align: middle;
+		${({ theme, typography }) => theme.text[typography]};
+		${({ active }) => (active ? "font-weight: bold" : "")};
+		color: ${({ theme, active }) => (active ? theme.colors.black : theme.colors.gray)};
+	}
 
 	&:hover {
-		color: ${({ theme }) => theme.colors.black};
+		> span {
+			color: ${({ theme }) => theme.colors.black};
+		}
 	}
 `;
 
