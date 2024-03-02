@@ -4,6 +4,7 @@ import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../../../styles/theme";
 export const StyledFooter = styled.footer`
 	display: flex;
 	width: 100%;
+	margin-top: auto;
 
 	@media screen and ${DESKTOP_DEVICE} {
 		padding: 24px;

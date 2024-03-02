@@ -16,6 +16,9 @@ export const StyledTextButton = styled.button.attrs(({ customStyle }: ButtonProp
 	padding: 0;
 	border: none;
 	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-content: center;
 	${({ theme, typography }) => theme.text[typography]};
 	color: ${({ active, theme }) => (active ? theme.colors.black : theme.colors.gray)};
 	font-weight: ${({ active }) => (active ? "bold" : "regular")};
