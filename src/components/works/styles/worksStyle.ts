@@ -31,6 +31,10 @@ export const CarouselWrap = styled.div`
 		}
 	}
 
+	@media screen and (min-width: 1601px) {
+		height: 30vw;
+	}
+
 	@media screen and (${MOBILE_DEVICE}) {
 		height: 480px;
 		gap: 8px;
