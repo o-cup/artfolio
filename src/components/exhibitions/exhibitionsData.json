@@ -90,6 +90,132 @@
 			"location": "룩인사이드, 서울, 한국",
 			"posterUrl": "/exhibitions/10/0_poster.jpeg",
       "imgCount": 22
+		},
+		{
+			"id": "11",
+			"type": "단체전",
+			"title": "<STRANGER 몬테카를로의 사유>",
+			"date": "2024/1/25 - 2024/2/5",
+			"location": "수성방이갤러리, 서울, 한국",
+			"posterUrl": "/exhibitions/11/0_poster.jpeg",
+			"imgCount": 3
+		},
+		{
+			"id": "12",
+			"type": "단체전",
+			"title": "<그라운드 서울 2024>",
+			"date": "2024/3/21 - 2024/4/10",
+			"location": "아트갤러리 전주, 전주, 한국",
+			"posterUrl": "/exhibitions/12/0_poster.jpeg",
+			"imgCount": 6
+		},
+		{
+			"id": "13",
+			"type": "아트페어",
+			"title": "<제크 인 호텔 포토페어>",
+			"date": "2024/7/4 - 2024/7/7",
+			"location": "제주, 한국",
+			"posterUrl": "/exhibitions/13/0_poster.jpeg",
+			"imgCount": 12
+		},
+		{
+			"id": "14",
+			"type": "단체전",
+			"title": "<언바운드13>",
+			"date": "2024/7/5 - 2024/8/3",
+			"location": "칸텔라복스+갤러리, 리치몬드, 미국",
+			"posterUrl": "/exhibitions/14/0_poster.jpeg",
+			"imgCount": 13
+		},
+		{
+			"id": "15",
+			"type": "아트페어",
+			"title": "<K-PHOTO Fair 2024>",
+			"date": "2024/12/5 - 2024/12/8",
+			"location": "아지트 미술관, 서울, 한국",
+			"posterUrl": "/exhibitions/15/0_poster.jpeg",
+			"imgCount": 3
+		},
+		{
+			"id": "16",
+			"type": "단체전",
+			"title": "<희망을 전하다 4-1>",
+			"date": "2024/12/19 - 2024/12/29",
+			"location": "쿠아과학카페 갤러리, 대전, 한국",
+			"posterUrl": "/exhibitions/16/0_poster.jpeg",
+			"imgCount": 3
+		},
+		{
+			"id": "17",
+			"type": "단체전",
+			"title": "<Remember 2024>",
+			"date": "2025/2/1 - 2025/2/17",
+			"location": "톡인사이드 갤러리, 서울, 한국",
+			"posterUrl": "/exhibitions/17/0_poster.jpeg",
+			"imgCount": 2
+		},
+		{
+			"id": "18",
+			"type": "단체전",
+			"title": "<희망을 전하다 4-2>",
+			"date": "2025/2/18 - 2025/3/2",
+			"location": "크림슨퍼드, 서울, 한국",
+			"posterUrl": "/exhibitions/18/0_poster.jpeg",
+			"imgCount": 4
+		},
+		{
+			"id": "19",
+			"type": "단체전",
+			"title": "<희망을 전하다 4-3>",
+			"date": "2025/3/19 - 2025/3/31",
+			"location": "톡인사이드 갤러리, 서울, 한국",
+			"posterUrl": "/exhibitions/19/0_poster.jpeg",
+			"imgCount": 5
+		},
+		{
+			"id": "20",
+			"type": "단체전",
+			"title": "<작은것들의 위대함 3인전>",
+			"date": "2025/4/21 - 2025/5/6",
+			"location": "갤러리 브레슨, 서울, 한국",
+			"posterUrl": "/exhibitions/20/0_poster.jpeg",
+			"imgCount": 6
+		},
+		{
+			"id": "21",
+			"type": "아트페어",
+			"title": "<AIPAD Photography Show 2025>",
+			"date": "2025/4/23 - 2025/4/27",
+			"location": "Park Avenue Armory, 뉴욕, 미국",
+			"posterUrl": "/exhibitions/21/0_poster.jpeg",
+			"imgCount": 4
+		},
+		{
+			"id": "22",
+			"type": "개인전",
+			"title": "<보내야 하는 사물들을 위한 정물, Mourning>",
+			"date": "2025/5/2 - 2025/6/14",
+			"location": "칸델라북스+갤러리, 리치몬드, 미국",
+			"posterUrl": "/exhibitions/22/0_poster.jpeg",
+			"imgCount": 30
+		},
+		{
+			"id": "23",
+			"type": "단체전",
+			"title": "<STRANGER 몬테카를로의 사유>",
+			"date": "2025/6/21 - 2025/6/27",
+			"location": "아지트 미술관",
+			"posterUrl": "/exhibitions/23/0_poster.jpeg",
+			"imgCount": 2
+		},
+		{
+			"id": "24",
+			"type": "저널",
+			"title": "Katalog Journal 35.1",
+			"date": "2025/1/1",
+			"location": "",
+			"posterUrl": "/exhibitions/24/0_poster.jpeg",
+			"imgCount": 5
 		}
 	],
 	"en": [
@@ -185,6 +311,132 @@
 			"location": "Gallery Look-in-side, Seoul, South Korea",
 			"posterUrl": "/exhibitions/10/0_poster.jpeg",
       "imgCount": 22
+		},
+		{
+			"id": "11",
+			"type": "group exhibition",
+			"title": "<STRANGER Monte Carlo Meditation>",
+			"date": "25/1/2024 - 5/2/2024",
+			"location": "Suseong Bangi Building, Seoul, South Korea",
+			"posterUrl": "/exhibitions/11/0_poster.jpeg",
+			"imgCount": 3
+		},
+		{
+			"id": "12",
+			"type": "group exhibition",
+			"title": "<Ground Seoul 2024>",
+			"date": "21/3/2024 - 10/4/2024",
+			"location": "Art Gallery Jeonju, Jeonju, South Korea",
+			"posterUrl": "/exhibitions/12/0_poster.jpeg",
+			"imgCount": 6
+		},
+		{
+			"id": "13",
+			"type": "art fair",
+			"title": "<Check-in Hotel Photo Fair>",
+			"date": "4/7/2024 - 7/7/2024",
+			"location": "Jeju, South Korea",
+			"posterUrl": "/exhibitions/13/0_poster.jpeg",
+			"imgCount": 12
+		},
+		{
+			"id": "14",
+			"type": "group exhibition",
+			"title": "<Unbound 13>",
+			"date": "5/7/2024 - 3/8/2024",
+			"location": "Candela Books + Gallery, Richmond, USA",
+			"posterUrl": "/exhibitions/14/0_poster.jpeg",
+			"imgCount": 13
+		},
+		{
+			"id": "15",
+			"type": "art fair",
+			"title": "<K-PHOTO Fair 2024>",
+			"date": "5/12/2024 - 8/12/2024",
+			"location": "AZIT Museum, Seoul, South Korea",
+			"posterUrl": "/exhibitions/15/0_poster.jpeg",
+			"imgCount": 3
+		},
+		{
+			"id": "16",
+			"type": "group exhibition",
+			"title": "<Delivering Hope 4-1>",
+			"date": "19/12/2024 - 29/12/2024",
+			"location": "Qua Science Cafe Gallery, Daejeon, South Korea",
+			"posterUrl": "/exhibitions/16/0_poster.jpeg",
+			"imgCount": 3
+		},
+		{
+			"id": "17",
+			"type": "group exhibition",
+			"title": "<Remember 2024>",
+			"date": "1/2/2025 - 17/2/2025",
+			"location": "Gallery Look-in-side, Seoul, South Korea",
+			"posterUrl": "/exhibitions/17/0_poster.jpeg",
+			"imgCount": 2
+		},
+		{
+			"id": "18",
+			"type": "group exhibition",
+			"title": "<Delivering Hope 4-2>",
+			"date": "18/2/2025 - 2/3/2025",
+			"location": "Crimson Father, Seoul, South Korea",
+			"posterUrl": "/exhibitions/18/0_poster.jpeg",
+			"imgCount": 4
+		},
+		{
+			"id": "19",
+			"type": "group exhibition",
+			"title": "<Delivering Hope 4-3>",
+			"date": "19/3/2025 - 31/3/2025",
+			"location": "Gallery Look-in-side, Seoul, South Korea",
+			"posterUrl": "/exhibitions/19/0_poster.jpeg",
+			"imgCount": 5
+		},
+		{
+			"id": "20",
+			"type": "group exhibition",
+			"title": "<The Greatness of Small Things: 3-Person Exhibition>",
+			"date": "21/4/2025 - 6/5/2025",
+			"location": "Gallery Bresson, Seoul, South Korea",
+			"posterUrl": "/exhibitions/20/0_poster.jpeg",
+			"imgCount": 6
+		},
+		{
+			"id": "21",
+			"type": "art fair",
+			"title": "<AIPAD Photography Show 2025>",
+			"date": "23/4/2025 - 27/4/2025",
+			"location": "Park Avenue Armory, New York, USA",
+			"posterUrl": "/exhibitions/21/0_poster.jpeg",
+			"imgCount": 4
+		},
+		{
+			"id": "22",
+			"type": "solo exhibition",
+			"title": "<Still Life for Things that Need to be Sent Away, Mourning>",
+			"date": "2/5/2025 - 14/6/2025",
+			"location": "Candela Books + Gallery, Richmond, USA",
+			"posterUrl": "/exhibitions/22/0_poster.jpeg",
+			"imgCount": 30
+		},
+		{
+			"id": "23",
+			"type": "group exhibition",
+			"title": "<STRANGER Monte Carlo Meditation>",
+			"date": "21/6/2025 - 27/6/2025",
+			"location": "AZIT Museum",
+			"posterUrl": "/exhibitions/23/0_poster.jpeg",
+			"imgCount": 2
+		},
+		{
+			"id": "24",
+			"type": "journal",
+			"title": "Katalog Journal 35.1",
+			"date": "1/1/2025",
+			"location": "",
+			"posterUrl": "/exhibitions/24/0_poster.jpeg",
+			"imgCount": 5
 		}
 	]
 }
