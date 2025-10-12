@@ -103,7 +103,7 @@
 		{
 			"id": "12",
 			"type": "단체전",
-			"title": "<그라운드 서울 2024>",
+			"title": "<그라운드 서학 2024>",
 			"date": "2024/3/21 - 2024/4/10",
 			"location": "아트갤러리 전주, 전주, 한국",
 			"posterUrl": "/exhibitions/12/0_poster.jpeg",
@@ -112,7 +112,7 @@
 		{
 			"id": "13",
 			"type": "아트페어",
-			"title": "<체크 인 호텔 포토페어>",
+			"title": "<체크 인 포토페어>",
 			"date": "2024/7/4 - 2024/7/7",
 			"location": "오션 스위츠 제주호텔, 제주, 한국",
 			"posterUrl": "/exhibitions/13/0_poster.jpeg",
@@ -121,7 +121,7 @@
 		{
 			"id": "14",
 			"type": "단체전",
-			"title": "<언바운드13>",
+			"title": "<언바운드 13!>",
 			"date": "2024/7/5 - 2024/8/3",
 			"location": "칸델라북스+갤러리, 리치몬드, 미국",
 			"posterUrl": "/exhibitions/14/0_poster.jpeg",
@@ -184,7 +184,7 @@
 		{
 			"id": "21",
 			"type": "단체전",
-			"title": "<작은것들의 위대함 3인전>",
+			"title": "<작은 것들의 위대함_Still Life>",
 			"date": "2025/4/21 - 2025/5/6",
 			"location": "갤러리 브레송, 서울, 한국",
 			"posterUrl": "/exhibitions/21/0_poster.jpeg",
@@ -211,7 +211,7 @@
 		{
 			"id": "24",
 			"type": "단체전",
-			"title": "<STRANGER 몬테카를로의 사유>",
+			"title": "<STRANGER 단체전>",
 			"date": "2025/6/21 - 2025/6/27",
 			"location": "아지트 미술관, 서울, 한국",
 			"posterUrl": "/exhibitions/24/0_poster.jpeg",
@@ -253,7 +253,7 @@
 			"type": "group exhibition",
 			"title": "<2020 ASYAAF & Hiden Artist Festival>",
 			"date": "21/7/2020 - 16/8/2020",
-			"location": "HOMA(Hongik Museum of Art), Seoul, Korea",
+			"location": "HOMA(Hongik Museum of Art), Seoul, South Korea",
 			"posterUrl": "/exhibitions/04/0_poster.png",
       "imgCount": 6
 		},
@@ -263,7 +263,7 @@
 			"type": "solo exhibition",
 			"title": "<Still Life for Things that Need a Goodbye, Vanity>",
 			"date": "16/8/2020 - 31/8/2020",
-			"location": "Lotte Avenuel Photographs 291 Gallery, Seoul, Korea ",
+			"location": "Lotte Avenuel Photographs 291 Gallery, Seoul, South Korea ",
 			"posterUrl": "/exhibitions/05/0_poster.png",
       "imgCount": 6
 		},
@@ -299,7 +299,7 @@
 			"type": "solo exhibition",
       "title": "<Still Life with Baldwin>",
 			"date": "1/5/2023 - 23/6/2023",
-			"location": "Bando Camera Leica Store, Seoul, Korea",
+			"location": "Bando Camera Leica Store, Seoul, South Korea",
 			"posterUrl": "/exhibitions/09/0_poster.png",
       "imgCount": 3
 		},
@@ -324,7 +324,7 @@
 		{
 			"id": "12",
 			"type": "group exhibition",
-			"title": "<Ground Seoul 2024>",
+			"title": "<Ground Seohak 2024>",
 			"date": "21/3/2024 - 10/4/2024",
 			"location": "Art Gallery Jeonju, Jeonju, South Korea",
 			"posterUrl": "/exhibitions/12/0_poster.jpeg",
@@ -333,7 +333,7 @@
 		{
 			"id": "13",
 			"type": "art fair",
-			"title": "<Check-in Hotel Photo Fair>",
+			"title": "<Check-in Photo Fair>",
 			"date": "4/7/2024 - 7/7/2024",
 			"location": "Ocean Suites Jeju Hotel, Jeju, South Korea",
 			"posterUrl": "/exhibitions/13/0_poster.jpeg",
@@ -342,7 +342,7 @@
 		{
 			"id": "14",
 			"type": "group exhibition",
-			"title": "<Unbound 13>",
+			"title": "<Unbound 13!>",
 			"date": "5/7/2024 - 3/8/2024",
 			"location": "Candela Books + Gallery, Richmond, USA",
 			"posterUrl": "/exhibitions/14/0_poster.jpeg",
@@ -389,7 +389,7 @@
 			"type": "group exhibition",
 			"title": "<Delivering Hope 4-2>",
 			"date": "18/2/2025 - 2/3/2025",
-			"location": "Crimson Father, Seoul, South Korea",
+			"location": "Creamson Father, Seoul, South Korea",
 			"posterUrl": "/exhibitions/19/0_poster.jpeg",
 			"imgCount": 4
 		},
@@ -405,7 +405,7 @@
 		{
 			"id": "21",
 			"type": "group exhibition",
-			"title": "<The Greatness of Small Things: 3-Person Exhibition>",
+			"title": "<The Greatness of Small Things_Still Life>",
 			"date": "21/4/2025 - 6/5/2025",
 			"location": "Gallery Bresson, Seoul, South Korea",
 			"posterUrl": "/exhibitions/21/0_poster.jpeg",
@@ -423,7 +423,7 @@
 		{
 			"id": "23",
 			"type": "solo exhibition",
-			"title": "<Still Life for Things that Need to be Sent Away, Mourning>",
+			"title": "<Still Life for Things that Need a Goodbye, Mourning>",
 			"date": "2/5/2025 - 14/6/2025",
 			"location": "Candela Books + Gallery, Richmond, USA",
 			"posterUrl": "/exhibitions/23/0_poster.jpeg",
@@ -432,7 +432,7 @@
 		{
 			"id": "24",
 			"type": "group exhibition",
-			"title": "<STRANGER Monte Carlo Meditation>",
+			"title": "<STRANGER>",
 			"date": "21/6/2025 - 27/6/2025",
 			"location": "AZIT Museum, Seoul, South Korea",
 			"posterUrl": "/exhibitions/24/0_poster.jpeg",
