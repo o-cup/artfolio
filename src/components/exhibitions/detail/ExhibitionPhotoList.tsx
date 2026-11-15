@@ -7,15 +7,13 @@ type Props = {
 };
 
 const ExhibitionPhotoList = ({ data }: Props) => {
-	const { id, imgCount } = data;
-	const imgCountArr = Array.from({ length: imgCount }, (_, i) => i + 1);
+	const { images } = data;
 
 	return (
 		<Styled.Wrap>
-			{imgCountArr.map((number) => {
-				const imgUrl = `/exhibitions/${id}/${number}.jpeg`;
-				return <ExhibitionPhotoListItem key={number} id={number} imgUrl={imgUrl} />;
-			})}
+			{images.map((imgUrl, index) => (
+				<ExhibitionPhotoListItem key={imgUrl} id={index + 1} imgUrl={imgUrl} />
+			))}
 		</Styled.Wrap>
 	);
 };

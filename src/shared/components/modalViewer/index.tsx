@@ -9,18 +9,17 @@ import { useModal } from "../../../context/ModalProvider";
 import Motion from "../motion";
 
 type Props = {
-	category: "works" | "exhibitions";
-	totalCount: number;
+	images: string[];
 };
 
-const ModalViewer = ({ category, totalCount }: Props) => {
+const ModalViewer = ({ images }: Props) => {
+	const totalCount = images.length;
 	const isMobile = useMediaQuery({ query: MOBILE_DEVICE });
 	const { id } = useParams<{ id: string }>();
 
 	const { closeModal, itemId, setItemId } = useModal();
 
-	const PREFIX = `${process.env.PUBLIC_URL}/${category}`;
-	const imgUrl = `${PREFIX}/${id}/${itemId}.jpeg`;
+	const imgUrl = itemId ? `${process.env.PUBLIC_URL}${images[itemId - 1]}` : "";
 
 	const handleCloseClick = () => {
 		closeModal();

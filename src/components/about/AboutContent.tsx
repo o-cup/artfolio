@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AboutArtistWrap, AboutContentWrap, AboutHistoriesWrap } from "./styles/aboutStyle";
 import { LangContext } from "../../context/LanguageProvider";
-import aboutData from "./aboutData.json";
+import { aboutData } from "../../shared/siteData";
 import Text from "../../shared/components/text";
 
 function AboutContent() {

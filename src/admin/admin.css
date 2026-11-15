@@ -1,0 +1,1289 @@
+/* 어드민 전용 스타일
+   - 원래 사이트와 같은 색(따뜻한 회색 배경, 짙은 회보라 글씨)
+   - 글꼴: 본문은 Pretendard, 머리글의 'Parkmejung'만 사이트와 같은 글꼴(선바탕 / Quattrocento)
+   - 장식 없이 평평하게, 대신 글씨와 버튼은 크게 */
+@font-face {
+	font-family: "Pretendard";
+	src: url("./fonts/Pretendard-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Pretendard";
+	src: url("./fonts/Pretendard-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Pretendard";
+	src: url("./fonts/Pretendard-Bold.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+.adm {
+	--bg: #f0f0ef;
+	--ink: #37313d;
+	--muted: #6e6a73; /* 원래 사이트 회색(#7B7780)보다 살짝 진하게: 큰 글씨에서도 잘 읽히게 */
+	--line: #cfccc8;
+	--paper: #f8f8f7;
+	--danger: #9b3b30;
+	--danger-bg: #f3e6e3;
+
+	/* 디자인 시스템: 텍스트필드 (Figma Korean-Typing 2202:7855 — default / focused / filled) */
+	--field-bg: rgba(55, 49, 61, 0.05);
+	--field-blur: 10px;
+	--field-radius: 8px;
+	--field-padding: 16px;
+	--field-font-size: 18px;
+	--field-line-height: 1.5;
+	--field-text: #37313d;
+	--field-placeholder: rgba(55, 49, 61, 0.3);
+	--field-focus-border: #37313d;
+	/* 뱃지 */
+	--badge-primary: #37313d;
+	--badge-positive-bg: #b9e0ff;
+	--badge-positive-text: #0b6bd3;
+	--badge-new: #00c32b;
+	/* 간격 */
+	--space-base: 24px; /* 기본 간격 */
+	--space-title-sub: 16px; /* 제목 → 설명 문구 */
+	--space-section: 64px; /* 구분선 ↔ 내용 */
+	/* 모달 */
+	--modal-width: 360px;
+	--modal-radius: 16px;
+	/* 버튼 */
+	--btn-height: 60px;
+	--btn-padding-x: 24px;
+	--btn-radius: 0;
+	--btn-font-size: 18px;
+	--btn-blur: 10px;
+	--btn-primary-bg: #37313d;
+	--btn-primary-text: #fff;
+	--btn-secondary-bg: rgba(55, 49, 61, 0.2);
+	--btn-secondary-text: #37313d;
+	--btn-tertiary-border: #37313d;
+	--btn-tertiary-text: #37313d;
+	--btn-warning-bg: #9b3b30;
+	--btn-warning-text: #fff;
+
+	min-height: 100vh;
+	background: var(--bg);
+	color: var(--ink);
+	font-size: 18px;
+	line-height: 1.7;
+	word-break: keep-all;
+}
+.adm,
+.adm * {
+	font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+/* 'Parkmejung' 글자만 원래 사이트 글꼴 */
+.adm .adm-brand,
+.adm .adm-login-brand .name {
+	font-family: "SunBatang", "Quattrocento", serif;
+}
+
+.adm *,
+.adm *::before,
+.adm *::after {
+	box-sizing: border-box;
+}
+/* 아이콘: Material Symbols Rounded (fill 0, weight 300, grade -25, optical size 48) */
+.adm .adm-icon {
+	font-family: "Material Symbols Rounded";
+	font-weight: normal;
+	font-style: normal;
+	font-size: 1.35em;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	vertical-align: middle;
+	flex-shrink: 0;
+	font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+	font-variation-settings: "FILL" 0, "wght" 300, "GRAD" -25, "opsz" 48;
+}
+.adm h1,
+.adm h2,
+.adm h3 {
+	margin: 0;
+	line-height: 1.4;
+	font-weight: 700;
+}
+.adm h1 {
+	font-size: 28px;
+}
+.adm h2 {
+	font-size: 22px;
+}
+.adm h3 {
+	font-size: 20px;
+}
+.adm p {
+	margin: 0;
+}
+.adm b {
+	font-weight: 700;
+}
+.adm :focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 3px;
+}
+
+/* 상단 바: 원래 사이트 머리글과 같은 모양 */
+.adm-top {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	background: var(--bg);
+}
+.adm-top-inner {
+	padding: 22px 24px;
+	display: flex;
+	align-items: center;
+	gap: 24px;
+}
+.adm-brand {
+	background: none;
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+	color: var(--ink);
+	font-size: 18px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+.adm-brand {
+	display: inline-flex;
+	align-items: center;
+}
+/* 'admin' 뱃지: 사이트 기본 글씨색(짙은 보라), Quattrocento */
+.adm .adm-badge {
+	font-family: "Quattrocento", serif;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: 0.02em;
+	color: #fff;
+	background: var(--ink);
+	border-radius: 4px;
+	padding: 5px 8px 6px;
+	margin-left: 10px;
+}
+.adm-nav {
+	display: flex;
+	gap: 48px;
+	margin: 0 auto;
+}
+.adm-navlink {
+	background: none;
+	border: 0;
+	padding: 6px 0;
+	cursor: pointer;
+	font-size: 18px;
+	color: var(--muted);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.adm-navlink:hover,
+.adm-navlink.on {
+	color: var(--ink);
+}
+.adm-navlink.on {
+	font-weight: 700;
+}
+.adm-top-side {
+	display: flex;
+	gap: 28px;
+}
+
+.adm-main {
+	max-width: 1080px;
+	margin: 0 auto;
+	padding: 40px 24px 180px;
+}
+.adm-stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-base);
+}
+.adm-row {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.adm-spacer {
+	flex: 1;
+}
+.adm-muted {
+	color: var(--muted);
+}
+.adm-small {
+	font-size: 17px;
+}
+
+/* 버튼: 네모, 얇은 선 */
+/* ---------- 버튼 (디자인시스템: Figma 2204-7874) ----------
+   primary   : 진한 바탕 + 흰 글씨 (저장하기 등 가장 중요한 버튼)
+   secondary : 옅은 바탕 + 진한 글씨
+   tertiary  : 테두리만 (기본값. 클래스 없이 adm-btn만 써도 이 모양)
+   warning   : 빨간 바탕 + 흰 글씨 (지우기 확인)
+   값은 .adm 의 --btn-* 토큰에서 한 번에 바꿀 수 있어요. */
+.adm-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-height: var(--btn-height);
+	padding: 0 var(--btn-padding-x);
+	border-radius: var(--btn-radius);
+	border: 1px solid var(--btn-tertiary-border);
+	background: transparent;
+	color: var(--btn-tertiary-text);
+	font-size: var(--btn-font-size);
+	font-weight: 700;
+	line-height: normal;
+	backdrop-filter: blur(var(--btn-blur));
+	-webkit-backdrop-filter: blur(var(--btn-blur));
+	cursor: pointer;
+	text-decoration: none;
+	white-space: nowrap;
+}
+.adm-btn:hover {
+	background: rgba(55, 49, 61, 0.06);
+}
+.adm-btn:disabled {
+	opacity: 0.35;
+	cursor: not-allowed;
+}
+.adm-btn:disabled:hover {
+	background: transparent;
+}
+.adm-btn.primary {
+	border-color: transparent;
+	background: var(--btn-primary-bg);
+	color: var(--btn-primary-text);
+}
+.adm-btn.primary:hover {
+	background: #231e28;
+}
+.adm-btn.primary:disabled:hover {
+	background: var(--btn-primary-bg);
+}
+.adm-btn.secondary {
+	border-color: transparent;
+	background: var(--btn-secondary-bg);
+	color: var(--btn-secondary-text);
+}
+.adm-btn.secondary:hover {
+	background: rgba(55, 49, 61, 0.28);
+}
+.adm-btn.secondary:disabled:hover {
+	background: var(--btn-secondary-bg);
+}
+.adm-btn.warning,
+.adm-btn.danger.solid {
+	border-color: transparent;
+	background: var(--btn-warning-bg);
+	color: var(--btn-warning-text);
+}
+.adm-btn.warning:hover,
+.adm-btn.danger.solid:hover {
+	background: #85322a;
+}
+/* 작은 '삭제'처럼 빨간 테두리만 있는 버튼 (디자인 없음: 임시) */
+.adm-btn.danger {
+	border-color: var(--danger);
+	color: var(--danger);
+}
+.adm-btn.danger:hover {
+	background: var(--danger-bg);
+}
+/* 예전 big 크기는 디자인시스템 기본 크기로 통일 */
+.adm-btn.big {
+	min-height: var(--btn-height);
+	font-size: var(--btn-font-size);
+	padding: 0 var(--btn-padding-x);
+}
+.adm-btn.small {
+	min-height: 44px;
+	padding: 0 14px;
+	font-size: 17px;
+}
+.adm-btn.plain {
+	border-color: transparent;
+	font-weight: 400;
+	color: var(--muted);
+	padding-left: 0;
+	padding-right: 0;
+}
+.adm-btn.plain:hover {
+	background: transparent;
+	color: var(--ink);
+}
+.adm-btn.block {
+	width: 100%;
+}
+/* 목록의 삭제 버튼: PC는 글자, 휴대폰은 휴지통 아이콘 */
+.adm-del-icon {
+	display: none;
+}
+/* 테두리 없는 글자 버튼 (목록의 위로/아래로) */
+.adm-btn.text {
+	border-color: transparent;
+	font-weight: 400;
+	background: transparent;
+	justify-content: flex-start;
+	padding: 0 6px;
+	gap: 4px;
+}
+.adm-btn.text:hover {
+	background: #e6e5e3;
+}
+.adm-btn.text:disabled:hover {
+	background: transparent;
+}
+
+/* 묶음(섹션): 상자 대신 위쪽 선으로 구분 */
+.adm-card {
+	border-top: 1px solid var(--ink);
+	/* 선 → 내용 64px, 내용 → 다음 선 64px (아래 여백 + 영역 사이 기본 간격) */
+	padding: var(--space-section) 0 calc(var(--space-section) - var(--space-base));
+}
+/* 영역 제목 → 바로 아래 설명 문구는 16px */
+.adm-card > h2 + .adm-muted {
+	margin-top: calc(var(--space-title-sub) - var(--space-base));
+}
+
+/* 처음 화면 메뉴 */
+.adm-menu {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 8px;
+	/* 글자는 페이지 왼쪽 줄에 맞추고, 회색 네모만 바깥으로 살짝 나오게.
+	   위쪽: '무엇을 편집할까요?'와 56px (묶음 간격 28px + 28px) */
+	margin: 28px -24px 0;
+}
+.adm-menu-item {
+	text-align: left;
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	padding: 24px;
+	cursor: pointer;
+	color: var(--ink);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	min-height: 0;
+}
+.adm-menu-item h2 {
+	font-size: 24px;
+}
+.adm-menu-item .adm-muted {
+	font-size: 15px;
+}
+.adm-menu-item:hover,
+.adm-menu-item:focus-visible {
+	background: #e6e5e3;
+}
+
+/* 목록 */
+.adm-list {
+	display: flex;
+	flex-direction: column;
+	border-top: 1px solid var(--ink);
+}
+.adm-list-item {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	padding: 20px 0;
+	border-bottom: 1px solid var(--line);
+}
+.adm-thumb {
+	width: 110px;
+	height: 110px;
+	object-fit: cover;
+	background: #e2e1de;
+	flex-shrink: 0;
+}
+.adm-thumb.poster {
+	object-fit: contain;
+}
+.adm-list-text {
+	flex: 1;
+	min-width: 0;
+}
+.adm-list-title {
+	font-weight: 700;
+	font-size: 20px;
+}
+.adm-order {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+/* 입력 */
+.adm-field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.adm-label {
+	font-weight: 700;
+	font-size: 18px;
+}
+.adm-hint {
+	color: var(--muted);
+	font-size: 17px;
+}
+/* 텍스트필드 — 디자인 시스템 (모든 입력칸 공통)
+   default : 옅은 배경, 테두리 없음, 흐린 안내 글씨
+   focused : 1px 진한 테두리 (테두리 때문에 높이가 바뀌지 않도록 안쪽 그림자로 그려요)
+   filled  : default와 같은 모양, 진한 글씨 */
+.adm-input,
+.adm-textarea,
+.adm-select {
+	width: 100%;
+	padding: var(--field-padding);
+	border: 0;
+	border-radius: var(--field-radius);
+	background: var(--field-bg);
+	-webkit-backdrop-filter: blur(var(--field-blur));
+	backdrop-filter: blur(var(--field-blur));
+	color: var(--field-text);
+	caret-color: var(--field-focus-border);
+	font-size: var(--field-font-size);
+	font-weight: 400;
+	line-height: var(--field-line-height);
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.adm-input::placeholder,
+.adm-textarea::placeholder {
+	color: var(--field-placeholder);
+	opacity: 1;
+}
+.adm .adm-input:focus,
+.adm .adm-textarea:focus,
+.adm .adm-select:focus {
+	outline: none;
+	box-shadow: inset 0 0 0 1px var(--field-focus-border);
+}
+.adm-textarea {
+	min-height: 220px;
+	resize: vertical;
+}
+.adm-textarea.line {
+	min-height: 0;
+}
+/* 날짜 입력칸: 브라우저 기본 모양을 지우면 달력 아이콘이 사라져서 모양만 맞춰요 */
+.adm-input[type="date"] {
+	-webkit-appearance: auto;
+	appearance: auto;
+	min-height: calc(var(--field-padding) * 2 + var(--field-font-size) * var(--field-line-height));
+}
+/* 영어 번역칸 (디자인 미정: 임시로 얇은 테두리만 있는 투명한 칸) */
+.adm-input.en,
+.adm-textarea.en {
+	background: transparent;
+	box-shadow: inset 0 0 0 1px var(--line);
+	font-size: 17px;
+}
+.adm-en-label {
+	font-size: 16px;
+	color: var(--muted);
+}
+
+/* 선택 버튼(구분) */
+.adm-choices {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+.adm-choice {
+	min-height: 56px;
+	padding: 0 24px;
+	border-radius: 0;
+	border: 1px solid #8f8a94;
+	background: transparent;
+	font-size: 18px;
+	cursor: pointer;
+	color: var(--muted);
+}
+.adm-choice:hover {
+	color: var(--ink);
+	border-color: var(--ink);
+}
+.adm-choice.on {
+	border-color: var(--ink);
+	background: var(--ink);
+	color: #fff;
+	font-weight: 700;
+}
+
+/* 사진 */
+.adm-photos {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+	gap: 20px;
+}
+.adm-photo {
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.adm-photo img {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	background: #e2e1de;
+	display: block;
+}
+/* 대표 사진 테두리: 바깥으로 튀어나오지 않게 안쪽에 그려서 뱃지·버튼과 시작점을 맞춰요 */
+.adm-photo.cover img {
+	border: 3px solid var(--ink);
+	padding: 3px;
+	background: transparent;
+}
+.adm-photo.poster img {
+	object-fit: contain;
+}
+/* 사진 안 오른쪽 위 X(빼기) 버튼 */
+.adm-photo-thumb {
+	position: relative;
+}
+.adm-photo-remove {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 44px;
+	height: 44px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+	/* 밝은 사진 위에서도 보이도록 아주 옅은 그림자 */
+	filter: drop-shadow(0 0 2px rgba(30, 22, 38, 0.7));
+}
+.adm .adm-photo-remove .adm-icon {
+	font-size: 30px;
+	/* 사진 빼기: 채워진 원 안의 X (fill 1, weight 400) */
+	font-variation-settings: "FILL" 1, "wght" 400, "GRAD" -25, "opsz" 48;
+}
+.adm-photo-remove:hover {
+	background: rgba(30, 22, 38, 0.35);
+}
+.adm-photo-label {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	min-height: 28px;
+	margin-top: 4px;
+}
+
+/* ---------- 뱃지 ----------
+   number   : 순서 번호 (사이트 기본색)
+   positive : 대표 (하늘색 바탕 + 파란 글씨)
+   새로 추가한 것은 뱃지 대신 초록색 점(.adm-new-dot)
+   ※ 위쪽 'admin' 표시(.adm-badge)와는 다른 부품이에요 */
+.adm .adm-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 28px;
+	min-width: 28px;
+	padding: 0 8px;
+	border-radius: 4px;
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	white-space: nowrap;
+}
+.adm .adm-tag.number {
+	background: var(--badge-primary);
+}
+.adm .adm-tag.positive {
+	background: var(--badge-positive-bg);
+	color: var(--badge-positive-text);
+}
+/* 새로 추가한 사진: 초록색 점 */
+.adm-new-dot {
+	flex: none;
+	fill: var(--badge-new);
+	margin-left: 4px;
+}
+/* 안내 문구 목록: 앞에 점(•) */
+.adm .adm-guide {
+	margin: 0;
+	padding-left: 1.3em;
+	list-style: disc;
+}
+.adm .adm-guide li {
+	margin: 0;
+}
+.adm-guide .adm-new-dot {
+	margin: 0 3px;
+	vertical-align: 1px;
+}
+/* 앞으로/뒤로: 아이콘만, 왼쪽 정렬 */
+.adm-photo-actions {
+	display: flex;
+	justify-content: flex-start;
+	gap: 8px;
+}
+.adm-photo-actions .adm-btn {
+	width: 44px;
+	padding: 0;
+}
+.adm-photo-actions .wide {
+	grid-column: span 2;
+}
+.adm-add-photo {
+	border: 1px dashed var(--ink);
+	background: transparent;
+	aspect-ratio: 1 / 1;
+	min-height: 190px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--ink);
+	padding: 16px;
+	text-align: center;
+}
+.adm-add-photo:hover,
+.adm-add-photo.drag {
+	background: #e6e5e3;
+}
+.adm-add-photo .adm-hint {
+	font-size: 15px;
+	font-weight: 400;
+}
+.adm-add-photo .plus {
+	font-size: 36px;
+	line-height: 1;
+}
+
+/* 저장 바 (화면 아래 고정) */
+.adm-savebar {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 30;
+	background: var(--bg);
+}
+.adm-savebar-inner {
+	max-width: 1080px;
+	margin: 0 auto;
+	padding: 14px 24px;
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+/* 알림창 */
+.adm-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	background: rgba(55, 49, 61, 0.45);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+/* 모달 (디자인시스템: Figma 2204-7894)
+   PC: 너비 360, 버튼 가로로 [취소][확인]
+   휴대폰: 너비 320, 버튼 세로로 확인이 위 */
+.adm-dialog {
+	width: var(--modal-width);
+	max-width: 100%;
+	padding: 32px 24px 24px;
+	border-radius: var(--modal-radius);
+	background: #fff;
+	box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	text-align: center;
+	color: var(--ink);
+}
+.adm .adm-dialog h2 {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1.5;
+}
+.adm-dialog-msg {
+	font-size: 18px;
+	line-height: 1.5;
+	white-space: pre-line; /* 문구 속 줄바꿈(\n)을 그대로 보여줘요 */
+	word-break: keep-all;
+}
+.adm-dialog .actions {
+	display: flex;
+	gap: 10px;
+}
+.adm-dialog .actions .adm-btn {
+	flex: 1 0 0;
+	min-width: 0;
+	padding: 0 12px;
+}
+.adm-spinner {
+	width: 48px;
+	height: 48px;
+	margin: 0 auto;
+	border-radius: 50%;
+	border: 3px solid #d6d4d1;
+	border-top-color: var(--ink);
+	animation: adm-spin 0.9s linear infinite;
+}
+/* 어두운 화면 위 로딩 표시 */
+.adm-spinner.on-dim {
+	border-color: rgba(255, 255, 255, 0.35);
+	border-top-color: #fff;
+}
+@keyframes adm-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+.adm-error {
+	background: var(--danger-bg);
+	color: var(--danger);
+	padding: 14px 16px;
+	font-weight: 700;
+}
+.adm h1.adm-greeting {
+	font-weight: 500;
+}
+.adm-notice {
+	color: var(--muted);
+}
+/* 처음 화면: 메뉴와 아래 안내 사이 구분선 */
+.adm-divider {
+	border: 0;
+	border-top: 1px solid var(--line);
+	/* 메뉴 칸과 선 사이 80px (기본 간격 24px + 56px) */
+	margin: 56px 0 0;
+}
+
+/* 토스트 (Figma: Korean-Typing 2202:7833) */
+.adm-toast {
+	position: fixed;
+	left: 50%;
+	bottom: 40px;
+	z-index: 110;
+	transform: translateX(-50%);
+	max-width: calc(100vw - 32px);
+	padding: 16px 80px;
+	border-radius: 8px;
+	background: rgba(30, 22, 38, 0.8);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 1.3;
+	text-align: center;
+	white-space: nowrap;
+	animation: adm-toast-in 0.2s ease-out, adm-toast-out 0.3s ease-in 3.2s forwards;
+}
+@keyframes adm-toast-in {
+	from {
+		opacity: 0;
+		transform: translate(-50%, 8px);
+	}
+}
+@keyframes adm-toast-out {
+	to {
+		opacity: 0;
+	}
+}
+
+/* 로그인 */
+.adm-login {
+	max-width: 480px;
+	margin: 12vh auto 0;
+	padding: 0 20px 80px;
+}
+.adm-login-brand {
+	text-align: center;
+}
+.adm-login-brand .name {
+	font-size: 22px;
+	font-weight: 700;
+}
+.adm-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 17px;
+	cursor: pointer;
+}
+.adm-toggle input {
+	width: 22px;
+	height: 22px;
+	accent-color: var(--ink);
+}
+.adm-linkbtn {
+	background: none;
+	border: 0;
+	padding: 8px 0;
+	font-size: 18px;
+	color: var(--ink);
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	cursor: pointer;
+	align-self: flex-start;
+}
+
+/* 이력 줄 */
+.adm-line {
+	display: flex;
+	gap: 8px;
+	align-items: flex-start;
+}
+.adm-line .adm-field {
+	flex: 1;
+}
+.adm-line-actions {
+	display: flex;
+	gap: 6px;
+}
+.adm-section-head {
+	display: flex;
+	gap: 12px;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+/* 카테고리·이력 줄 옆 위로/아래로/삭제 버튼: 입력칸(한 줄) 높이에 맞춰 나란히 */
+.adm-line-actions {
+	/* 칸 이름(31px) + 이름과 칸 사이(8px) 만큼 내려서 입력칸 윗선에 맞춰요 */
+	padding-top: 39px;
+}
+.adm-line-actions .adm-btn,
+.adm-section-head .adm-row .adm-btn {
+	min-height: calc(var(--field-padding) * 2 + var(--field-font-size) * var(--field-line-height));
+}
+
+/* 휴대폰 화면 */
+@media (max-width: 760px) {
+	.adm {
+		font-size: 18px;
+	}
+	.adm h1 {
+		font-size: 24px;
+	}
+	.adm-main {
+		padding: 20px 16px 180px;
+	}
+	.adm-top-inner {
+		padding: 16px;
+		flex-wrap: wrap;
+		gap: 12px 20px;
+	}
+	.adm-nav {
+		order: 3;
+		width: 100%;
+		margin: 0;
+		gap: 24px;
+	}
+	.adm-top-side {
+		margin-left: auto;
+		gap: 16px;
+	}
+	.adm-navlink,
+	.adm-brand {
+		font-size: 17px;
+	}
+	.adm-menu {
+		grid-template-columns: 1fr;
+		gap: 4px;
+		margin: 28px -16px 0;
+	}
+	.adm-menu-item {
+		min-height: 0;
+		padding: 20px 16px;
+	}
+	.adm-list-item {
+		flex-wrap: wrap;
+		gap: 14px;
+	}
+	.adm-thumb {
+		width: 84px;
+		height: 84px;
+	}
+	.adm-list-item .adm-actions {
+		width: 100%;
+	}
+	.adm-list-item .adm-actions .adm-btn {
+		flex: 1;
+	}
+	.adm-list-item .adm-actions .adm-btn.adm-del {
+		flex: 0 0 56px;
+		padding: 0;
+	}
+	.adm-del-icon {
+		display: inline-flex;
+	}
+	.adm-del-text {
+		display: none;
+	}
+	.adm-order {
+		flex-direction: row;
+	}
+	.adm-photos {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+	}
+	.adm-photo-actions .adm-btn {
+		padding: 0 4px;
+		font-size: 15px;
+		white-space: normal;
+	}
+	.adm-add-photo {
+		min-height: 0;
+	}
+	.adm-savebar-inner {
+		padding: 10px 16px;
+		flex-wrap: wrap;
+		row-gap: 6px;
+	}
+	/* 휴대폰: 버튼이 3개라 안내 문구는 버튼 위 한 줄로 */
+	.adm-savebar-inner > .adm-muted {
+		flex-basis: 100%;
+	}
+	.adm-savebar-inner .adm-btn {
+		flex: 1;
+		padding: 0 12px;
+	}
+	.adm-line {
+		flex-direction: column;
+	}
+	.adm-line-actions {
+		padding-top: 0; /* 휴대폰은 버튼이 칸 아래로 가니까 */
+	}
+	.adm-line .adm-field {
+		width: 100%;
+	}
+	.adm-dialog {
+		--modal-width: 320px;
+	}
+	.adm-dialog .actions {
+		flex-direction: column-reverse; /* 휴대폰은 확인 버튼이 위 */
+	}
+	.adm-dialog .actions .adm-btn {
+		flex: none;
+		width: 100%;
+	}
+	.adm-toast {
+		padding: 16px 24px;
+		white-space: normal;
+		width: max-content;
+	}
+}
+
+/* 미리보기 */
+.adm-preview {
+	position: fixed;
+	inset: 0;
+	z-index: 90;
+	display: flex;
+	flex-direction: column;
+	background: #e9e8ea;
+}
+.adm-preview-bar {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 12px 24px;
+	background: #37313d; /* 미리보기 중이라는 게 한눈에 보이도록 진한 색 */
+	color: #fff;
+}
+.adm-preview-title .adm-muted {
+	color: rgba(255, 255, 255, 0.7);
+}
+.adm-preview-bar .adm-btn {
+	background: transparent;
+	color: #fff;
+	border-color: #fff;
+}
+.adm-preview-bar .adm-btn:hover {
+	background: rgba(255, 255, 255, 0.12);
+}
+.adm-preview-title {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	margin-right: auto;
+}
+.adm-preview-tabs {
+	display: flex;
+	padding: 4px;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.12);
+}
+.adm-preview-tabs button {
+	min-height: 44px;
+	padding: 0 18px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: rgba(255, 255, 255, 0.7);
+	font: inherit;
+	cursor: pointer;
+}
+.adm-preview-tabs button.on {
+	background: #fff;
+	color: var(--ink);
+	font-weight: 500;
+}
+.adm-preview-stage {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	justify-content: center;
+	padding: 24px;
+}
+.adm-preview-frame {
+	width: 100%;
+	height: 100%;
+	border: 0;
+	background: #fff;
+	box-shadow: 0 2px 16px rgba(55, 49, 61, 0.12);
+}
+.adm-preview-frame.mobile {
+	width: 390px;
+	max-width: 100%;
+	border-radius: 16px;
+}
+@media (max-width: 767px) {
+	.adm-preview-bar {
+		padding: 8px 12px;
+		gap: 8px;
+	}
+	.adm-preview-title .adm-small,
+	.adm-preview-tabs {
+		display: none;
+	}
+	.adm-preview-stage {
+		padding: 0;
+	}
+	.adm-preview-frame,
+	.adm-preview-frame.mobile {
+		width: 100%;
+		border-radius: 0;
+		box-shadow: none;
+	}
+}
+
+/* ---------- 날짜 고르기 (큰 달력) ---------- */
+.adm-date {
+	position: relative;
+}
+.adm-date-col {
+	min-width: 280px;
+}
+@media (max-width: 760px) {
+	/* 휴대폰: 시작일·종료일 칸을 화면 너비만큼 */
+	.adm-date-col {
+		width: 100%;
+		min-width: 0;
+	}
+}
+.adm .adm-date-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	font-family: inherit;
+}
+.adm-date-trigger.empty span {
+	color: var(--field-placeholder);
+}
+.adm-date-trigger .adm-icon {
+	font-size: 26px;
+	color: var(--ink);
+}
+.adm-cal-dim {
+	display: none;
+}
+.adm-cal {
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	z-index: 40;
+	width: 412px;
+	padding: 20px;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 8px 32px rgba(55, 49, 61, 0.18);
+	scroll-margin-bottom: 120px; /* 아래 저장 영역에 가리지 않게 */
+}
+.adm-cal-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+.adm-cal-nav {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 52px;
+	height: 52px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--ink);
+	cursor: pointer;
+}
+.adm-cal-nav .adm-icon {
+	font-size: 32px;
+}
+@media (hover: hover) {
+	.adm-cal-nav:hover,
+	.adm-cal-title:hover {
+		background: rgba(55, 49, 61, 0.06);
+	}
+}
+.adm-cal-title {
+	min-height: 52px;
+	padding: 0 16px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--ink);
+	font: inherit;
+	font-size: 20px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.adm-cal-title.static {
+	display: inline-flex;
+	align-items: center;
+	cursor: default;
+}
+.adm-cal-title.static:hover {
+	background: transparent;
+}
+.adm-cal-grid {
+	display: grid;
+	grid-template-columns: repeat(7, minmax(0, 1fr));
+	gap: 2px;
+}
+.adm-cal-wd {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 36px;
+	font-size: 15px;
+	color: var(--muted);
+}
+.adm-cal-day {
+	height: 52px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--ink);
+	font: inherit;
+	font-size: 18px;
+	cursor: pointer;
+}
+.adm-cal-day:hover {
+	background: rgba(55, 49, 61, 0.08);
+}
+.adm-cal-day.today {
+	box-shadow: inset 0 0 0 1px var(--ink);
+}
+.adm-cal-day.on,
+.adm-cal-month.on {
+	background: var(--ink);
+	color: #fff;
+	font-weight: 700;
+}
+.adm-cal-months {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+}
+.adm-cal-month {
+	height: 64px;
+	border: 0;
+	border-radius: 8px;
+	background: rgba(55, 49, 61, 0.05);
+	color: var(--ink);
+	font: inherit;
+	font-size: 18px;
+	cursor: pointer;
+}
+.adm-cal-month:hover {
+	background: rgba(55, 49, 61, 0.12);
+}
+.adm-cal-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-top: 16px;
+}
+.adm-cal-foot-right {
+	display: flex;
+	gap: 8px;
+}
+.adm-cal-foot .adm-btn {
+	min-height: 52px;
+	padding: 0 18px;
+}
+@media (max-width: 767px) {
+	/* 휴대폰: 화면 아래에서 올라오는 달력 */
+	.adm-cal-dim {
+		display: block;
+		position: fixed;
+		inset: 0;
+		z-index: 39;
+		background: rgba(55, 49, 61, 0.45);
+	}
+	.adm-cal {
+		position: fixed;
+		top: auto;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: auto;
+		padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+		border-radius: 16px 16px 0 0;
+	}
+	.adm-cal-day {
+		height: 48px;
+	}
+}

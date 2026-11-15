@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../shared/components/layout";
 import { LangContext } from "../context/LanguageProvider";
-import worksData from "../components/works/worksData.json";
+import { worksData } from "../shared/siteData";
 import WorksImageCarousel from "../components/works/WorksImageCarousel";
 import WorksDescription from "../components/works/WorksDescription";
 import Motion from "../shared/components/motion";

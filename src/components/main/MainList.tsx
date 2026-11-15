@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { MainListWrap } from "./styles/mainStyle";
-import mainData from "./mainData.json";
+import { worksData } from "../../shared/siteData";
 import MainListItem from "./MainListItem";
 import { LangContext } from "../../context/LanguageProvider";
 
@@ -9,8 +9,11 @@ function MainList() {
 
 	return (
 		<MainListWrap>
-			{mainData[lang].map((data) => (
-				<MainListItem key={data.id} data={data} />
+			{worksData[lang].map((work) => (
+				<MainListItem
+					key={work.id}
+					data={{ id: work.id, title: work.title, year: work.year, imageUrl: work.images[0] }}
+				/>
 			))}
 		</MainListWrap>
 	);
