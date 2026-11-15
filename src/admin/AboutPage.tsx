@@ -58,7 +58,7 @@ export default function AboutEdit() {
 	const save = async () => {
 		try {
 			dialog.setProgress({ title: "영어로 번역하는 중이에요…" });
-			const { value, failed } = await autoTranslate(about, original);
+			const { value } = await autoTranslate(about, original);
 			dialog.setProgress({ title: "저장하는 중이에요…" });
 			await api.save({ message: "소개·이력 수정", files: { about: aboutToRaw(value) } });
 			const cleaned = {
@@ -70,12 +70,7 @@ export default function AboutEdit() {
 			dialog.setProgress(null);
 			await dialog.showDone({
 				title: "저장했어요",
-				message: (
-					<>
-						{SAVED_MESSAGE}
-						{failed && <p style={{ marginTop: 8 }}>※ 이번에는 자동 번역이 안 되어 영어 화면에도 한국어로 보여요.</p>}
-					</>
-				),
+				message: SAVED_MESSAGE,
 				button: "처음 화면으로",
 			});
 			go("/admin");

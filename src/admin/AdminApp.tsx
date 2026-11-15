@@ -79,11 +79,11 @@ function Home() {
 			</div>
 			<hr className="adm-divider" />
 			<div className="adm-notice">
-				저장한 내용은 <b>2~3분 뒤</b>에 사이트에 보여요. 한국어만 쓰시면 영어는 자동으로 번역돼요.
+				저장한 내용은 <b>2~3분 뒤</b>에 사이트에 반영돼요. 한국어만 쓰면 영어는 자동으로 번역돼요.
 			</div>
 			<div className="adm-row">
 				<button type="button" className="adm-btn" onClick={() => go("/admin/password")}>
-					비밀번호 바꾸기
+					비밀번호 변경
 				</button>
 			</div>
 		</div>

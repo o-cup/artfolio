@@ -18,7 +18,7 @@
 | 관리자 비밀번호 (암호화) | `admin/auth.json` (처음 비밀번호를 만들면 생겨요) |
 
 - 사진은 올리기 전에 화면에서 웹용 크기(긴 쪽 2400px, JPG)로 자동으로 줄여요.
-- 한국어만 쓰면 영어는 Claude가 자동 번역해요. 한국어가 바뀐 칸만 번역하고, 영어를 직접 고친 칸은 건드리지 않아요.
+- 한국어만 쓰면 영어는 Claude가 자동 번역해요. 저장 뒤 **GitHub이 영어가 아직 한국어 그대로인 칸만** 번역해서 한 번 더 커밋해요 (영어 반영까지 4~6분). 영어를 직접 쓴 칸은 건드리지 않아요.
 - 비밀번호는 서버 비밀키를 섞은 해시로만 저장돼서, 저장소가 공개돼 있어도 `auth.json`으로 비밀번호를 알아낼 수 없어요.
 
 ---
@@ -31,14 +31,13 @@ Vercel → 이 프로젝트 → **Settings → Environment Variables** 에 아�
 |---|---|---|
 | `AUTH_SECRET` | 아무 긴 무작위 글자 (40자 이상). 아래 "비밀키 만들기" 참고 | ✅ |
 | `GITHUB_TOKEN` | GitHub 토큰 (아래 1번) | ✅ |
-| `ADMIN_SETUP_PASSWORD` | 처음 들어갈 때 쓸 임시 비밀번호 | ✅ (처음에만) |
+| `ADMIN_SETUP_PASSWORD` | 처음 들어갈 때 쓸 임시 비밀번호 | ✅ (지우지 마세요: 비밀번호를 잊었을 때 다시 써요) |
 | `GOOGLE_CLIENT_ID` | 구글 로그인용 ID (아래 2번) | 비밀번호 찾기용 |
 | `ALLOWED_GOOGLE_EMAILS` | 비밀번호를 다시 만들 수 있는 구글 계정. 쉼표로 여러 개 (예: `엄마@gmail.com,나@gmail.com`) | 비밀번호 찾기용 |
-| `ANTHROPIC_API_KEY` | Claude API 키 (아래 3번) | 자동 번역용 |
 | `GITHUB_REPO` | 기본값 `o-cup/artfolio` (저장소를 옮기면 바꿔요) | 선택 |
 | `GITHUB_BRANCH` | 기본값 `main` | 선택 |
 
-> ⚠️ `AUTH_SECRET`을 나중에 바꾸면 저장된 비밀번호가 맞지 않게 돼요. 그때는 구글로 들어가서 비밀번호를 새로 만들면 돼요.
+> ⚠️ `AUTH_SECRET`을 나중에 바꾸면 저장된 비밀번호가 맞지 않게 돼요. 그때는 아래 5번 방법으로 비밀번호를 새로 만들면 돼요.
 
 **비밀키 만들기:** Mac의 터미널에서 아래를 실행하고 나온 글자를 그대로 복사해요.
 
@@ -66,21 +65,35 @@ openssl rand -base64 48
    - `https://parkmejung.com`
 5. 만들어진 **Client ID**(…apps.googleusercontent.com)를 `GOOGLE_CLIENT_ID` 에 넣어요
 
-### 3. Claude API 키 (자동 번역)
+### 3. Claude API 키 (자동 번역) — Vercel이 아니라 GitHub에 넣어요
 
-1. https://console.anthropic.com 에서 API 키를 만들어 `ANTHROPIC_API_KEY` 에 넣어요
-2. 결제 수단을 등록하고, 월 사용 한도(예: $5)를 걸어 두면 안심이에요. 번역은 한 번에 몇 원 정도예요.
-3. 키가 없거나 번역이 실패해도 저장은 돼요. 그때는 영어 화면에 한국어가 그대로 보이고, 나중에 "영어 번역도 같이 보기"를 켜서 직접 고칠 수 있어요.
+번역은 GitHub Actions(`.github/workflows/translate.yml`)가 해요. 그래서 **Vercel 설정이 필요 없고**, 저장소 관리자 권한만 있으면 혼자 할 수 있어요.
+
+1. https://console.anthropic.com 에서 결제 수단을 등록하고(월 사용 한도 예: $5), **API Keys → Create Key** 로 키를 만들어요 (`sk-ant-`로 시작, 한 번만 보여줘요)
+2. GitHub 저장소 → **Settings → Secrets and variables → Actions → New repository secret**
+   - Name: `ANTHROPIC_API_KEY`
+   - Secret: 복사한 키
+3. 끝이에요. 다음에 관리 화면에서 저장하면 자동으로 번역돼요. 지금 바로 한 번 돌리려면 저장소 → **Actions → 자동 번역 → Run workflow**
+4. 키가 없거나 번역이 실패해도 저장은 돼요. 그동안 영어 화면에 한국어가 보이고, 다음 저장 때(또는 Run workflow) 다시 번역을 시도해요.
+
+> 번역이 안 되면 저장소 → **Actions** 탭에서 "자동 번역" 기록의 빨간 표시를 눌러 이유를 볼 수 있어요.
 
 ### 4. 처음 들어가기
 
 1. `/admin` 에서 `ADMIN_SETUP_PASSWORD` 로 들어가요
-2. 첫 화면 아래 **[🔑 비밀번호 바꾸기]** 에서 어머님이 쓰실 비밀번호를 만들어요 (6글자 이상)
-3. 만들고 나면 임시 비밀번호는 더 이상 쓰이지 않아요. Vercel에서 `ADMIN_SETUP_PASSWORD` 를 지워도 돼요
+2. 첫 화면 아래 **[비밀번호 변경]** 에서 어머님이 쓰실 비밀번호를 만들어요 (6글자 이상)
+3. 만들고 나면 임시 비밀번호로는 들어올 수 없어요. 다만 비밀번호를 잊었을 때 다시 쓰이니 Vercel에서 지우지 마세요 (아래 5번)
 
 ### 5. 비밀번호를 잊었을 때
 
-로그인 화면의 **"비밀번호가 생각나지 않으세요?"** → 구글 버튼 → `ALLOWED_GOOGLE_EMAILS` 에 있는 계정으로 확인 → 새 비밀번호 만들기.
+**환경변수 추가 없이 (지금 방식)**
+1. GitHub 웹사이트에서 저장소의 `admin/auth.json` 파일을 지워요 (파일 열기 → 휴지통 아이콘 → Commit).
+2. 2~3분 뒤 `/admin` 에서 Vercel에 넣어 둔 `ADMIN_SETUP_PASSWORD` 로 들어가요.
+3. 첫 화면 아래 **[비밀번호 변경]** 에서 새 비밀번호를 만들어요.
+
+> 그래서 Vercel의 `ADMIN_SETUP_PASSWORD` 는 지우지 말고 남겨 두세요.
+
+**구글로 직접 찾기 (선택)**: `GOOGLE_CLIENT_ID`, `ALLOWED_GOOGLE_EMAILS` 를 넣고 Redeploy하면, 로그인 화면에 "비밀번호가 생각나지 않으세요?" 링크가 생겨요. 넣지 않으면 링크는 보이지 않아요.
 
 ---
 

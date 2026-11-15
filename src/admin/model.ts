@@ -208,7 +208,7 @@ export async function autoTranslate<T>(current: T, orig: unknown): Promise<{ val
 		const { translations, skipped } = await api.translate(todo.map((b) => b.ko));
 		failed = Boolean(skipped);
 		todo.forEach((b, i) => {
-			// 번역이 안 되면 일단 한국어를 그대로 넣어서 영어 화면이 비지 않게 해요.
+			// 번역이 안 되면 일단 한국어를 그대로 넣어요. 저장 뒤 GitHub 자동 번역(scripts/translate-data.js)이 이런 칸을 영어로 채워요.
 			// eslint-disable-next-line no-param-reassign
 			b.en = translations[i] || b.ko;
 		});

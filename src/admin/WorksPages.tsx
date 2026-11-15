@@ -215,7 +215,7 @@ export function WorkEdit() {
 		}
 		try {
 			dialog.setProgress({ title: "영어로 번역하는 중이에요…" });
-			const { value, failed } = await autoTranslate(work, isNew ? null : original);
+			const { value } = await autoTranslate(work, isNew ? null : original);
 			const uploaded = await uploadPhotos(value.images, `works/${value.id}`, (done, total) =>
 				dialog.setProgress({ title: "사진을 올리는 중이에요…", detail: `${total}장 중 ${done}장 끝났어요` })
 			);
@@ -234,12 +234,7 @@ export function WorkEdit() {
 			await go("/admin/works");
 			dialog.showDone({
 				title: isNew ? "새 작업을 올렸어요" : "저장했어요",
-				message: (
-					<>
-						{SAVED_MESSAGE}
-						{failed && <p style={{ marginTop: 8 }}>※ 이번에는 자동 번역이 안 되어 영어 화면에도 한국어로 보여요.</p>}
-					</>
-				),
+				message: SAVED_MESSAGE,
 				button: "닫기",
 			});
 		} catch (e) {
