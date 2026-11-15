@@ -2,20 +2,8 @@
 //   body: { items: string[] } → { translations: string[] }
 // Claude API(ANTHROPIC_API_KEY)를 사용해요. 키가 없으면 번역 없이 비워서 돌려줘요.
 
-const AnthropicModule = require("@anthropic-ai/sdk");
-
-const Anthropic = AnthropicModule.default || AnthropicModule;
 const auth = require("./_lib/auth");
-
-const SYSTEM = `You translate Korean text for the English version of the portfolio website of Park Mejung, a Korean fine-art photographer (still life).
-Rules:
-- Translate naturally, in the tone of a gallery/artist portfolio. Do not add or omit information.
-- Keep everything inside < > brackets as titles; translate the title text but keep the brackets.
-- Keep line breaks exactly as in the source.
-- Keep numbers, years, and existing English/Latin words as they are.
-- Place names: use the common English name (서울 → Seoul, 한국 → South Korea, 미국 → USA). Romanize gallery names that have no known English name.
-- Exhibition categories: 개인전 → solo exhibition, 단체전 → group exhibition, 아트페어 → art fairs, 수상 → awards.
-Return one translation per input item, in the same order.`;
+const { translateItems } = require("./_lib/translator");
 
 module.exports = async (req, res) => {
 	if (!auth.requireSession(req, res)) return undefined;
@@ -30,34 +18,7 @@ module.exports = async (req, res) => {
 	}
 
 	try {
-		const client = new Anthropic();
-		const response = await client.beta.messages.create({
-			model: "claude-opus-5-5",
-			max_tokens: 16000,
-			betas: ["server-side-fallback-2026-07-01"],
-			fallbacks: "default",
-			output_config: {
-				effort: "low",
-				format: {
-					type: "json_schema",
-					schema: {
-						type: "object",
-						properties: { translations: { type: "array", items: { type: "string" } } },
-						required: ["translations"],
-						additionalProperties: false,
-					},
-				},
-			},
-			system: SYSTEM,
-			messages: [{ role: "user", content: JSON.stringify({ items }) }],
-		});
-
-		if (response.stop_reason === "refusal") throw new Error("번역이 거절됐어요.");
-		const text = response.content.filter((b) => b.type === "text").map((b) => b.text).join("");
-		const { translations } = JSON.parse(text);
-		if (!Array.isArray(translations) || translations.length !== items.length) {
-			throw new Error("번역 결과 개수가 맞지 않아요.");
-		}
+		const translations = await translateItems(items);
 		return res.status(200).json({ translations });
 	} catch (e) {
 		console.error(e);

@@ -22,6 +22,8 @@ const ICON_NAMES = [
 	"chevron_left",
 	"chevron_right",
 	"delete",
+	"visibility",
+	"visibility_off",
 ] as const;
 export type IconName = typeof ICON_NAMES[number];
 

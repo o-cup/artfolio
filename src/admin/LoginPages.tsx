@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { api } from "./api";
-import { useDialog } from "./ui";
+import { Icon, useDialog } from "./ui";
 
 declare global {
 	interface Window {
@@ -77,24 +77,33 @@ function PasswordInput({
 			<label className="adm-label" htmlFor={id}>
 				{label}
 			</label>
-			<input
-				id={id}
-				className="adm-input"
-				style={{ fontSize: 18, letterSpacing: show ? 0 : 3 }}
-				type={show ? "text" : "password"}
-				value={value}
-				autoComplete={autoComplete}
-				// eslint-disable-next-line jsx-a11y/no-autofocus
-				autoFocus={autoFocus}
-				onChange={(e) => onChange(e.target.value)}
-				onKeyDown={(e) => {
-					if (e.key === "Enter" && onEnter) onEnter();
-				}}
-			/>
-			<label className="adm-toggle">
-				<input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} />
-				비밀번호 글자 보이게 하기
-			</label>
+			<div className="adm-pw">
+				<input
+					id={id}
+					className="adm-input"
+					style={{ letterSpacing: show ? 0 : 3 }}
+					type={show ? "text" : "password"}
+					value={value}
+					autoComplete={autoComplete}
+					// eslint-disable-next-line jsx-a11y/no-autofocus
+					autoFocus={autoFocus}
+					onChange={(e) => onChange(e.target.value)}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" && onEnter) onEnter();
+					}}
+				/>
+				{/* 눈 아이콘은 지금 상태를 보여줘요: 뜬 눈 = 글자 보임, 감은 눈 = 숨김 */}
+				<button
+					type="button"
+					className="adm-pw-eye"
+					onClick={() => setShow(!show)}
+					aria-label={show ? "비밀번호 숨기기" : "비밀번호 보기"}
+					aria-pressed={show}
+					title={show ? "비밀번호 숨기기" : "비밀번호 보기"}
+				>
+					<Icon name={show ? "visibility" : "visibility_off"} />
+				</button>
+			</div>
 		</div>
 	);
 }
@@ -134,10 +143,11 @@ export function LoginPage({ googleClientId, onLoggedIn }: { googleClientId: stri
 	return (
 		<div className="adm-login adm-stack">
 			<div className="adm-login-brand">
-				<p className="name">Parkmejung</p>
-				<p className="adm-muted">사이트 관리</p>
+				<p className="name">
+					Parkmejung<span className="adm-badge">admin</span>
+				</p>
 			</div>
-			<div className="adm-card adm-stack">
+			<div className="adm-stack">
 				<PasswordInput
 					label="비밀번호"
 					value={password}
@@ -148,33 +158,29 @@ export function LoginPage({ googleClientId, onLoggedIn }: { googleClientId: stri
 				/>
 				{error && <div className="adm-error">{error}</div>}
 				<button type="button" className="adm-btn big primary block" onClick={submit} disabled={busy}>
-					{busy ? "확인하는 중…" : "들어가기"}
+					{busy ? "확인하는 중…" : "로그인"}
 				</button>
-				<p className="adm-hint">한 번 들어가면 이 컴퓨터에서는 6개월 동안 다시 넣지 않아도 돼요.</p>
 			</div>
 
-			<div className="adm-card adm-stack">
-				{!forgot ? (
-					<button type="button" className="adm-linkbtn" onClick={() => setForgot(true)}>
-						비밀번호가 생각나지 않으세요?
-					</button>
-				) : (
-					<>
-						<h3>비밀번호가 생각나지 않을 때</h3>
-						{googleClientId ? (
-							<>
-								<p>
-									아래 <b>구글 버튼</b>을 눌러 본인 구글 계정(Gmail)으로 확인하면, 새 비밀번호를 만들
-									수 있어요.
-								</p>
-								<GoogleButton clientId={googleClientId} onCredential={onGoogle} />
-							</>
-						) : (
-							<p>구글 확인 기능이 아직 준비되지 않았어요. 따님께 연락해 주세요.</p>
-						)}
-					</>
-				)}
-			</div>
+			{/* 비밀번호 찾기(구글 확인)는 Vercel에 GOOGLE_CLIENT_ID를 넣었을 때만 보여요 */}
+			{googleClientId && (
+				<div className="adm-stack adm-login-forgot">
+					{!forgot ? (
+						<button type="button" className="adm-linkbtn" onClick={() => setForgot(true)}>
+							비밀번호가 생각나지 않으세요?
+						</button>
+					) : (
+						<>
+							<h3>비밀번호가 생각나지 않을 때</h3>
+							<p>
+								아래 <b>구글 버튼</b>을 눌러 본인 구글 계정(Gmail)으로 확인하면, 새 비밀번호를 만들 수
+								있어요.
+							</p>
+							<GoogleButton clientId={googleClientId} onCredential={onGoogle} />
+						</>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }
@@ -220,34 +226,35 @@ export function SetPasswordPage({
 
 	return (
 		<div className="adm-stack" style={{ maxWidth: 560, margin: "0 auto" }}>
+			{onCancel && (
+				<div>
+					<button type="button" className="adm-btn plain" style={{ paddingLeft: 8 }} onClick={onCancel}>
+						<Icon name="arrow_back" />
+						뒤로 가기
+					</button>
+				</div>
+			)}
 			<div>
-				<h1>{mode === "reset" ? "새 비밀번호 만들기" : "비밀번호 바꾸기"}</h1>
+				<h1>{mode === "reset" ? "새 비밀번호 만들기" : "비밀번호 변경"}</h1>
 				<p className="adm-muted" style={{ marginTop: 8 }}>
 					{mode === "reset"
 						? "구글 계정 확인이 끝났어요. 앞으로 쓸 새 비밀번호를 만들어 주세요."
-						: "앞으로 쓸 새 비밀번호를 두 번 똑같이 넣어 주세요."}
+						: "변경할 비밀번호를 입력해 주세요."}
 				</p>
 			</div>
-			<div className="adm-card adm-stack">
+			<div className="adm-stack">
 				<PasswordInput label="새 비밀번호 (6글자 이상)" value={pw} onChange={setPw} autoComplete="new-password" autoFocus />
 				<PasswordInput
-					label="새 비밀번호 한 번 더"
+					label="새 비밀번호 확인"
 					value={pw2}
 					onChange={setPw2}
 					autoComplete="new-password"
 					onEnter={submit}
 				/>
 				{error && <div className="adm-error">{error}</div>}
-				<div className="adm-row">
-					{onCancel && (
-						<button type="button" className="adm-btn big" onClick={onCancel}>
-							취소
-						</button>
-					)}
-					<button type="button" className="adm-btn big primary" style={{ flex: 1 }} onClick={submit}>
-						새 비밀번호 저장하기
-					</button>
-				</div>
+				<button type="button" className="adm-btn big primary block" onClick={submit}>
+					새 비밀번호로 변경
+				</button>
 			</div>
 		</div>
 	);

@@ -76,7 +76,7 @@ export function ExhibitionsList() {
 
 	return (
 		<div className="adm-stack">
-			<PageHead title="전시" desc="사이트에 보이는 순서대로(최신 전시가 위) 나와 있어요." back={() => go("/admin")}>
+			<PageHead title="전시" desc="사이트에 보이는 순서대로 나와 있어요." back={() => go("/admin")}>
 				<button type="button" className="adm-btn big primary" onClick={() => go("/admin/exhibitions/new")}>
 					<Icon name="add" />
 					새 전시
@@ -171,7 +171,7 @@ export function ExhibitionEdit() {
 		}
 		try {
 			dialog.setProgress({ title: "영어로 번역하는 중이에요…" });
-			const { value, failed } = await autoTranslate(ex, isNew ? null : original);
+			const { value } = await autoTranslate(ex, isNew ? null : original);
 			const folder = `exhibitions/${value.id}`;
 			const progress = (done: number, total: number) =>
 				dialog.setProgress({ title: "사진을 올리는 중이에요…", detail: `${total}장 중 ${done}장 끝났어요` });
@@ -197,12 +197,7 @@ export function ExhibitionEdit() {
 			await go("/admin/exhibitions");
 			dialog.showDone({
 				title: isNew ? "새 전시를 올렸어요" : "저장했어요",
-				message: (
-					<>
-						{SAVED_MESSAGE}
-						{failed && <p style={{ marginTop: 8 }}>※ 이번에는 자동 번역이 안 되어 영어 화면에도 한국어로 보여요.</p>}
-					</>
-				),
+				message: SAVED_MESSAGE,
 				button: "닫기",
 			});
 		} catch (e) {
