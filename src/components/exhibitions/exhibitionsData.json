@@ -1,442 +1,944 @@
- {
-	"ko": [
-		{
-			"id": "01",
-			"type": "단체전",
-			"title": "2019 <제 18회 동강국제사진제>",
-			"date": "2019/7/5 - 2019/9/29",
-			"location": "영월, 한국",
-			"posterUrl": "/exhibitions/01/0_poster.png",
-  		"imgCount": 7
-
-		},
-		{
-			"id": "02",
-			"type": "개인전",
-			"title": "<Baldwin 위의 정물>",
-			"date": "2019/9/3 - 2019/9/22",
-			"location": "브뤼셀 한국문화원, 브뤼셀, 벨기에",
-			"posterUrl": "/exhibitions/02/0_poster.jpeg",
-      "imgCount": 15
-		},
-		{
-			"id": "03",
-			"type": "단체전",
-			"title": "2019 한-벨 사진전 <STILL LIVES>",
-			"date": "2019/11/13 - 2020/1/30",
-			"location": "브뤼셀 한국문화원, 브뤼셀, 벨기에",
-			"posterUrl": "/exhibitions/03/0_poster.png",
-      "imgCount": 16
-		},
-		{
-			"id": "04",
-			"type": "단체전",
-			"title": "<2020 아시아프 히든 아티스트 페스티벌>",
-			"date": "2020/7/21 - 2020/8/16",
-			"location": "홍익대학교 현대미술관, 서울, 한국",
-			"posterUrl": "/exhibitions/04/0_poster.png",
-      "imgCount": 6
-		},
-		{
-			"id": "05",
-			"type": "개인전",
-			"title": "<보내야하는 사물들을 위한 정물, Vanity>",
-			"date": "2020/8/16 - 2020/8/31",
-			"location": "포토그랩스 291, 서울, 한국",
-			"posterUrl": "/exhibitions/05/0_poster.png",
-      "imgCount": 6
-		},
-		{
-			"id": "06",
-			"type": "단체전",
-			"title": "<포스트 코로나시대의 미술>",
-			"date": "2020/9/29 - 2021/1/10",
-			"location": "오산시립미술관, 경기도, 한국",
-			"posterUrl": "/exhibitions/06/0_poster.png",
-      "imgCount": 13
-		},
-		{
-			"id": "07",
-			"type": "단체전",
-			"title": "<2020 BIPF X LUMOS Portfolio Review 우수 포트폴리오 수상자전 (이질적 시간)>",
-			"date": "2021/1/16 - 2021/2/7",
-			"location": "아트스페이스 루모스, 대구, 한국",
-			"posterUrl": "/exhibitions/07/0_poster.png",
-      "imgCount": 16
-		},
-		{
-			"id": "08",
-			"type": "단체전",
-			"title": "<제9회 자문밖문화축제 “걷고, 사랑하고, 예술하라” 자문 밖 연합전(곳곳)>",
-			"date": "2021/10/4 - 2021/10/17",
-			"location": "갤러리 세줄, 서울, 한국",
-			"posterUrl": "/exhibitions/08/0_poster.png",
-      "imgCount": 3
-		},
-		{
-			"id": "09",
-			"type": "개인전",
-			"title": "<Baldwin 위의 정물>",
-			"date": "2023/5/1 - 2023/6/23",
-			"location": "반도카메라 라이카스토어, 서울, 한국",
-			"posterUrl": "/exhibitions/09/0_poster.png",
-      "imgCount": 3
-		},
-		{
-			"id": "10",
-			"type": "개인전",
-			"title": "<보내야하는 사물들을 위한 정물, Mourning>",
-			"date": "2024/1/5 - 2024/1/22",
-			"location": "룩인사이드, 서울, 한국",
-			"posterUrl": "/exhibitions/10/0_poster.jpeg",
-      "imgCount": 22
-		},
-		{
-			"id": "11",
-			"type": "단체전",
-			"title": "<STRANGER 몬테카를로의 사유>",
-			"date": "2024/1/25 - 2024/2/5",
-			"location": "수성방이갤러리, 서울, 한국",
-			"posterUrl": "/exhibitions/11/0_poster.jpeg",
-			"imgCount": 3
-		},
-		{
-			"id": "12",
-			"type": "단체전",
-			"title": "<그라운드 서학 2024>",
-			"date": "2024/3/21 - 2024/4/10",
-			"location": "아트갤러리 전주, 전주, 한국",
-			"posterUrl": "/exhibitions/12/0_poster.jpeg",
-			"imgCount": 6
-		},
-		{
-			"id": "13",
-			"type": "아트페어",
-			"title": "<체크 인 포토페어>",
-			"date": "2024/7/4 - 2024/7/7",
-			"location": "오션 스위츠 제주호텔, 제주, 한국",
-			"posterUrl": "/exhibitions/13/0_poster.jpeg",
-			"imgCount": 12
-		},
-		{
-			"id": "14",
-			"type": "단체전",
-			"title": "<언바운드 13!>",
-			"date": "2024/7/5 - 2024/8/3",
-			"location": "칸델라북스+갤러리, 리치몬드, 미국",
-			"posterUrl": "/exhibitions/14/0_poster.jpeg",
-			"imgCount": 13
-		},
-		{
-			"id": "15",
-			"type": "아트페어",
-			"title": "<K-PHOTO Fair 2024>",
-			"date": "2024/12/5 - 2024/12/8",
-			"location": "아지트 미술관, 서울, 한국",
-			"posterUrl": "/exhibitions/15/0_poster.jpeg",
-			"imgCount": 3
-		},
-		{
-			"id": "16",
-			"type": "단체전",
-			"title": "<희망을 전하다 4-1>",
-			"date": "2024/12/19 - 2024/12/29",
-			"location": "쿠아과학카페 갤러리, 대전, 한국",
-			"posterUrl": "/exhibitions/16/0_poster.jpeg",
-			"imgCount": 3
-		},
-		{
-			"id": "17",
-			"type": "저널",
-			"title": "Katalog Journal 35.1",
-			"date": "2025",
-			"location": "",
-			"posterUrl": "/exhibitions/17/0_poster.jpeg",
-			"imgCount": 5
-		},
-		{
-			"id": "18",
-			"type": "단체전",
-			"title": "<Remember 2024>",
-			"date": "2025/2/1 - 2025/2/17",
-			"location": "룩인사이드 갤러리, 서울, 한국",
-			"posterUrl": "/exhibitions/18/0_poster.jpeg",
-			"imgCount": 2
-		},
-		{
-			"id": "19",
-			"type": "단체전",
-			"title": "<희망을 전하다 4-2>",
-			"date": "2025/2/18 - 2025/3/2",
-			"location": "크림슨파더, 서울, 한국",
-			"posterUrl": "/exhibitions/19/0_poster.jpeg",
-			"imgCount": 4
-		},
-		{
-			"id": "20",
-			"type": "단체전",
-			"title": "<희망을 전하다 4-3>",
-			"date": "2025/3/19 - 2025/3/31",
-			"location": "룩인사이드 갤러리, 서울, 한국",
-			"posterUrl": "/exhibitions/20/0_poster.jpeg",
-			"imgCount": 5
-		},
-		{
-			"id": "21",
-			"type": "단체전",
-			"title": "<작은 것들의 위대함_Still Life>",
-			"date": "2025/4/21 - 2025/5/6",
-			"location": "갤러리 브레송, 서울, 한국",
-			"posterUrl": "/exhibitions/21/0_poster.jpeg",
-			"imgCount": 6
-		},
-		{
-			"id": "22",
-			"type": "아트페어",
-			"title": "<AIPAD Photography Show 2025>",
-			"date": "2025/4/23 - 2025/4/27",
-			"location": "Park Avenue Armory, 뉴욕, 미국",
-			"posterUrl": "/exhibitions/22/0_poster.jpeg",
-			"imgCount": 4
-		},
-		{
-			"id": "23",
-			"type": "개인전",
-			"title": "<보내야 하는 사물들을 위한 정물, Mourning>",
-			"date": "2025/5/2 - 2025/6/14",
-			"location": "칸델라북스+갤러리, 리치몬드, 미국",
-			"posterUrl": "/exhibitions/23/0_poster.jpeg",
-			"imgCount": 30
-		},
-		{
-			"id": "24",
-			"type": "단체전",
-			"title": "<STRANGER 단체전>",
-			"date": "2025/6/21 - 2025/6/27",
-			"location": "아지트 미술관, 서울, 한국",
-			"posterUrl": "/exhibitions/24/0_poster.jpeg",
-			"imgCount": 2
-		}
-		],
-	"en": [
-		{
-			"id": "01",
-			"type": "group exhibition",
-			"title": "2019 <18th Donggang International Photo Festival>",
-			"date": "5/7/2019 - 29/9/2019",
-			"location": "Yeongwol, South Korea",
-			"posterUrl": "/exhibitions/01/0_poster.png",
-      "imgCount": 7
-
-		},
-		{
-			"id": "02",
-			"type": "solo exhibition",
-			"title": "<Still Life with Baldwin>",
-			"date": "3/9/2019 - 22/9/2019",
-			"location": "Space 291, Seoul, South Korea",
-			"posterUrl": "/exhibitions/02/0_poster.jpeg",
-      "imgCount": 15
-
-		},
-		{
-			"id": "03",
-			"type": "group exhibition",
-			"title": "2019 <Korea-Belgium Photo Exhibition (STILL LIVES)>",
-			"date": "13/11/2019 - 30/1/2020",
-			"location": "Brussels Korean Cultural Center, Brussels, Belgium",
-			"posterUrl": "/exhibitions/03/0_poster.png",
-      "imgCount": 16
-		},
-		{
-			"id": "04",
-			"type": "group exhibition",
-			"title": "<2020 ASYAAF & Hiden Artist Festival>",
-			"date": "21/7/2020 - 16/8/2020",
-			"location": "HOMA(Hongik Museum of Art), Seoul, South Korea",
-			"posterUrl": "/exhibitions/04/0_poster.png",
-      "imgCount": 6
-		},
-
-		{
-			"id": "05",
-			"type": "solo exhibition",
-			"title": "<Still Life for Things that Need a Goodbye, Vanity>",
-			"date": "16/8/2020 - 31/8/2020",
-			"location": "Lotte Avenuel Photographs 291 Gallery, Seoul, South Korea ",
-			"posterUrl": "/exhibitions/05/0_poster.png",
-      "imgCount": 6
-		},
-		{
-			"id": "06",
-			"type": "group exhibition",
-			"title": "<Contemporary Art in the Post-COVID-19 Era>",
-			"date": "29/9/2020 - 10/1/2021",
-			"location": "Osan Museum of Art, Gyeonggi, South Korea",
-			"posterUrl": "/exhibitions/06/0_poster.png",
-      "imgCount": 13
-		},
-		{
-			"id": "07",
-			"type": "group exhibition",
-			"title": "<2020 BIPF X LUMOS Portfolio Review Winners Exhibition (Disparate Time)>",
-			"date": "16/1/2021 - 7/2/2021",
-			"location": "Art Space Lumos, Daegu, South Korea",
-			"posterUrl": "/exhibitions/07/0_poster.png",
-      "imgCount": 16
-		},
-		{
-			"id": "08",
-			"type": "group exhibition",
-      "title": "2021 <The 9th Culture Festival \"Walk, Love, and Art\">",
-			"date": "4/10/2021 - 17/10/2021",
-			"location": "Gallery Sejul, Seoul, South Korea",
-			"posterUrl": "/exhibitions/08/0_poster.png",
-      "imgCount": 3
-		},
-		{
-			"id": "09",
-			"type": "solo exhibition",
+{
+  "ko": [
+    {
+      "id": "01",
+      "type": "단체전",
+      "title": "2019 <제 18회 동강국제사진제>",
+      "date": "2019/7/5 - 2019/9/29",
+      "location": "영월, 한국",
+      "posterUrl": "/exhibitions/01/0_poster.png",
+      "imgCount": 7,
+      "images": [
+        "/exhibitions/01/1.jpeg",
+        "/exhibitions/01/2.jpeg",
+        "/exhibitions/01/3.jpeg",
+        "/exhibitions/01/4.jpeg",
+        "/exhibitions/01/5.jpeg",
+        "/exhibitions/01/6.jpeg",
+        "/exhibitions/01/7.jpeg"
+      ]
+    },
+    {
+      "id": "02",
+      "type": "개인전",
+      "title": "<Baldwin 위의 정물>",
+      "date": "2019/9/3 - 2019/9/22",
+      "location": "브뤼셀 한국문화원, 브뤼셀, 벨기에",
+      "posterUrl": "/exhibitions/02/0_poster.jpeg",
+      "imgCount": 15,
+      "images": [
+        "/exhibitions/02/1.jpeg",
+        "/exhibitions/02/2.jpeg",
+        "/exhibitions/02/3.jpeg",
+        "/exhibitions/02/4.jpeg",
+        "/exhibitions/02/5.jpeg",
+        "/exhibitions/02/6.jpeg",
+        "/exhibitions/02/7.jpeg",
+        "/exhibitions/02/8.jpeg",
+        "/exhibitions/02/9.jpeg",
+        "/exhibitions/02/10.jpeg",
+        "/exhibitions/02/11.jpeg",
+        "/exhibitions/02/12.jpeg",
+        "/exhibitions/02/13.jpeg",
+        "/exhibitions/02/14.jpeg",
+        "/exhibitions/02/15.jpeg"
+      ]
+    },
+    {
+      "id": "03",
+      "type": "단체전",
+      "title": "2019 한-벨 사진전 <STILL LIVES>",
+      "date": "2019/11/13 - 2020/1/30",
+      "location": "브뤼셀 한국문화원, 브뤼셀, 벨기에",
+      "posterUrl": "/exhibitions/03/0_poster.png",
+      "imgCount": 16,
+      "images": [
+        "/exhibitions/03/1.jpeg",
+        "/exhibitions/03/2.jpeg",
+        "/exhibitions/03/3.jpeg",
+        "/exhibitions/03/4.jpeg",
+        "/exhibitions/03/5.jpeg",
+        "/exhibitions/03/6.jpeg",
+        "/exhibitions/03/7.jpeg",
+        "/exhibitions/03/8.jpeg",
+        "/exhibitions/03/9.jpeg",
+        "/exhibitions/03/10.jpeg",
+        "/exhibitions/03/11.jpeg",
+        "/exhibitions/03/12.jpeg",
+        "/exhibitions/03/13.jpeg",
+        "/exhibitions/03/14.jpeg",
+        "/exhibitions/03/15.jpeg",
+        "/exhibitions/03/16.jpeg"
+      ]
+    },
+    {
+      "id": "04",
+      "type": "단체전",
+      "title": "<2020 아시아프 히든 아티스트 페스티벌>",
+      "date": "2020/7/21 - 2020/8/16",
+      "location": "홍익대학교 현대미술관, 서울, 한국",
+      "posterUrl": "/exhibitions/04/0_poster.png",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/04/1.jpeg",
+        "/exhibitions/04/2.jpeg",
+        "/exhibitions/04/3.jpeg",
+        "/exhibitions/04/4.jpeg",
+        "/exhibitions/04/5.jpeg",
+        "/exhibitions/04/6.jpeg"
+      ]
+    },
+    {
+      "id": "05",
+      "type": "개인전",
+      "title": "<보내야하는 사물들을 위한 정물, Vanity>",
+      "date": "2020/8/16 - 2020/8/31",
+      "location": "포토그랩스 291, 서울, 한국",
+      "posterUrl": "/exhibitions/05/0_poster.png",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/05/1.jpeg",
+        "/exhibitions/05/2.jpeg",
+        "/exhibitions/05/3.jpeg",
+        "/exhibitions/05/4.jpeg",
+        "/exhibitions/05/5.jpeg",
+        "/exhibitions/05/6.jpeg"
+      ]
+    },
+    {
+      "id": "06",
+      "type": "단체전",
+      "title": "<포스트 코로나시대의 미술>",
+      "date": "2020/9/29 - 2021/1/10",
+      "location": "오산시립미술관, 경기도, 한국",
+      "posterUrl": "/exhibitions/06/0_poster.png",
+      "imgCount": 13,
+      "images": [
+        "/exhibitions/06/1.jpeg",
+        "/exhibitions/06/2.jpeg",
+        "/exhibitions/06/3.jpeg",
+        "/exhibitions/06/4.jpeg",
+        "/exhibitions/06/5.jpeg",
+        "/exhibitions/06/6.jpeg",
+        "/exhibitions/06/7.jpeg",
+        "/exhibitions/06/8.jpeg",
+        "/exhibitions/06/9.jpeg",
+        "/exhibitions/06/10.jpeg",
+        "/exhibitions/06/11.jpeg",
+        "/exhibitions/06/12.jpeg",
+        "/exhibitions/06/13.jpeg"
+      ]
+    },
+    {
+      "id": "07",
+      "type": "단체전",
+      "title": "<2020 BIPF X LUMOS Portfolio Review 우수 포트폴리오 수상자전 (이질적 시간)>",
+      "date": "2021/1/16 - 2021/2/7",
+      "location": "아트스페이스 루모스, 대구, 한국",
+      "posterUrl": "/exhibitions/07/0_poster.png",
+      "imgCount": 16,
+      "images": [
+        "/exhibitions/07/1.jpeg",
+        "/exhibitions/07/2.jpeg",
+        "/exhibitions/07/3.jpeg",
+        "/exhibitions/07/4.jpeg",
+        "/exhibitions/07/5.jpeg",
+        "/exhibitions/07/6.jpeg",
+        "/exhibitions/07/7.jpeg",
+        "/exhibitions/07/8.jpeg",
+        "/exhibitions/07/9.jpeg",
+        "/exhibitions/07/10.jpeg",
+        "/exhibitions/07/11.jpeg",
+        "/exhibitions/07/12.jpeg",
+        "/exhibitions/07/13.jpeg",
+        "/exhibitions/07/14.jpeg",
+        "/exhibitions/07/15.jpeg",
+        "/exhibitions/07/16.jpeg"
+      ]
+    },
+    {
+      "id": "08",
+      "type": "단체전",
+      "title": "<제9회 자문밖문화축제 “걷고, 사랑하고, 예술하라” 자문 밖 연합전(곳곳)>",
+      "date": "2021/10/4 - 2021/10/17",
+      "location": "갤러리 세줄, 서울, 한국",
+      "posterUrl": "/exhibitions/08/0_poster.png",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/08/1.jpeg",
+        "/exhibitions/08/2.jpeg",
+        "/exhibitions/08/3.jpeg"
+      ]
+    },
+    {
+      "id": "09",
+      "type": "개인전",
+      "title": "<Baldwin 위의 정물>",
+      "date": "2023/5/1 - 2023/6/23",
+      "location": "반도카메라 라이카스토어, 서울, 한국",
+      "posterUrl": "/exhibitions/09/0_poster.png",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/09/1.jpeg",
+        "/exhibitions/09/2.jpeg",
+        "/exhibitions/09/3.jpeg"
+      ]
+    },
+    {
+      "id": "10",
+      "type": "개인전",
+      "title": "<보내야하는 사물들을 위한 정물, Mourning>",
+      "date": "2024/1/5 - 2024/1/22",
+      "location": "룩인사이드, 서울, 한국",
+      "posterUrl": "/exhibitions/10/0_poster.jpeg",
+      "imgCount": 22,
+      "images": [
+        "/exhibitions/10/1.jpeg",
+        "/exhibitions/10/2.jpeg",
+        "/exhibitions/10/3.jpeg",
+        "/exhibitions/10/4.jpeg",
+        "/exhibitions/10/5.jpeg",
+        "/exhibitions/10/6.jpeg",
+        "/exhibitions/10/7.jpeg",
+        "/exhibitions/10/8.jpeg",
+        "/exhibitions/10/9.jpeg",
+        "/exhibitions/10/10.jpeg",
+        "/exhibitions/10/11.jpeg",
+        "/exhibitions/10/12.jpeg",
+        "/exhibitions/10/13.jpeg",
+        "/exhibitions/10/14.jpeg",
+        "/exhibitions/10/15.jpeg",
+        "/exhibitions/10/16.jpeg",
+        "/exhibitions/10/17.jpeg",
+        "/exhibitions/10/18.jpeg",
+        "/exhibitions/10/19.jpeg",
+        "/exhibitions/10/20.jpeg",
+        "/exhibitions/10/21.jpeg",
+        "/exhibitions/10/22.jpeg"
+      ]
+    },
+    {
+      "id": "11",
+      "type": "단체전",
+      "title": "<STRANGER 몬테카를로의 사유>",
+      "date": "2024/1/25 - 2024/2/5",
+      "location": "수성방이갤러리, 서울, 한국",
+      "posterUrl": "/exhibitions/11/0_poster.jpeg",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/11/1.jpeg",
+        "/exhibitions/11/2.jpeg",
+        "/exhibitions/11/3.jpeg"
+      ]
+    },
+    {
+      "id": "12",
+      "type": "단체전",
+      "title": "<그라운드 서학 2024>",
+      "date": "2024/3/21 - 2024/4/10",
+      "location": "아트갤러리 전주, 전주, 한국",
+      "posterUrl": "/exhibitions/12/0_poster.jpeg",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/12/1.jpeg",
+        "/exhibitions/12/2.jpeg",
+        "/exhibitions/12/3.jpeg",
+        "/exhibitions/12/4.jpeg",
+        "/exhibitions/12/5.jpeg",
+        "/exhibitions/12/6.jpeg"
+      ]
+    },
+    {
+      "id": "13",
+      "type": "아트페어",
+      "title": "<체크 인 포토페어>",
+      "date": "2024/7/4 - 2024/7/7",
+      "location": "오션 스위츠 제주호텔, 제주, 한국",
+      "posterUrl": "/exhibitions/13/0_poster.jpeg",
+      "imgCount": 12,
+      "images": [
+        "/exhibitions/13/1.jpeg",
+        "/exhibitions/13/2.jpeg",
+        "/exhibitions/13/3.jpeg",
+        "/exhibitions/13/4.jpeg",
+        "/exhibitions/13/5.jpeg",
+        "/exhibitions/13/6.jpeg",
+        "/exhibitions/13/7.jpeg",
+        "/exhibitions/13/8.jpeg",
+        "/exhibitions/13/9.jpeg",
+        "/exhibitions/13/10.jpeg",
+        "/exhibitions/13/11.jpeg",
+        "/exhibitions/13/12.jpeg"
+      ]
+    },
+    {
+      "id": "14",
+      "type": "단체전",
+      "title": "<언바운드 13!>",
+      "date": "2024/7/5 - 2024/8/3",
+      "location": "칸델라북스+갤러리, 리치몬드, 미국",
+      "posterUrl": "/exhibitions/14/0_poster.jpeg",
+      "imgCount": 13,
+      "images": [
+        "/exhibitions/14/1.jpeg",
+        "/exhibitions/14/2.jpeg",
+        "/exhibitions/14/3.jpeg",
+        "/exhibitions/14/4.jpeg",
+        "/exhibitions/14/5.jpeg",
+        "/exhibitions/14/6.jpeg",
+        "/exhibitions/14/7.jpeg",
+        "/exhibitions/14/8.jpeg",
+        "/exhibitions/14/9.jpeg",
+        "/exhibitions/14/10.jpeg",
+        "/exhibitions/14/11.jpeg",
+        "/exhibitions/14/12.jpeg",
+        "/exhibitions/14/13.jpeg"
+      ]
+    },
+    {
+      "id": "15",
+      "type": "아트페어",
+      "title": "<K-PHOTO Fair 2024>",
+      "date": "2024/12/5 - 2024/12/8",
+      "location": "아지트 미술관, 서울, 한국",
+      "posterUrl": "/exhibitions/15/0_poster.jpeg",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/15/1.jpeg",
+        "/exhibitions/15/2.jpeg",
+        "/exhibitions/15/3.jpeg"
+      ]
+    },
+    {
+      "id": "16",
+      "type": "단체전",
+      "title": "<희망을 전하다 4-1>",
+      "date": "2024/12/19 - 2024/12/29",
+      "location": "쿠아과학카페 갤러리, 대전, 한국",
+      "posterUrl": "/exhibitions/16/0_poster.jpeg",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/16/1.jpeg",
+        "/exhibitions/16/2.jpeg",
+        "/exhibitions/16/3.jpeg"
+      ]
+    },
+    {
+      "id": "17",
+      "type": "저널",
+      "title": "Katalog Journal 35.1",
+      "date": "2025",
+      "location": "",
+      "posterUrl": "/exhibitions/17/0_poster.jpeg",
+      "imgCount": 5,
+      "images": [
+        "/exhibitions/17/1.jpeg",
+        "/exhibitions/17/2.jpeg",
+        "/exhibitions/17/3.jpeg",
+        "/exhibitions/17/4.jpeg",
+        "/exhibitions/17/5.jpeg"
+      ]
+    },
+    {
+      "id": "18",
+      "type": "단체전",
+      "title": "<Remember 2024>",
+      "date": "2025/2/1 - 2025/2/17",
+      "location": "룩인사이드 갤러리, 서울, 한국",
+      "posterUrl": "/exhibitions/18/0_poster.jpeg",
+      "imgCount": 2,
+      "images": [
+        "/exhibitions/18/1.jpeg",
+        "/exhibitions/18/2.jpeg"
+      ]
+    },
+    {
+      "id": "19",
+      "type": "단체전",
+      "title": "<희망을 전하다 4-2>",
+      "date": "2025/2/18 - 2025/3/2",
+      "location": "크림슨파더, 서울, 한국",
+      "posterUrl": "/exhibitions/19/0_poster.jpeg",
+      "imgCount": 4,
+      "images": [
+        "/exhibitions/19/1.jpeg",
+        "/exhibitions/19/2.jpeg",
+        "/exhibitions/19/3.jpeg",
+        "/exhibitions/19/4.jpeg"
+      ]
+    },
+    {
+      "id": "20",
+      "type": "단체전",
+      "title": "<희망을 전하다 4-3>",
+      "date": "2025/3/19 - 2025/3/31",
+      "location": "룩인사이드 갤러리, 서울, 한국",
+      "posterUrl": "/exhibitions/20/0_poster.jpeg",
+      "imgCount": 5,
+      "images": [
+        "/exhibitions/20/1.jpeg",
+        "/exhibitions/20/2.jpeg",
+        "/exhibitions/20/3.jpeg",
+        "/exhibitions/20/4.jpeg",
+        "/exhibitions/20/5.jpeg"
+      ]
+    },
+    {
+      "id": "21",
+      "type": "단체전",
+      "title": "<작은 것들의 위대함_Still Life>",
+      "date": "2025/4/21 - 2025/5/6",
+      "location": "갤러리 브레송, 서울, 한국",
+      "posterUrl": "/exhibitions/21/0_poster.jpeg",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/21/1.jpeg",
+        "/exhibitions/21/2.jpeg",
+        "/exhibitions/21/3.jpeg",
+        "/exhibitions/21/4.jpeg",
+        "/exhibitions/21/5.jpeg",
+        "/exhibitions/21/6.jpeg"
+      ]
+    },
+    {
+      "id": "22",
+      "type": "아트페어",
+      "title": "<AIPAD Photography Show 2025>",
+      "date": "2025/4/23 - 2025/4/27",
+      "location": "Park Avenue Armory, 뉴욕, 미국",
+      "posterUrl": "/exhibitions/22/0_poster.jpeg",
+      "imgCount": 4,
+      "images": [
+        "/exhibitions/22/1.jpeg",
+        "/exhibitions/22/2.jpeg",
+        "/exhibitions/22/3.jpeg",
+        "/exhibitions/22/4.jpeg"
+      ]
+    },
+    {
+      "id": "23",
+      "type": "개인전",
+      "title": "<보내야 하는 사물들을 위한 정물, Mourning>",
+      "date": "2025/5/2 - 2025/6/14",
+      "location": "칸델라북스+갤러리, 리치몬드, 미국",
+      "posterUrl": "/exhibitions/23/0_poster.jpeg",
+      "imgCount": 30,
+      "images": [
+        "/exhibitions/23/1.jpeg",
+        "/exhibitions/23/2.jpeg",
+        "/exhibitions/23/3.jpeg",
+        "/exhibitions/23/4.jpeg",
+        "/exhibitions/23/5.jpeg",
+        "/exhibitions/23/6.jpeg",
+        "/exhibitions/23/7.jpeg",
+        "/exhibitions/23/8.jpeg",
+        "/exhibitions/23/9.jpeg",
+        "/exhibitions/23/10.jpeg",
+        "/exhibitions/23/11.jpeg",
+        "/exhibitions/23/12.jpeg",
+        "/exhibitions/23/13.jpeg",
+        "/exhibitions/23/14.jpeg",
+        "/exhibitions/23/15.jpeg",
+        "/exhibitions/23/16.jpeg",
+        "/exhibitions/23/17.jpeg",
+        "/exhibitions/23/18.jpeg",
+        "/exhibitions/23/19.jpeg",
+        "/exhibitions/23/20.jpeg",
+        "/exhibitions/23/21.jpeg",
+        "/exhibitions/23/22.jpeg",
+        "/exhibitions/23/23.jpeg",
+        "/exhibitions/23/24.jpeg",
+        "/exhibitions/23/25.jpeg",
+        "/exhibitions/23/26.jpeg",
+        "/exhibitions/23/27.jpeg",
+        "/exhibitions/23/28.jpeg",
+        "/exhibitions/23/29.jpeg",
+        "/exhibitions/23/30.jpeg"
+      ]
+    },
+    {
+      "id": "24",
+      "type": "단체전",
+      "title": "<STRANGER 단체전>",
+      "date": "2025/6/21 - 2025/6/27",
+      "location": "아지트 미술관, 서울, 한국",
+      "posterUrl": "/exhibitions/24/0_poster.jpeg",
+      "imgCount": 2,
+      "images": [
+        "/exhibitions/24/1.jpeg",
+        "/exhibitions/24/2.jpeg"
+      ]
+    }
+  ],
+  "en": [
+    {
+      "id": "01",
+      "type": "group exhibition",
+      "title": "2019 <18th Donggang International Photo Festival>",
+      "date": "5/7/2019 - 29/9/2019",
+      "location": "Yeongwol, South Korea",
+      "posterUrl": "/exhibitions/01/0_poster.png",
+      "imgCount": 7,
+      "images": [
+        "/exhibitions/01/1.jpeg",
+        "/exhibitions/01/2.jpeg",
+        "/exhibitions/01/3.jpeg",
+        "/exhibitions/01/4.jpeg",
+        "/exhibitions/01/5.jpeg",
+        "/exhibitions/01/6.jpeg",
+        "/exhibitions/01/7.jpeg"
+      ]
+    },
+    {
+      "id": "02",
+      "type": "solo exhibition",
       "title": "<Still Life with Baldwin>",
-			"date": "1/5/2023 - 23/6/2023",
-			"location": "Bando Camera Leica Store, Seoul, South Korea",
-			"posterUrl": "/exhibitions/09/0_poster.png",
-      "imgCount": 3
-		},
-		{
-			"id": "10",
-			"type": "solo exhibition",
-			"title": "<Still Life for Things that Need a Goodbye, Mourning>",
-			"date": "5/1/2024 - 22/1/2024",
-			"location": "Gallery Look-in-side, Seoul, South Korea",
-			"posterUrl": "/exhibitions/10/0_poster.jpeg",
-      "imgCount": 22
-		},
-		{
-			"id": "11",
-			"type": "group exhibition",
-			"title": "<STRANGER Monte Carlo Meditation>",
-			"date": "25/1/2024 - 5/2/2024",
-			"location": "Suseong Bangi Building, Seoul, South Korea",
-			"posterUrl": "/exhibitions/11/0_poster.jpeg",
-			"imgCount": 3
-		},
-		{
-			"id": "12",
-			"type": "group exhibition",
-			"title": "<Ground Seohak 2024>",
-			"date": "21/3/2024 - 10/4/2024",
-			"location": "Art Gallery Jeonju, Jeonju, South Korea",
-			"posterUrl": "/exhibitions/12/0_poster.jpeg",
-			"imgCount": 6
-		},
-		{
-			"id": "13",
-			"type": "art fair",
-			"title": "<Check-in Photo Fair>",
-			"date": "4/7/2024 - 7/7/2024",
-			"location": "Ocean Suites Jeju Hotel, Jeju, South Korea",
-			"posterUrl": "/exhibitions/13/0_poster.jpeg",
-			"imgCount": 12
-		},
-		{
-			"id": "14",
-			"type": "group exhibition",
-			"title": "<Unbound 13!>",
-			"date": "5/7/2024 - 3/8/2024",
-			"location": "Candela Books + Gallery, Richmond, USA",
-			"posterUrl": "/exhibitions/14/0_poster.jpeg",
-			"imgCount": 13
-		},
-		{
-			"id": "15",
-			"type": "art fair",
-			"title": "<K-PHOTO Fair 2024>",
-			"date": "5/12/2024 - 8/12/2024",
-			"location": "AZIT Museum, Seoul, South Korea",
-			"posterUrl": "/exhibitions/15/0_poster.jpeg",
-			"imgCount": 3
-		},
-		{
-			"id": "16",
-			"type": "group exhibition",
-			"title": "<Delivering Hope 4-1>",
-			"date": "19/12/2024 - 29/12/2024",
-			"location": "Qua Science Cafe Gallery, Daejeon, South Korea",
-			"posterUrl": "/exhibitions/16/0_poster.jpeg",
-			"imgCount": 3
-		},
-		{
-			"id": "17",
-			"type": "journal",
-			"title": "Katalog Journal 35.1",
-			"date": "2025",
-			"location": "",
-			"posterUrl": "/exhibitions/17/0_poster.jpeg",
-			"imgCount": 5
-		},
-		{
-			"id": "18",
-			"type": "group exhibition",
-			"title": "<Remember 2024>",
-			"date": "1/2/2025 - 17/2/2025",
-			"location": "Gallery Look-in-side, Seoul, South Korea",
-			"posterUrl": "/exhibitions/18/0_poster.jpeg",
-			"imgCount": 2
-		},
-		{
-			"id": "19",
-			"type": "group exhibition",
-			"title": "<Delivering Hope 4-2>",
-			"date": "18/2/2025 - 2/3/2025",
-			"location": "Creamson Father, Seoul, South Korea",
-			"posterUrl": "/exhibitions/19/0_poster.jpeg",
-			"imgCount": 4
-		},
-		{
-			"id": "20",
-			"type": "group exhibition",
-			"title": "<Delivering Hope 4-3>",
-			"date": "19/3/2025 - 31/3/2025",
-			"location": "Gallery Look-in-side, Seoul, South Korea",
-			"posterUrl": "/exhibitions/20/0_poster.jpeg",
-			"imgCount": 5
-		},
-		{
-			"id": "21",
-			"type": "group exhibition",
-			"title": "<The Greatness of Small Things_Still Life>",
-			"date": "21/4/2025 - 6/5/2025",
-			"location": "Gallery Bresson, Seoul, South Korea",
-			"posterUrl": "/exhibitions/21/0_poster.jpeg",
-			"imgCount": 6
-		},
-		{
-			"id": "22",
-			"type": "art fair",
-			"title": "<AIPAD Photography Show 2025>",
-			"date": "23/4/2025 - 27/4/2025",
-			"location": "Park Avenue Armory, New York, USA",
-			"posterUrl": "/exhibitions/22/0_poster.jpeg",
-			"imgCount": 4
-		},
-		{
-			"id": "23",
-			"type": "solo exhibition",
-			"title": "<Still Life for Things that Need a Goodbye, Mourning>",
-			"date": "2/5/2025 - 14/6/2025",
-			"location": "Candela Books + Gallery, Richmond, USA",
-			"posterUrl": "/exhibitions/23/0_poster.jpeg",
-			"imgCount": 30
-		},
-		{
-			"id": "24",
-			"type": "group exhibition",
-			"title": "<STRANGER>",
-			"date": "21/6/2025 - 27/6/2025",
-			"location": "AZIT Museum, Seoul, South Korea",
-			"posterUrl": "/exhibitions/24/0_poster.jpeg",
-			"imgCount": 2
-		}
-	]
+      "date": "3/9/2019 - 22/9/2019",
+      "location": "Space 291, Seoul, South Korea",
+      "posterUrl": "/exhibitions/02/0_poster.jpeg",
+      "imgCount": 15,
+      "images": [
+        "/exhibitions/02/1.jpeg",
+        "/exhibitions/02/2.jpeg",
+        "/exhibitions/02/3.jpeg",
+        "/exhibitions/02/4.jpeg",
+        "/exhibitions/02/5.jpeg",
+        "/exhibitions/02/6.jpeg",
+        "/exhibitions/02/7.jpeg",
+        "/exhibitions/02/8.jpeg",
+        "/exhibitions/02/9.jpeg",
+        "/exhibitions/02/10.jpeg",
+        "/exhibitions/02/11.jpeg",
+        "/exhibitions/02/12.jpeg",
+        "/exhibitions/02/13.jpeg",
+        "/exhibitions/02/14.jpeg",
+        "/exhibitions/02/15.jpeg"
+      ]
+    },
+    {
+      "id": "03",
+      "type": "group exhibition",
+      "title": "2019 <Korea-Belgium Photo Exhibition (STILL LIVES)>",
+      "date": "13/11/2019 - 30/1/2020",
+      "location": "Brussels Korean Cultural Center, Brussels, Belgium",
+      "posterUrl": "/exhibitions/03/0_poster.png",
+      "imgCount": 16,
+      "images": [
+        "/exhibitions/03/1.jpeg",
+        "/exhibitions/03/2.jpeg",
+        "/exhibitions/03/3.jpeg",
+        "/exhibitions/03/4.jpeg",
+        "/exhibitions/03/5.jpeg",
+        "/exhibitions/03/6.jpeg",
+        "/exhibitions/03/7.jpeg",
+        "/exhibitions/03/8.jpeg",
+        "/exhibitions/03/9.jpeg",
+        "/exhibitions/03/10.jpeg",
+        "/exhibitions/03/11.jpeg",
+        "/exhibitions/03/12.jpeg",
+        "/exhibitions/03/13.jpeg",
+        "/exhibitions/03/14.jpeg",
+        "/exhibitions/03/15.jpeg",
+        "/exhibitions/03/16.jpeg"
+      ]
+    },
+    {
+      "id": "04",
+      "type": "group exhibition",
+      "title": "<2020 ASYAAF & Hiden Artist Festival>",
+      "date": "21/7/2020 - 16/8/2020",
+      "location": "HOMA(Hongik Museum of Art), Seoul, South Korea",
+      "posterUrl": "/exhibitions/04/0_poster.png",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/04/1.jpeg",
+        "/exhibitions/04/2.jpeg",
+        "/exhibitions/04/3.jpeg",
+        "/exhibitions/04/4.jpeg",
+        "/exhibitions/04/5.jpeg",
+        "/exhibitions/04/6.jpeg"
+      ]
+    },
+    {
+      "id": "05",
+      "type": "solo exhibition",
+      "title": "<Still Life for Things that Need a Goodbye, Vanity>",
+      "date": "16/8/2020 - 31/8/2020",
+      "location": "Lotte Avenuel Photographs 291 Gallery, Seoul, South Korea ",
+      "posterUrl": "/exhibitions/05/0_poster.png",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/05/1.jpeg",
+        "/exhibitions/05/2.jpeg",
+        "/exhibitions/05/3.jpeg",
+        "/exhibitions/05/4.jpeg",
+        "/exhibitions/05/5.jpeg",
+        "/exhibitions/05/6.jpeg"
+      ]
+    },
+    {
+      "id": "06",
+      "type": "group exhibition",
+      "title": "<Contemporary Art in the Post-COVID-19 Era>",
+      "date": "29/9/2020 - 10/1/2021",
+      "location": "Osan Museum of Art, Gyeonggi, South Korea",
+      "posterUrl": "/exhibitions/06/0_poster.png",
+      "imgCount": 13,
+      "images": [
+        "/exhibitions/06/1.jpeg",
+        "/exhibitions/06/2.jpeg",
+        "/exhibitions/06/3.jpeg",
+        "/exhibitions/06/4.jpeg",
+        "/exhibitions/06/5.jpeg",
+        "/exhibitions/06/6.jpeg",
+        "/exhibitions/06/7.jpeg",
+        "/exhibitions/06/8.jpeg",
+        "/exhibitions/06/9.jpeg",
+        "/exhibitions/06/10.jpeg",
+        "/exhibitions/06/11.jpeg",
+        "/exhibitions/06/12.jpeg",
+        "/exhibitions/06/13.jpeg"
+      ]
+    },
+    {
+      "id": "07",
+      "type": "group exhibition",
+      "title": "<2020 BIPF X LUMOS Portfolio Review Winners Exhibition (Disparate Time)>",
+      "date": "16/1/2021 - 7/2/2021",
+      "location": "Art Space Lumos, Daegu, South Korea",
+      "posterUrl": "/exhibitions/07/0_poster.png",
+      "imgCount": 16,
+      "images": [
+        "/exhibitions/07/1.jpeg",
+        "/exhibitions/07/2.jpeg",
+        "/exhibitions/07/3.jpeg",
+        "/exhibitions/07/4.jpeg",
+        "/exhibitions/07/5.jpeg",
+        "/exhibitions/07/6.jpeg",
+        "/exhibitions/07/7.jpeg",
+        "/exhibitions/07/8.jpeg",
+        "/exhibitions/07/9.jpeg",
+        "/exhibitions/07/10.jpeg",
+        "/exhibitions/07/11.jpeg",
+        "/exhibitions/07/12.jpeg",
+        "/exhibitions/07/13.jpeg",
+        "/exhibitions/07/14.jpeg",
+        "/exhibitions/07/15.jpeg",
+        "/exhibitions/07/16.jpeg"
+      ]
+    },
+    {
+      "id": "08",
+      "type": "group exhibition",
+      "title": "2021 <The 9th Culture Festival \"Walk, Love, and Art\">",
+      "date": "4/10/2021 - 17/10/2021",
+      "location": "Gallery Sejul, Seoul, South Korea",
+      "posterUrl": "/exhibitions/08/0_poster.png",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/08/1.jpeg",
+        "/exhibitions/08/2.jpeg",
+        "/exhibitions/08/3.jpeg"
+      ]
+    },
+    {
+      "id": "09",
+      "type": "solo exhibition",
+      "title": "<Still Life with Baldwin>",
+      "date": "1/5/2023 - 23/6/2023",
+      "location": "Bando Camera Leica Store, Seoul, South Korea",
+      "posterUrl": "/exhibitions/09/0_poster.png",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/09/1.jpeg",
+        "/exhibitions/09/2.jpeg",
+        "/exhibitions/09/3.jpeg"
+      ]
+    },
+    {
+      "id": "10",
+      "type": "solo exhibition",
+      "title": "<Still Life for Things that Need a Goodbye, Mourning>",
+      "date": "5/1/2024 - 22/1/2024",
+      "location": "Gallery Look-in-side, Seoul, South Korea",
+      "posterUrl": "/exhibitions/10/0_poster.jpeg",
+      "imgCount": 22,
+      "images": [
+        "/exhibitions/10/1.jpeg",
+        "/exhibitions/10/2.jpeg",
+        "/exhibitions/10/3.jpeg",
+        "/exhibitions/10/4.jpeg",
+        "/exhibitions/10/5.jpeg",
+        "/exhibitions/10/6.jpeg",
+        "/exhibitions/10/7.jpeg",
+        "/exhibitions/10/8.jpeg",
+        "/exhibitions/10/9.jpeg",
+        "/exhibitions/10/10.jpeg",
+        "/exhibitions/10/11.jpeg",
+        "/exhibitions/10/12.jpeg",
+        "/exhibitions/10/13.jpeg",
+        "/exhibitions/10/14.jpeg",
+        "/exhibitions/10/15.jpeg",
+        "/exhibitions/10/16.jpeg",
+        "/exhibitions/10/17.jpeg",
+        "/exhibitions/10/18.jpeg",
+        "/exhibitions/10/19.jpeg",
+        "/exhibitions/10/20.jpeg",
+        "/exhibitions/10/21.jpeg",
+        "/exhibitions/10/22.jpeg"
+      ]
+    },
+    {
+      "id": "11",
+      "type": "group exhibition",
+      "title": "<STRANGER Monte Carlo Meditation>",
+      "date": "25/1/2024 - 5/2/2024",
+      "location": "Suseong Bangi Building, Seoul, South Korea",
+      "posterUrl": "/exhibitions/11/0_poster.jpeg",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/11/1.jpeg",
+        "/exhibitions/11/2.jpeg",
+        "/exhibitions/11/3.jpeg"
+      ]
+    },
+    {
+      "id": "12",
+      "type": "group exhibition",
+      "title": "<Ground Seohak 2024>",
+      "date": "21/3/2024 - 10/4/2024",
+      "location": "Art Gallery Jeonju, Jeonju, South Korea",
+      "posterUrl": "/exhibitions/12/0_poster.jpeg",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/12/1.jpeg",
+        "/exhibitions/12/2.jpeg",
+        "/exhibitions/12/3.jpeg",
+        "/exhibitions/12/4.jpeg",
+        "/exhibitions/12/5.jpeg",
+        "/exhibitions/12/6.jpeg"
+      ]
+    },
+    {
+      "id": "13",
+      "type": "art fair",
+      "title": "<Check-in Photo Fair>",
+      "date": "4/7/2024 - 7/7/2024",
+      "location": "Ocean Suites Jeju Hotel, Jeju, South Korea",
+      "posterUrl": "/exhibitions/13/0_poster.jpeg",
+      "imgCount": 12,
+      "images": [
+        "/exhibitions/13/1.jpeg",
+        "/exhibitions/13/2.jpeg",
+        "/exhibitions/13/3.jpeg",
+        "/exhibitions/13/4.jpeg",
+        "/exhibitions/13/5.jpeg",
+        "/exhibitions/13/6.jpeg",
+        "/exhibitions/13/7.jpeg",
+        "/exhibitions/13/8.jpeg",
+        "/exhibitions/13/9.jpeg",
+        "/exhibitions/13/10.jpeg",
+        "/exhibitions/13/11.jpeg",
+        "/exhibitions/13/12.jpeg"
+      ]
+    },
+    {
+      "id": "14",
+      "type": "group exhibition",
+      "title": "<Unbound 13!>",
+      "date": "5/7/2024 - 3/8/2024",
+      "location": "Candela Books + Gallery, Richmond, USA",
+      "posterUrl": "/exhibitions/14/0_poster.jpeg",
+      "imgCount": 13,
+      "images": [
+        "/exhibitions/14/1.jpeg",
+        "/exhibitions/14/2.jpeg",
+        "/exhibitions/14/3.jpeg",
+        "/exhibitions/14/4.jpeg",
+        "/exhibitions/14/5.jpeg",
+        "/exhibitions/14/6.jpeg",
+        "/exhibitions/14/7.jpeg",
+        "/exhibitions/14/8.jpeg",
+        "/exhibitions/14/9.jpeg",
+        "/exhibitions/14/10.jpeg",
+        "/exhibitions/14/11.jpeg",
+        "/exhibitions/14/12.jpeg",
+        "/exhibitions/14/13.jpeg"
+      ]
+    },
+    {
+      "id": "15",
+      "type": "art fair",
+      "title": "<K-PHOTO Fair 2024>",
+      "date": "5/12/2024 - 8/12/2024",
+      "location": "AZIT Museum, Seoul, South Korea",
+      "posterUrl": "/exhibitions/15/0_poster.jpeg",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/15/1.jpeg",
+        "/exhibitions/15/2.jpeg",
+        "/exhibitions/15/3.jpeg"
+      ]
+    },
+    {
+      "id": "16",
+      "type": "group exhibition",
+      "title": "<Delivering Hope 4-1>",
+      "date": "19/12/2024 - 29/12/2024",
+      "location": "Qua Science Cafe Gallery, Daejeon, South Korea",
+      "posterUrl": "/exhibitions/16/0_poster.jpeg",
+      "imgCount": 3,
+      "images": [
+        "/exhibitions/16/1.jpeg",
+        "/exhibitions/16/2.jpeg",
+        "/exhibitions/16/3.jpeg"
+      ]
+    },
+    {
+      "id": "17",
+      "type": "journal",
+      "title": "Katalog Journal 35.1",
+      "date": "2025",
+      "location": "",
+      "posterUrl": "/exhibitions/17/0_poster.jpeg",
+      "imgCount": 5,
+      "images": [
+        "/exhibitions/17/1.jpeg",
+        "/exhibitions/17/2.jpeg",
+        "/exhibitions/17/3.jpeg",
+        "/exhibitions/17/4.jpeg",
+        "/exhibitions/17/5.jpeg"
+      ]
+    },
+    {
+      "id": "18",
+      "type": "group exhibition",
+      "title": "<Remember 2024>",
+      "date": "1/2/2025 - 17/2/2025",
+      "location": "Gallery Look-in-side, Seoul, South Korea",
+      "posterUrl": "/exhibitions/18/0_poster.jpeg",
+      "imgCount": 2,
+      "images": [
+        "/exhibitions/18/1.jpeg",
+        "/exhibitions/18/2.jpeg"
+      ]
+    },
+    {
+      "id": "19",
+      "type": "group exhibition",
+      "title": "<Delivering Hope 4-2>",
+      "date": "18/2/2025 - 2/3/2025",
+      "location": "Creamson Father, Seoul, South Korea",
+      "posterUrl": "/exhibitions/19/0_poster.jpeg",
+      "imgCount": 4,
+      "images": [
+        "/exhibitions/19/1.jpeg",
+        "/exhibitions/19/2.jpeg",
+        "/exhibitions/19/3.jpeg",
+        "/exhibitions/19/4.jpeg"
+      ]
+    },
+    {
+      "id": "20",
+      "type": "group exhibition",
+      "title": "<Delivering Hope 4-3>",
+      "date": "19/3/2025 - 31/3/2025",
+      "location": "Gallery Look-in-side, Seoul, South Korea",
+      "posterUrl": "/exhibitions/20/0_poster.jpeg",
+      "imgCount": 5,
+      "images": [
+        "/exhibitions/20/1.jpeg",
+        "/exhibitions/20/2.jpeg",
+        "/exhibitions/20/3.jpeg",
+        "/exhibitions/20/4.jpeg",
+        "/exhibitions/20/5.jpeg"
+      ]
+    },
+    {
+      "id": "21",
+      "type": "group exhibition",
+      "title": "<The Greatness of Small Things_Still Life>",
+      "date": "21/4/2025 - 6/5/2025",
+      "location": "Gallery Bresson, Seoul, South Korea",
+      "posterUrl": "/exhibitions/21/0_poster.jpeg",
+      "imgCount": 6,
+      "images": [
+        "/exhibitions/21/1.jpeg",
+        "/exhibitions/21/2.jpeg",
+        "/exhibitions/21/3.jpeg",
+        "/exhibitions/21/4.jpeg",
+        "/exhibitions/21/5.jpeg",
+        "/exhibitions/21/6.jpeg"
+      ]
+    },
+    {
+      "id": "22",
+      "type": "art fair",
+      "title": "<AIPAD Photography Show 2025>",
+      "date": "23/4/2025 - 27/4/2025",
+      "location": "Park Avenue Armory, New York, USA",
+      "posterUrl": "/exhibitions/22/0_poster.jpeg",
+      "imgCount": 4,
+      "images": [
+        "/exhibitions/22/1.jpeg",
+        "/exhibitions/22/2.jpeg",
+        "/exhibitions/22/3.jpeg",
+        "/exhibitions/22/4.jpeg"
+      ]
+    },
+    {
+      "id": "23",
+      "type": "solo exhibition",
+      "title": "<Still Life for Things that Need a Goodbye, Mourning>",
+      "date": "2/5/2025 - 14/6/2025",
+      "location": "Candela Books + Gallery, Richmond, USA",
+      "posterUrl": "/exhibitions/23/0_poster.jpeg",
+      "imgCount": 30,
+      "images": [
+        "/exhibitions/23/1.jpeg",
+        "/exhibitions/23/2.jpeg",
+        "/exhibitions/23/3.jpeg",
+        "/exhibitions/23/4.jpeg",
+        "/exhibitions/23/5.jpeg",
+        "/exhibitions/23/6.jpeg",
+        "/exhibitions/23/7.jpeg",
+        "/exhibitions/23/8.jpeg",
+        "/exhibitions/23/9.jpeg",
+        "/exhibitions/23/10.jpeg",
+        "/exhibitions/23/11.jpeg",
+        "/exhibitions/23/12.jpeg",
+        "/exhibitions/23/13.jpeg",
+        "/exhibitions/23/14.jpeg",
+        "/exhibitions/23/15.jpeg",
+        "/exhibitions/23/16.jpeg",
+        "/exhibitions/23/17.jpeg",
+        "/exhibitions/23/18.jpeg",
+        "/exhibitions/23/19.jpeg",
+        "/exhibitions/23/20.jpeg",
+        "/exhibitions/23/21.jpeg",
+        "/exhibitions/23/22.jpeg",
+        "/exhibitions/23/23.jpeg",
+        "/exhibitions/23/24.jpeg",
+        "/exhibitions/23/25.jpeg",
+        "/exhibitions/23/26.jpeg",
+        "/exhibitions/23/27.jpeg",
+        "/exhibitions/23/28.jpeg",
+        "/exhibitions/23/29.jpeg",
+        "/exhibitions/23/30.jpeg"
+      ]
+    },
+    {
+      "id": "24",
+      "type": "group exhibition",
+      "title": "<STRANGER>",
+      "date": "21/6/2025 - 27/6/2025",
+      "location": "AZIT Museum, Seoul, South Korea",
+      "posterUrl": "/exhibitions/24/0_poster.jpeg",
+      "imgCount": 2,
+      "images": [
+        "/exhibitions/24/1.jpeg",
+        "/exhibitions/24/2.jpeg"
+      ]
+    }
+  ]
 }

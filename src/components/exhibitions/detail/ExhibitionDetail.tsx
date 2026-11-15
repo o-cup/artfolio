@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useContext, useEffect } from "react";
 import Poster from "./Poster";
 import Information from "./Information";
-import exhibitionsData from "../exhibitionsData.json";
+import { exhibitionsData } from "../../../shared/siteData";
 import Layout from "../../../shared/components/layout";
 import ExhibitionPhotoList from "./ExhibitionPhotoList";
 import { DESKTOP_DEVICE } from "../../../styles/theme";
@@ -24,8 +24,6 @@ const ExhibitionDetail = () => {
 	const data = exhibitionsData[lang].find((item) => item.id === id);
 	if (!data) return null;
 
-	const totalCount = data?.imgCount;
-
 	return (
 		<Motion>
 			<Layout
@@ -42,7 +40,7 @@ const ExhibitionDetail = () => {
 					<ExhibitionPhotoList data={data} />
 				</Styled.Wrap>
 			</Layout>
-			{isModalOpen && <ModalViewer totalCount={totalCount} category="exhibitions" />}
+			{isModalOpen && <ModalViewer images={data.images} />}
 		</Motion>
 	);
 };

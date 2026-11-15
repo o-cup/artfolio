@@ -3,7 +3,7 @@ import { useContext } from "react";
 import ExhibitionListItem from "./ExhibitionListItem";
 import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
 import { LangContext } from "../../context/LanguageProvider";
-import exhibitionsData from "./exhibitionsData.json";
+import { exhibitionsData } from "../../shared/siteData";
 
 const ExhibitionList = () => {
 	const { lang } = useContext(LangContext);

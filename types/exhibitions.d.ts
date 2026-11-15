@@ -6,4 +6,5 @@ declare type ExhibitionDataType = {
     location: string;
     posterUrl: string;
     imgCount: number;
+    images: string[];
 };

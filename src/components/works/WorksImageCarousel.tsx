@@ -31,7 +31,7 @@ function WorksImageCarousel({ data }: Props) {
 					);
 				})}
 			</CarouselWrap>
-			{isModalOpen && <ModalViewer totalCount={data.imgCount} category="works" />}
+			{isModalOpen && <ModalViewer images={data.images} />}
 		</>
 	);
 }
