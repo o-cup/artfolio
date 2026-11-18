@@ -18,7 +18,8 @@ module.exports = async (req, res) => {
 	}
 
 	try {
-		const translations = await translateItems(items);
+		const styles = Array.isArray(req.body.styles) ? req.body.styles.map(String) : [];
+		const translations = await translateItems(items, styles);
 		return res.status(200).json({ translations });
 	} catch (e) {
 		console.error(e);

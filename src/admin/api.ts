@@ -47,8 +47,9 @@ export const api = {
 	content: () => call<RawContent>("/api/content"),
 	save: (body: SaveBody) => call<{ ok: true }>("/api/content", { method: "POST", body }),
 	upload: (data: string) => call<{ blobId: string }>("/api/upload", { method: "POST", body: { data } }),
-	translate: (items: string[]) =>
-		call<{ translations: string[]; skipped?: boolean }>("/api/translate", { method: "POST", body: { items } }),
+	// styles: 칸마다 "title"(영문 제목 형식) 또는 "text"(보통 문장)
+	translate: (items: string[], styles?: ("title" | "text")[]) =>
+		call<{ translations: string[]; skipped?: boolean }>("/api/translate", { method: "POST", body: { items, styles } }),
 };
 
 // ----- 사이트에 저장되는 원래 데이터 모양 -----

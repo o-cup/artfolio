@@ -175,24 +175,38 @@ export function nextId(ids: string[]): string {
 }
 
 // ---------- 자동 번역 ----------
-function collectBi(value: unknown, out: Bi[] = []): Bi[] {
-	if (Array.isArray(value)) value.forEach((v) => collectBi(v, out));
+function collectBi(value: unknown, out: Bi[], path: string, styles?: Map<string, TranslateStyle>): Bi[] {
+	if (Array.isArray(value)) value.forEach((v, i) => collectBi(v, out, `${path}.${i}`, styles));
 	else if (value && typeof value === "object" && !(value instanceof File)) {
 		const o = value as Record<string, unknown>;
-		if (typeof o._k === "string" && typeof o.ko === "string" && typeof o.en === "string") out.push(o as Bi);
-		else Object.values(o).forEach((v) => collectBi(v, out));
+		if (typeof o._k === "string" && typeof o.ko === "string" && typeof o.en === "string") {
+			out.push(o as Bi);
+			styles?.set(o._k, styleForPath(path));
+		} else Object.entries(o).forEach(([k, v]) => collectBi(v, out, `${path}.${k}`, styles));
 	}
 	return out;
 }
 
+/**
+ * 번역 방식: "title" = 영문 제목 형식(단어 첫 글자 대문자, and·of 같은 짧은 단어는 소문자)
+ * 작업 제목, 전시 제목, 장소, 이력 줄은 제목 형식. 설명·소개글·카테고리 이름 등은 보통 문장.
+ */
+export type TranslateStyle = "title" | "text";
+function styleForPath(path: string): TranslateStyle {
+	if (/\.sections\.\d+\.title$/.test(path)) return "text"; // 이력 카테고리 이름 (사이트는 소문자: solo exhibition)
+	if (/\.(title|location)$/.test(path) || /\.lines\.\d+$/.test(path)) return "title";
+	return "text";
+}
+
 /** 원래 값(orig)과 비교해서, 한국어가 새로 쓰였거나 바뀌었는데 영어는 손대지 않은 칸만 번역해요. */
 export async function autoTranslate<T>(current: T, orig: unknown): Promise<{ value: T; failed: boolean }> {
-	const before = new Map(collectBi(orig).map((b) => [b._k, b]));
+	const before = new Map(collectBi(orig, [], "").map((b) => [b._k, b]));
 	const value = JSON.parse(JSON.stringify(current, (k, v) => (v instanceof File ? undefined : v))) as T;
 	// File 객체는 JSON으로 복사되지 않으니, 사진 정보는 원래 객체를 그대로 다시 넣어요.
 	restoreFiles(value, current);
 
-	const todo = collectBi(value).filter((b) => {
+	const styles = new Map<string, TranslateStyle>();
+	const todo = collectBi(value, [], "", styles).filter((b) => {
 		const o = before.get(b._k);
 		if (!b.ko.trim()) return false;
 		if (!b.en.trim()) return true; // 영어칸이 비어 있으면 자동 번역
@@ -205,7 +219,10 @@ export async function autoTranslate<T>(current: T, orig: unknown): Promise<{ val
 
 	let failed = false;
 	try {
-		const { translations, skipped } = await api.translate(todo.map((b) => b.ko));
+		const { translations, skipped } = await api.translate(
+			todo.map((b) => b.ko),
+			todo.map((b) => styles.get(b._k) || "text")
+		);
 		failed = Boolean(skipped);
 		todo.forEach((b, i) => {
 			// 번역이 안 되면 일단 한국어를 그대로 넣어요. 저장 뒤 GitHub 자동 번역(scripts/translate-data.js)이 이런 칸을 영어로 채워요.

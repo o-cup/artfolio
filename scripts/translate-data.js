@@ -23,14 +23,16 @@ const dry = process.argv.includes("--dry");
 const read = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"));
 const write = (rel, data) => fs.writeFileSync(path.join(ROOT, rel), `${JSON.stringify(data, null, 2)}\n`);
 
-/** 번역이 필요한 칸들을 모아요. 각 칸은 { label, ko, set(en) } */
+/** 번역이 필요한 칸들을 모아요. 각 칸은 { label, ko, style, set(en) }
+ *  style "title": 영문 제목 형식 (작업·전시 제목, 장소, 이력 줄) / "text": 보통 문장 */
 function collect(data) {
 	const todo = [];
-	const add = (label, ko, en, set) => {
+	const add = (label, ko, en, set, style = "text") => {
 		if (typeof ko !== "string" || !HANGUL.test(ko)) return;
 		if (typeof en === "string" && en.trim() && en !== ko) return; // 이미 영어가 있어요
-		todo.push({ label, ko, set });
+		todo.push({ label, ko, set, style });
 	};
+	const TITLE_FIELDS = new Set(["title", "location"]);
 
 	// 작업 / 전시: id로 짝을 맞춰요
 	const pairById = (key, fields) => {
@@ -38,7 +40,9 @@ function collect(data) {
 		ko.forEach((k, i) => {
 			const e = en.find((x) => x.id === k.id) || en[i];
 			if (!e) return;
-			fields.forEach((f) => add(`${key} ${k.id} ${f}`, k[f], e[f], (v) => (e[f] = v)));
+			fields.forEach((f) =>
+				add(`${key} ${k.id} ${f}`, k[f], e[f], (v) => (e[f] = v), TITLE_FIELDS.has(f) ? "title" : "text")
+			);
 		});
 	};
 	pairById("works", ["title", "description"]);
@@ -52,7 +56,9 @@ function collect(data) {
 		const e = aEn.histories[i];
 		if (!e) return;
 		add(`about category ${i + 1}`, h.title, e.title, (v) => (e.title = v));
-		h.details.forEach((d, j) => add(`about category ${i + 1} line ${j + 1}`, d, e.details[j], (v) => (e.details[j] = v)));
+		h.details.forEach((d, j) =>
+			add(`about category ${i + 1} line ${j + 1}`, d, e.details[j], (v) => (e.details[j] = v), "title")
+		);
 	});
 	return todo;
 }
@@ -76,7 +82,10 @@ async function main() {
 	for (let i = 0; i < todo.length; i += BATCH) {
 		const chunk = todo.slice(i, i + BATCH);
 		// eslint-disable-next-line no-await-in-loop
-		const translations = await translateItems(chunk.map((t) => t.ko));
+		const translations = await translateItems(
+			chunk.map((t) => t.ko),
+			chunk.map((t) => t.style)
+		);
 		chunk.forEach((t, j) => {
 			if (translations[j] && translations[j].trim()) t.set(translations[j]);
 		});

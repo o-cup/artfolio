@@ -29,19 +29,10 @@ const itemWidth = "calc((100vw - (30px * 2) - (24px * 4)) / 5)";
 
 const PosterWrap = styled.div`
 	position: relative;
-	overflow: hidden;
+	margin-bottom: 8px; /* works 목록과 같은 사진-글 간격 */
 
-	/* 다른 전시에 마우스를 올렸을 때 이 포스터를 흐리게 덮는 막 (평소엔 안 보여요) */
-	&::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
-		background: rgba(217, 217, 217, 0.01);
-		opacity: 0;
-		transition: opacity 0.25s ease;
-		pointer-events: none;
+	> img {
+		transition: filter 0.25s ease;
 	}
 `;
 
@@ -66,8 +57,8 @@ const Styled = {
 
 		/* 한 전시에 마우스를 올리면, 나머지 전시 포스터는 흐리게 (마우스가 있는 PC에서만) */
 		@media (hover: hover) {
-			ul:has(> li:hover) > &:not(:hover) ${PosterWrap}::after {
-				opacity: 1;
+			ul:has(> li:hover) > &:not(:hover) ${PosterWrap} > img {
+				filter: blur(5px);
 			}
 		}
 	`,

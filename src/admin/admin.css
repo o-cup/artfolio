@@ -45,6 +45,8 @@
 	--field-focus-border: #37313d;
 	/* 뱃지 */
 	--badge-primary: #37313d;
+	--badge-number-bg: rgba(55, 49, 61, 0.3); /* 이력 줄 번호 뱃지: 보라색 30% */
+	--badge-number-text: #37313d; /* 이력 줄 번호 글자: 보라색 100% */
 	--badge-positive-bg: #b9e0ff;
 	--badge-positive-text: #0b6bd3;
 	--badge-new: #00c32b;
@@ -56,7 +58,9 @@
 	--modal-width: 360px;
 	--modal-radius: 16px;
 	/* 버튼 */
-	--btn-height: 60px;
+	--btn-height: 60px; /* large (기본) */
+	--btn-height-md: 48px; /* medium */
+	--btn-font-size-md: 16px; /* medium 글자 */
 	--btn-padding-x: 24px;
 	--btn-radius: 0;
 	--btn-font-size: 18px;
@@ -307,6 +311,13 @@
 }
 .adm-btn.danger:hover {
 	background: var(--danger-bg);
+}
+/* 버튼 크기: large(기본) 60 / medium 48 */
+.adm .adm-btn.medium {
+	min-height: var(--btn-height-md);
+	height: var(--btn-height-md);
+	padding: 0 20px;
+	font-size: var(--btn-font-size-md);
 }
 /* 예전 big 크기는 디자인시스템 기본 크기로 통일 */
 .adm-btn.big {
@@ -619,8 +630,15 @@
 	color: #fff;
 	white-space: nowrap;
 }
+/* 숫자 뱃지: 사진 순서는 진한 보라 바탕 + 흰 글자 */
 .adm .adm-tag.number {
 	background: var(--badge-primary);
+	color: #fff;
+}
+/* 이력 줄 번호는 연한 보라 바탕 + 보라 글자 */
+.adm .adm-tag.number.adm-line-num {
+	background: var(--badge-number-bg);
+	color: var(--badge-number-text);
 }
 .adm .adm-tag.positive {
 	background: var(--badge-positive-bg);
@@ -925,13 +943,12 @@
 	/* 칸 이름(31px) + 이름과 칸 사이(8px) 만큼 내려서 입력칸 윗선에 맞춰요 */
 	padding-top: 39px;
 }
-.adm-line-actions .adm-btn,
-.adm-section-head .adm-row .adm-btn {
+.adm-line-actions .adm-btn {
 	min-height: calc(var(--field-padding) * 2 + var(--field-font-size) * var(--field-line-height));
 }
 
 /* 휴대폰 화면 */
-@media (max-width: 760px) {
+@media (max-width: 767px) {
 	.adm {
 		font-size: 18px;
 	}
@@ -995,6 +1012,10 @@
 	}
 	.adm-order {
 		flex-direction: row;
+		margin-left: auto; /* 휴대폰: 위로/아래로는 오른쪽 끝에 */
+	}
+	.adm-list-item .adm-actions .adm-order .adm-btn {
+		flex: none;
 	}
 	.adm-photos {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1024,12 +1045,13 @@
 	.adm-line {
 		flex-direction: column;
 	}
-	.adm-line-actions {
-		padding-top: 0; /* 휴대폰은 버튼이 칸 아래로 가니까 */
-	}
 	.adm-line .adm-field {
 		width: 100%;
 	}
+	.adm-line-actions {
+		padding-top: 0; /* 휴대폰은 버튼이 칸 아래로 가니까 */
+	}
+
 	.adm-dialog {
 		--modal-width: 320px;
 	}
@@ -1148,7 +1170,7 @@
 .adm-date-col {
 	min-width: 280px;
 }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
 	/* 휴대폰: 시작일·종료일 칸을 화면 너비만큼 */
 	.adm-date-col {
 		width: 100%;
@@ -1323,5 +1345,293 @@
 	}
 	.adm-cal-day {
 		height: 48px;
+	}
+}
+
+/* 소개·이력: '카테고리' 제목 옆 접기/펼치기 */
+.adm-cat-head {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+.adm-chevron {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--ink);
+	cursor: pointer;
+}
+.adm-chevron:hover {
+	background: rgba(55, 49, 61, 0.06);
+}
+.adm-chevron .adm-icon {
+	font-size: 28px;
+	transition: transform 0.2s ease;
+}
+/* 펼쳐져 있으면 위를 향하는 화살표 */
+.adm-chevron.open .adm-icon {
+	transform: rotate(180deg);
+}
+
+/* 화면에는 안 보이고 화면 읽어주기에만 읽히는 글자 */
+.adm-sr-only {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+/* 이력 줄: 왼쪽 번호 뱃지 (입력칸 높이의 가운데) */
+
+.adm-line-num {
+	flex: none;
+	margin-top: calc((var(--field-padding) * 2 + var(--field-font-size) * var(--field-line-height) - 28px) / 2);
+}
+.adm .adm-line .adm-line-actions {
+	padding-top: 0; /* 칸 이름이 없어서 입력칸 윗선에 바로 맞춰요 */
+}
+
+/* 순서 변경: 왼쪽 손잡이로 끌어서 옮기기 */
+.adm-drag-handle {
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 64px;
+	margin-right: -12px;
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: rgba(55, 49, 61, 0.4); /* 손잡이는 흐리게 (마우스를 올리면 진하게) */
+	cursor: grab;
+	touch-action: none; /* 휴대폰에서 끄는 동안 화면이 스크롤되지 않게 */
+	user-select: none;
+}
+.adm-drag-handle:hover {
+	color: var(--ink);
+	background: rgba(55, 49, 61, 0.06);
+}
+.adm-drag-handle .adm-icon {
+	font-size: 28px;
+}
+.adm-list-item.dragging {
+	position: relative;
+	z-index: 2;
+	background: var(--bg);
+	box-shadow: 0 6px 24px rgba(55, 49, 61, 0.16);
+}
+.adm-list-item.dragging .adm-drag-handle {
+	cursor: grabbing;
+	color: var(--ink);
+}
+@media (max-width: 767px) {
+	/* 휴대폰: 번호 뱃지는 입력칸 위에 */
+	.adm-line-num {
+		margin-top: 0;
+	}
+}
+
+/* 이력 줄 ↑ ↓ 삭제: 테두리 없는 아이콘 버튼 (카테고리 옆 chevron과 같은 모양) */
+.adm .adm-line .adm-line-actions {
+	gap: 4px;
+	align-items: center;
+	min-height: calc(var(--field-padding) * 2 + var(--field-font-size) * var(--field-line-height));
+}
+.adm .adm-line .adm-line-actions .adm-btn {
+	width: 44px;
+	min-height: 44px;
+	height: 44px;
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--ink);
+}
+.adm .adm-line .adm-line-actions .adm-btn.danger {
+	color: var(--danger);
+}
+.adm .adm-line .adm-line-actions .adm-btn:hover {
+	background: rgba(55, 49, 61, 0.06);
+}
+.adm .adm-line .adm-line-actions .adm-btn:disabled,
+.adm .adm-line .adm-line-actions .adm-btn:disabled:hover {
+	background: transparent;
+}
+.adm .adm-line .adm-line-actions .adm-icon {
+	font-size: 28px;
+}
+@media (max-width: 767px) {
+	.adm .adm-line .adm-line-actions {
+		min-height: 0;
+		align-self: flex-end; /* 휴대폰: 버튼은 오른쪽 끝에 */
+	}
+}
+@media (max-width: 767px) {
+	/* 휴대폰: 윗줄 [번호 뱃지 ……… ↑ ↓ 삭제], 아랫줄 [입력칸] */
+	.adm .adm-line {
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		row-gap: 8px;
+	}
+	.adm .adm-line .adm-line-num {
+		order: 1;
+	}
+	.adm .adm-line .adm-line-actions {
+		order: 2;
+		margin-left: auto;
+		align-self: center;
+	}
+	.adm .adm-line .adm-field {
+		order: 3;
+		flex: 0 0 100%;
+	}
+}
+@media (max-width: 767px) {
+	/* 휴대폰: 이력 줄 묶음 사이 간격 48px (기본 24px의 두 배) */
+	.adm .adm-line + .adm-line {
+		margin-top: var(--space-base);
+	}
+}
+
+/* 휴대폰: 길어지면 아래로 늘어나는 한 줄 입력칸 */
+.adm .adm-grow {
+	display: block;
+	width: 100%;
+	resize: none;
+	overflow: hidden;
+	min-height: 0;
+	white-space: pre-wrap;
+	word-break: keep-all;
+	overflow-wrap: anywhere;
+}
+
+/* 이력 줄 손잡이: 번호 뱃지 왼쪽, 입력칸 높이 가운데 */
+.adm .adm-line .adm-drag-handle {
+	height: 44px;
+	margin: calc((var(--field-padding) * 2 + var(--field-font-size) * var(--field-line-height) - 44px) / 2) -8px 0 -8px;
+}
+.adm .adm-line.dragging {
+	position: relative;
+	z-index: 2;
+	background: var(--bg);
+	box-shadow: 0 6px 24px rgba(55, 49, 61, 0.16);
+	border-radius: 8px;
+}
+@media (max-width: 767px) {
+	.adm .adm-line .adm-drag-handle {
+		order: 0;
+		margin: 0 -4px 0 -10px;
+	}
+}
+
+
+@media (max-width: 767px) {
+	/* 휴대폰·태블릿: 목록 제목 아래로 버튼, 버튼은 가로 꽉 차게 (여러 개면 나눠서) */
+	.adm .adm-pagehead {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 16px;
+	}
+	.adm .adm-pagehead > .adm-spacer {
+		display: none;
+	}
+	/* 버튼이 여러 개면 가로로 나란히, 같은 너비로 */
+	.adm .adm-pagehead-actions {
+		width: 100%;
+	}
+	.adm .adm-pagehead-actions > .adm-btn {
+		flex: 1;
+		min-width: 0;
+	}
+}
+
+/* 목록 제목 오른쪽 버튼 묶음 */
+.adm-pagehead-actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+/* 카테고리 타입 칸 옆 위로/아래로/삭제 (medium 48px): 입력칸(59px) 높이 가운데에 */
+.adm-section-head .adm-row {
+	margin-bottom: calc((var(--field-padding) * 2 + var(--field-font-size) * var(--field-line-height) - var(--btn-height-md)) / 2);
+}
+
+/* 사진 끌어서 옮기기 */
+.adm-photo-thumb {
+	cursor: grab;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none; /* 휴대폰에서 꾹 눌렀을 때 이미지 저장 메뉴 막기 */
+}
+.adm-photo-thumb img {
+	-webkit-user-drag: none;
+	pointer-events: none;
+}
+.adm-photo.dragging {
+	position: relative;
+	z-index: 2;
+	opacity: 0.85;
+}
+.adm-photo.dragging .adm-photo-thumb {
+	cursor: grabbing;
+	transform: scale(1.03);
+	box-shadow: 0 10px 28px rgba(55, 49, 61, 0.25);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 끌어서 옮기는 묶음: 위치 계산 기준 */
+.adm-list,
+.adm-photos,
+[data-sort-list] {
+	position: relative;
+}
+
+/* 사진 아래: [번호·대표·새 사진 표시 …… ← →] 한 줄, 화살표는 테두리 없는 아이콘 버튼 */
+.adm .adm-photo-label .adm-photo-actions {
+	margin-left: auto;
+	gap: 4px;
+}
+.adm .adm-photo-actions .adm-btn {
+	width: 44px;
+	min-height: 44px;
+	height: 44px;
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--ink);
+}
+.adm .adm-photo-actions .adm-btn:hover {
+	background: rgba(55, 49, 61, 0.06);
+}
+.adm .adm-photo-actions .adm-btn:disabled,
+.adm .adm-photo-actions .adm-btn:disabled:hover {
+	background: transparent;
+}
+.adm .adm-photo-actions .adm-icon {
+	font-size: 28px;
+}
+.adm .adm-photo-label {
+	min-height: 44px;
+}
+
+/* 사진 줄과 줄 사이 간격: 기존의 두 배 (PC 20→40, 휴대폰 14→28) */
+.adm .adm-photos {
+	row-gap: 40px;
+}
+@media (max-width: 767px) {
+	.adm .adm-photos {
+		row-gap: 28px;
 	}
 }

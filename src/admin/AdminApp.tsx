@@ -96,7 +96,7 @@ function LoggedIn({ onLogout }: { onLogout: () => void }) {
 	const [raw, setRaw] = useState<RawContent | null>(null);
 	const [model, setModel] = useState<Model | null>(null);
 	const [loadError, setLoadError] = useState("");
-	// "영어 번역도 같이 보기"는 기억하지 않고, 화면을 열 때마다 꺼진 상태로 시작해요.
+	// "영어 번역 보기"는 기억하지 않고, 화면을 열 때마다 꺼진 상태로 시작해요.
 	const [showEn, setShowEn] = useState(false);
 	const { pathname } = useLocation();
 	useEffect(() => setShowEn(false), [pathname]);

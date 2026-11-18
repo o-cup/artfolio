@@ -4,11 +4,14 @@ import ExhibitionListItem from "./ExhibitionListItem";
 import { DESKTOP_DEVICE, MOBILE_DEVICE } from "../../styles/theme";
 import { LangContext } from "../../context/LanguageProvider";
 import { exhibitionsData } from "../../shared/siteData";
+import { sortExhibitionsNewestFirst } from "../../shared/exhibitionOrder";
 
 const ExhibitionList = () => {
 	const { lang } = useContext(LangContext);
 
-	const data = [...exhibitionsData[lang]].reverse();
+	// 시작일 기준 최신순. 날짜 규칙은 한국어 날짜(연/월/일)로 판단해요.
+	const koDate = new Map(exhibitionsData.ko.map((x) => [x.id, x.date]));
+	const data = sortExhibitionsNewestFirst(exhibitionsData[lang], (x) => koDate.get(x.id) || x.date);
 
 	return (
 		<Styled.Wrap>

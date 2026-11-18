@@ -1,10 +1,10 @@
 // 소개 · 이력 고치기 화면
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { api } from "./api";
 import { SAVED_MESSAGE, useAdmin, useDirty, useSaveError } from "./context";
 import { About, aboutToRaw, autoTranslate, bi, Bi, newKey } from "./model";
-import { BiField, EnToggle, Icon, SaveBar, useDialog } from "./ui";
+import { BiField, DragHandle, EnToggle, Icon, SaveBar, useDialog, useFlip, useGroupDragSort } from "./ui";
 import { PageHead } from "./WorksPages";
 
 function move<T>(list: T[], i: number, d: number): T[] {
@@ -20,10 +20,38 @@ export default function AboutEdit() {
 	const onError = useSaveError();
 	const original = useMemo(() => model.about, []); // eslint-disable-line react-hooks/exhaustive-deps
 	const [about, setAbout] = useState<About>(original);
+	// 위로/아래로로 순서가 바뀌면 움직임으로 보여줘요
+	const pageRef = useRef<HTMLDivElement>(null);
+	const [flash, setFlash] = useState<{ key: string; at: number } | null>(null);
+	const flashOn = (key: string) => setFlash({ key, at: Date.now() });
+	useFlip(pageRef, about.sections.map((sec) => `${sec._k}:${sec.lines.map((l) => l._k).join(".")}`).join("|"), flash);
+	// 카테고리별 접힘 상태 (화면에서만, 저장되지 않아요). 처음엔 모두 펼침
+	const [closed, setClosed] = useState<Set<string>>(new Set());
+	const toggle = (k: string) =>
+		setClosed((prev) => {
+			const next = new Set(prev);
+			if (next.has(k)) next.delete(k);
+			else next.add(k);
+			return next;
+		});
 	const dirty = useDirty(about, original);
 
 	const setSection = (si: number, patch: Partial<About["sections"][number]>) =>
 		setAbout({ ...about, sections: about.sections.map((s, i) => (i === si ? { ...s, ...patch } : s)) });
+
+	// 이력 줄 끌어서 옮기기 (같은 카테고리 안에서)
+	const dragLine = useGroupDragSort();
+	const moveLine = (sk: string) => (from: number, to: number) =>
+		setAbout((prev) => ({
+			...prev,
+			sections: prev.sections.map((sec) => {
+				if (sec._k !== sk) return sec;
+				const lines = [...sec.lines];
+				const [x] = lines.splice(from, 1);
+				lines.splice(to, 0, x);
+				return { ...sec, lines };
+			}),
+		}));
 
 	const setLine = (si: number, li: number, v: Bi) =>
 		setSection(si, { lines: about.sections[si].lines.map((l, i) => (i === li ? v : l)) });
@@ -80,7 +108,7 @@ export default function AboutEdit() {
 	};
 
 	return (
-		<div className="adm-stack">
+		<div className="adm-stack" ref={pageRef}>
 			<PageHead title="소개 · 이력" desc="사이트의 about 화면에 보이는 내용이에요." back={() => go("/admin")}>
 				<EnToggle showEn={showEn} setShowEn={setShowEn} />
 			</PageHead>
@@ -98,8 +126,20 @@ export default function AboutEdit() {
 			</div>
 
 			{about.sections.map((s, si) => (
-				<div key={s._k} className="adm-card adm-stack">
-					<h2>카테고리</h2>
+				<div key={s._k} className="adm-card adm-stack" data-flip={s._k} data-sort-list>
+					<div className="adm-cat-head">
+						<h2>카테고리 {si + 1}</h2>
+						<button
+							type="button"
+							className={`adm-chevron ${closed.has(s._k) ? "" : "open"}`}
+							onClick={() => toggle(s._k)}
+							aria-expanded={!closed.has(s._k)}
+							aria-label={closed.has(s._k) ? "이력 줄 펼치기" : "이력 줄 접기"}
+							title={closed.has(s._k) ? "펼치기" : "접기"}
+						>
+							<Icon name="expand_more" />
+						</button>
+					</div>
 					<div className="adm-section-head">
 						<div style={{ flex: 1, minWidth: 220 }}>
 							<BiField
@@ -113,9 +153,12 @@ export default function AboutEdit() {
 						<div className="adm-row">
 							<button
 								type="button"
-								className="adm-btn small"
+								className="adm-btn medium"
 								disabled={si === 0}
-								onClick={() => setAbout({ ...about, sections: move(about.sections, si, -1) })}
+								onClick={() => {
+									setAbout({ ...about, sections: move(about.sections, si, -1) });
+									flashOn(s._k);
+								}}
 								aria-label="카테고리 위로"
 							>
 								<Icon name="arrow_upward" />
@@ -123,9 +166,12 @@ export default function AboutEdit() {
 							</button>
 							<button
 								type="button"
-								className="adm-btn small"
+								className="adm-btn medium"
 								disabled={si === about.sections.length - 1}
-								onClick={() => setAbout({ ...about, sections: move(about.sections, si, 1) })}
+								onClick={() => {
+									setAbout({ ...about, sections: move(about.sections, si, 1) });
+									flashOn(s._k);
+								}}
 								aria-label="카테고리 아래로"
 							>
 								<Icon name="arrow_downward" />
@@ -133,7 +179,7 @@ export default function AboutEdit() {
 							</button>
 							<button
 								type="button"
-								className="adm-btn small danger"
+								className="adm-btn medium danger"
 								onClick={() => removeSection(si)}
 								aria-label="카테고리 삭제"
 							>
@@ -142,56 +188,80 @@ export default function AboutEdit() {
 						</div>
 					</div>
 
-					<button
-						type="button"
-						className="adm-btn primary"
-						style={{ alignSelf: "flex-start" }}
-						onClick={() => setSection(si, { lines: [bi(), ...s.lines] })}
-					>
-						<Icon name="add" />
-						맨 위에 새 줄 추가
-					</button>
+					{!closed.has(s._k) && (
+						<>
+							<button
+								type="button"
+								className="adm-btn primary medium"
+								style={{ alignSelf: "flex-start" }}
+								onClick={() => setSection(si, { lines: [bi(), ...s.lines] })}
+							>
+								<Icon name="add" />맨 위에 새 줄 추가
+							</button>
 
-					{s.lines.map((l, li) => (
-						<div key={l._k} className="adm-line">
-							<BiField
-								label={`${li + 1}.`}
-								value={l}
-								onChange={(v) => setLine(si, li, v)}
-								showEn={showEn}
-								placeholder="예: 2025 <전시 제목> 갤러리 이름, 서울, 한국"
-							/>
-							<div className="adm-line-actions">
-								<button
-									type="button"
-									className="adm-btn small"
-									disabled={li === 0}
-									onClick={() => setSection(si, { lines: move(s.lines, li, -1) })}
-									aria-label="위로"
-								>
-									<Icon name="arrow_upward" />
-								</button>
-								<button
-									type="button"
-									className="adm-btn small"
-									disabled={li === s.lines.length - 1}
-									onClick={() => setSection(si, { lines: move(s.lines, li, 1) })}
-									aria-label="아래로"
-								>
-									<Icon name="arrow_downward" />
-								</button>
-								<button
-									type="button"
-									className="adm-btn small danger"
-									onClick={() => removeLine(si, li)}
-									aria-label="삭제"
-									title="삭제"
-								>
-									<Icon name="delete" />
-								</button>
-							</div>
-						</div>
-					))}
+							{s.lines.map((l, li) => {
+								const drag = dragLine(s._k, li, moveLine(s._k));
+								return (
+									<div
+										key={l._k}
+										className={`adm-line ${drag.dragging ? "dragging" : ""}`}
+										data-flip={l._k}
+										data-sort-item
+										data-flip-skip={drag.dragging ? "" : undefined}
+									>
+										<DragHandle onPointerDown={drag.onPointerDown} />
+										<span className="adm-tag number adm-line-num" aria-hidden="true">
+											{li + 1}
+										</span>
+										<BiField
+											label={`${li + 1}번째 줄`}
+											hideLabel
+											growOnMobile
+											value={l}
+											onChange={(v) => setLine(si, li, v)}
+											showEn={showEn}
+											placeholder="예: 2025 <전시 제목> 갤러리 이름, 서울, 한국"
+										/>
+										<div className="adm-line-actions">
+											<button
+												type="button"
+												className="adm-btn small"
+												disabled={li === 0}
+												onClick={() => {
+													setSection(si, { lines: move(s.lines, li, -1) });
+													flashOn(l._k);
+												}}
+												aria-label="위로"
+											>
+												<Icon name="arrow_upward" />
+											</button>
+											<button
+												type="button"
+												className="adm-btn small"
+												disabled={li === s.lines.length - 1}
+												onClick={() => {
+													setSection(si, { lines: move(s.lines, li, 1) });
+													flashOn(l._k);
+												}}
+												aria-label="아래로"
+											>
+												<Icon name="arrow_downward" />
+											</button>
+											<button
+												type="button"
+												className="adm-btn small danger"
+												onClick={() => removeLine(si, li)}
+												aria-label="삭제"
+												title="삭제"
+											>
+												<Icon name="delete" />
+											</button>
+										</div>
+									</div>
+								);
+							})}
+						</>
+					)}
 				</div>
 			))}
 
@@ -203,8 +273,7 @@ export default function AboutEdit() {
 					setAbout({ ...about, sections: [...about.sections, { _k: newKey(), title: bi(), lines: [bi()] }] })
 				}
 			>
-				<Icon name="add" />
-				새 카테고리 추가 (예: 레지던시, 소장처)
+				<Icon name="add" />새 카테고리 추가 (예: 레지던시, 소장처)
 			</button>
 
 			<SaveBar
