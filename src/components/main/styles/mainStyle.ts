@@ -22,19 +22,9 @@ const itemWidth = "calc((100vw - (30px * 2) - (24px * 4)) / 5)";
 
 export const MainWorkImageWrap = styled.div`
 	position: relative;
-	overflow: hidden;
 
-	/* 다른 작업에 마우스를 올렸을 때 이 사진을 흐리게 덮는 막 (평소엔 안 보여요) */
-	&::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
-		background: rgba(217, 217, 217, 0.01);
-		opacity: 0;
-		transition: opacity 0.25s ease;
-		pointer-events: none;
+	> img {
+		transition: filter 0.25s ease;
 	}
 
 	@media screen and ${DESKTOP_DEVICE} {
@@ -77,8 +67,9 @@ export const MainListItemWrap = styled.li`
 
 	/* 한 작업에 마우스를 올리면, 나머지 작업 사진은 흐리게 (마우스가 있는 PC에서만) */
 	@media (hover: hover) {
-		${MainListWrap}:has(> li:hover) &:not(:hover) ${MainWorkImageWrap}::after {
-			opacity: 1;
+		/* 사진 자체를 흐리게 해서 가장자리까지 부드럽게 번져요 (Figma 224:36850) */
+		${MainListWrap}:has(> li:hover) &:not(:hover) ${MainWorkImageWrap} > img {
+			filter: blur(5px);
 		}
 	}
 `;

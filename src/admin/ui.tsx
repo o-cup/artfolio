@@ -1,6 +1,15 @@
 // 여러 화면에서 같이 쓰는 부품들: 알림창, 저장 진행창, 입력칸, 사진 고르기
 
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import { Bi, Photo, photoFromFile } from "./model";
 import type { RawContent } from "./api";
 import { PREVIEW_KEY } from "../shared/siteData";
@@ -22,10 +31,12 @@ const ICON_NAMES = [
 	"chevron_left",
 	"chevron_right",
 	"delete",
+	"drag_indicator",
+	"expand_more",
 	"visibility",
 	"visibility_off",
 ] as const;
-export type IconName = typeof ICON_NAMES[number];
+export type IconName = (typeof ICON_NAMES)[number];
 
 export function loadIconFont() {
 	const id = "adm-material-symbols";
@@ -78,9 +89,7 @@ const DialogContext = createContext<DialogApi | null>(null);
 export const useDialog = () => useContext(DialogContext) as DialogApi;
 
 export function DialogProvider({ children }: { children: React.ReactNode }) {
-	const [confirmState, setConfirmState] = useState<(ConfirmOptions & { resolve: (v: boolean) => void }) | null>(
-		null
-	);
+	const [confirmState, setConfirmState] = useState<(ConfirmOptions & { resolve: (v: boolean) => void }) | null>(null);
 	const [progress, setProgress] = useState<Progress>(null);
 	const [done, setDone] = useState<(NonNullable<Done> & { resolve: () => void }) | null>(null);
 
@@ -210,14 +219,132 @@ type BiFieldProps = {
 	big?: boolean;
 	/** 긴 한 줄짜리 글(이력 등): 칸 안에서 줄이 넘어가게 */
 	wrap?: boolean;
+	/** 칸 이름을 화면에서는 숨기고 화면 읽어주기에만 남겨요 (번호 뱃지를 따로 보여줄 때) */
+	hideLabel?: boolean;
+	/** 휴대폰에서만, 글이 길면 칸이 아래로 늘어나서 전부 보여요 (PC는 한 줄 칸 그대로) */
+	growOnMobile?: boolean;
 };
-export function BiField({ label, hint, value, onChange, multiline, showEn, placeholder, big, wrap }: BiFieldProps) {
+
+/** 휴대폰·태블릿 화면인지 (가로 767px 이하) */
+function useIsMobile() {
+	const query = "(max-width: 767px)"; // 767px 이하 = 휴대폰·태블릿, 768px부터 데스크톱
+	const [mobile, setMobile] = useState(() => window.matchMedia(query).matches);
+	useEffect(() => {
+		const mq = window.matchMedia(query);
+		const on = () => setMobile(mq.matches);
+		mq.addEventListener("change", on);
+		return () => mq.removeEventListener("change", on);
+	}, []);
+	return mobile;
+}
+
+/** 한 줄짜리 글을 쓰는 칸인데, 길어지면 줄이 바뀌며 아래로 늘어나요. 엔터로 줄을 나누지는 않아요. */
+function GrowField({
+	id,
+	className,
+	value,
+	placeholder,
+	ariaLabel,
+	onChange,
+}: {
+	id?: string;
+	className: string;
+	value: string;
+	placeholder?: string;
+	ariaLabel?: string;
+	onChange: (v: string) => void;
+}) {
+	const ref = useRef<HTMLTextAreaElement>(null);
+	const fit = useCallback(() => {
+		const el = ref.current;
+		if (!el) return;
+		el.style.height = "auto";
+		// 테두리까지 포함한 높이로 (글자가 마지막 줄까지 다 보이게)
+		const border = el.offsetHeight - el.clientHeight;
+		el.style.height = `${el.scrollHeight + border}px`;
+	}, []);
+	// 글자가 바뀔 때마다
+	useLayoutEffect(fit);
+	// 칸 너비가 바뀌거나(화면 회전·크기 변경), 글꼴이 늦게 불러와져서 줄바꿈이 달라질 때도 다시 맞춰요
+	useEffect(() => {
+		const el = ref.current;
+		if (!el) return undefined;
+		let lastWidth = el.clientWidth;
+		const ro = new ResizeObserver(() => {
+			if (el.clientWidth !== lastWidth) {
+				lastWidth = el.clientWidth;
+				fit();
+			}
+		});
+		ro.observe(el);
+		document.fonts?.ready.then(fit).catch(() => undefined);
+		return () => ro.disconnect();
+	}, [fit]);
+	return (
+		<textarea
+			id={id}
+			ref={ref}
+			rows={1}
+			className={`${className} adm-grow`}
+			value={value}
+			placeholder={placeholder}
+			aria-label={ariaLabel}
+			onKeyDown={(e) => {
+				if (e.key === "Enter") e.preventDefault();
+			}}
+			onChange={(e) => onChange(e.target.value.replace(/\n/g, " "))}
+		/>
+	);
+}
+
+export function BiField({
+	label,
+	hint,
+	value,
+	onChange,
+	multiline,
+	showEn,
+	placeholder,
+	big,
+	wrap,
+	hideLabel,
+	growOnMobile,
+}: BiFieldProps) {
 	const id = `f-${value._k}`;
+	const isMobile = useIsMobile();
+	if (growOnMobile && isMobile && !multiline && !wrap) {
+		return (
+			<div className="adm-field">
+				<label className={`adm-label ${hideLabel ? "adm-sr-only" : ""}`} htmlFor={id}>
+					{label}
+				</label>
+				{hint && <span className="adm-hint">{hint}</span>}
+				<GrowField
+					id={id}
+					className="adm-input"
+					value={value.ko}
+					placeholder={placeholder}
+					onChange={(ko) => onChange({ ...value, ko })}
+				/>
+				{showEn && (
+					<>
+						<span className="adm-en-label">영어칸은 비워두면 자동으로 번역되고, 입력하면 입력한 내용이 반영돼요.</span>
+						<GrowField
+							className="adm-input en"
+							value={value.en}
+							ariaLabel={`${label} 영어`}
+							onChange={(en) => onChange({ ...value, en })}
+						/>
+					</>
+				)}
+			</div>
+		);
+	}
 	const Tag = multiline || wrap ? "textarea" : "input";
 	const cls = (multiline && "adm-textarea") || (wrap && "adm-textarea line") || "adm-input";
 	return (
 		<div className="adm-field">
-			<label className="adm-label" htmlFor={id}>
+			<label className={`adm-label ${hideLabel ? "adm-sr-only" : ""}`} htmlFor={id}>
 				{label}
 			</label>
 			{hint && <span className="adm-hint">{hint}</span>}
@@ -234,9 +361,7 @@ export function BiField({ label, hint, value, onChange, multiline, showEn, place
 			/>
 			{showEn && (
 				<>
-					<span className="adm-en-label">
-						영어칸은 비워두면 자동으로 번역되고, 입력하면 입력한 내용이 반영돼요.
-					</span>
+					<span className="adm-en-label">영어칸은 비워두면 자동으로 번역되고, 입력하면 입력한 내용이 반영돼요.</span>
 					<Tag
 						className={`${cls} en`}
 						rows={wrap ? 2 : undefined}
@@ -512,6 +637,161 @@ function Calendar({
 	);
 }
 
+// ---------- 순서 바뀔 때 움직임 ----------
+/**
+ * 순서가 바뀌면 각 항목이 원래 자리에서 새 자리로 미끄러지듯 움직여요 (FLIP 방식).
+ * - 움직일 항목에 data-flip="고유키" 를 달아요.
+ * - 항목 안에 또 data-flip 항목이 있으면(카테고리 안의 이력 줄) 바깥 항목 기준으로 계산해서 두 번 움직이지 않아요.
+ * - flashKey: 방금 옮긴 항목은 잠깐 배경이 깜빡여서 어디로 갔는지 보여요.
+ * - '움직임 줄이기'를 켠 기기에서는 움직이지 않아요.
+ */
+export function useFlip(
+	containerRef: React.RefObject<HTMLElement>,
+	orderKey: string,
+	flash?: { key: string; at: number } | null
+) {
+	const prev = useRef(new Map<string, { x: number; y: number }>());
+	const lastKey = useRef(orderKey);
+	const lastFlash = useRef(flash?.at);
+	// 매번 화면을 그린 뒤 위치를 기억해 두고, 순서가 바뀐 경우에만 움직여요
+	// (접기/펼치기나 글자 입력처럼 순서와 상관없는 변화는 움직이지 않아요)
+	useLayoutEffect(() => {
+		const root = containerRef.current;
+		if (!root) return;
+		const reordered = lastKey.current !== orderKey;
+		const flashNow = flash && flash.at !== lastFlash.current;
+		lastKey.current = orderKey;
+		lastFlash.current = flash?.at;
+		const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+		const next = new Map<string, { x: number; y: number }>();
+		root.querySelectorAll<HTMLElement>("[data-flip]").forEach((el) => {
+			const key = el.dataset.flip as string;
+			const base = (el.parentElement?.closest("[data-flip]") as HTMLElement | null) || root;
+			const r = el.getBoundingClientRect();
+			const b = base.getBoundingClientRect();
+			const pos = { x: r.left - b.left, y: r.top - b.top };
+			next.set(key, pos);
+			const old = prev.current.get(key);
+			if (reordered && !reduce && old && !el.hasAttribute("data-flip-skip")) {
+				const dx = old.x - pos.x;
+				const dy = old.y - pos.y;
+				if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+					el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "translate(0, 0)" }], {
+						duration: 280,
+						easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+					});
+				}
+			}
+			if (flashNow && flash && flash.key === key && !reduce) {
+				el.animate([{ backgroundColor: "rgba(55, 49, 61, 0.12)" }, { backgroundColor: "rgba(55, 49, 61, 0)" }], {
+					duration: 900,
+					easing: "ease-out",
+				});
+			}
+		});
+		prev.current = next;
+	});
+}
+
+// ---------- 끌기 공통 ----------
+/**
+ * 요소의 "제자리" 위치 (움직임 효과로 잠깐 옮겨져 보이는 것과 상관없이).
+ * 끄는 중에 옆 항목들이 미끄러지는 동안 그 '보이는 위치'로 계산하면 자리가 계속 바뀌며 화면이 튀어서,
+ * 항상 실제 배치 위치로 계산해요. container 기준 좌표예요.
+ */
+export function layoutRect(el: HTMLElement, container: HTMLElement) {
+	let x = 0;
+	let y = 0;
+	let node: HTMLElement | null = el;
+	while (node && node !== container) {
+		x += node.offsetLeft;
+		y += node.offsetTop;
+		node = node.offsetParent as HTMLElement | null;
+	}
+	return { left: x, top: y, right: x + el.offsetWidth, bottom: y + el.offsetHeight, height: el.offsetHeight };
+}
+
+/** 끄는 중 화면 위·아래 끝 근처에서 천천히 자동 스크롤 (끝에 가까울수록 조금 빠르게) */
+export function edgeScroll(clientY: number) {
+	const top = 70;
+	const bottom = window.innerHeight - 130; // 아래 저장 영역 높이만큼 여유
+	if (clientY < top) window.scrollBy(0, -Math.ceil(((top - clientY) / top) * 8));
+	else if (clientY > bottom) window.scrollBy(0, Math.ceil(Math.min(1, (clientY - bottom) / 130) * 8));
+}
+
+// ---------- 끌어서 순서 바꾸기 (여러 묶음) ----------
+/**
+ * 손잡이를 잡고 위아래로 끌면 같은 묶음 안에서 순서가 바뀌어요 (마우스·손가락 모두).
+ * - 묶음 = 손잡이에서 가장 가까운 [data-sort-list] 요소, 항목 = 그 안의 [data-sort-item]
+ * - handle(묶음이름, 번호, 옮기는함수) 를 손잡이에 펼쳐 넣어요.
+ */
+export function useGroupDragSort() {
+	const [active, setActive] = useState<{ group: string; index: number } | null>(null);
+	const cur = useRef<{ group: string; index: number; list: HTMLElement } | null>(null);
+	const moves = useRef(new Map<string, (from: number, to: number) => void>());
+
+	const onMove = (e: PointerEvent) => {
+		const c = cur.current;
+		if (!c) return;
+		e.preventDefault();
+		edgeScroll(e.clientY);
+		const y = e.clientY - c.list.getBoundingClientRect().top;
+		const items = Array.from(c.list.querySelectorAll<HTMLElement>("[data-sort-item]"));
+		let to = c.index;
+		items.forEach((el, k) => {
+			const r = layoutRect(el, c.list);
+			const mid = r.top + r.height / 2;
+			if (k < c.index && y < mid) to = Math.min(to, k);
+			if (k > c.index && y > mid) to = Math.max(to, k);
+		});
+		if (to !== c.index) {
+			moves.current.get(c.group)?.(c.index, to);
+			cur.current = { ...c, index: to };
+			setActive({ group: c.group, index: to });
+		}
+	};
+	const onUp = () => {
+		cur.current = null;
+		setActive(null);
+		window.removeEventListener("pointermove", onMove);
+		window.removeEventListener("pointerup", onUp);
+		window.removeEventListener("pointercancel", onUp);
+	};
+
+	const handle = (group: string, index: number, moveTo: (from: number, to: number) => void) => {
+		moves.current.set(group, moveTo);
+		return {
+			dragging: active?.group === group && active.index === index,
+			onPointerDown: (e: React.PointerEvent<HTMLElement>) => {
+				const list = e.currentTarget.closest("[data-sort-list]") as HTMLElement | null;
+				if (!list) return;
+				e.preventDefault();
+				cur.current = { group, index, list };
+				setActive({ group, index });
+				window.addEventListener("pointermove", onMove, { passive: false });
+				window.addEventListener("pointerup", onUp);
+				window.addEventListener("pointercancel", onUp);
+			},
+		};
+	};
+	return handle;
+}
+
+/** 끌어서 순서 바꾸기 손잡이 (⋮⋮) */
+export function DragHandle({ onPointerDown }: { onPointerDown: (e: React.PointerEvent<HTMLElement>) => void }) {
+	return (
+		<button
+			type="button"
+			className="adm-drag-handle"
+			aria-label="끌어서 순서 바꾸기"
+			title="끌어서 순서 바꾸기"
+			onPointerDown={onPointerDown}
+		>
+			<Icon name="drag_indicator" />
+		</button>
+	);
+}
+
 // ---------- 사진 ----------
 /** 새로 추가한(아직 저장 안 한) 사진 표시: 초록색 점 */
 export function NewDot({ label = "새 사진" }: { label?: string }) {
@@ -572,11 +852,92 @@ function useFilePicker(onFiles: (files: File[]) => void, multiple: boolean) {
 		onDrop: (e: React.DragEvent) => {
 			e.preventDefault();
 			setDrag(false);
-			const files = Array.from(e.dataTransfer.files).filter((f) => f.type.startsWith("image/") || /\.(heic|heif)$/i.test(f.name));
+			const files = Array.from(e.dataTransfer.files).filter(
+				(f) => f.type.startsWith("image/") || /\.(heic|heif)$/i.test(f.name)
+			);
 			if (files.length) onFiles(multiple ? files : files.slice(0, 1));
 		},
 	};
 	return { input, open: () => inputRef.current?.click(), drag, dropProps };
+}
+
+/**
+ * 사진을 끌어서 순서 바꾸기 (격자).
+ * - 마우스: 사진을 누른 채 조금 움직이면 끌기 시작
+ * - 손가락: 사진을 0.35초 꾹 누르고 있으면 끌기 시작 (그냥 쓸어 넘기면 화면 스크롤)
+ * - 끄는 동안 다른 사진 위에 오면 그 자리로 옮겨요. 화면 끝으로 가면 자동 스크롤.
+ */
+function usePhotoDrag(gridRef: React.RefObject<HTMLElement>, photos: Photo[], onChange: (p: Photo[]) => void) {
+	const [dragKey, setDragKey] = useState<string | null>(null);
+	const latest = useRef({ photos, onChange });
+	latest.current = { photos, onChange };
+	const st = useRef<{ key: string; x: number; y: number; started: boolean; timer?: number } | null>(null);
+
+	const blockTouch = (e: TouchEvent) => {
+		if (st.current?.started) e.preventDefault();
+	};
+	const stop = () => {
+		if (st.current?.timer) window.clearTimeout(st.current.timer);
+		st.current = null;
+		setDragKey(null);
+		window.removeEventListener("pointermove", onMove);
+		window.removeEventListener("pointerup", stop);
+		window.removeEventListener("pointercancel", stop);
+		window.removeEventListener("touchmove", blockTouch);
+	};
+	const begin = () => {
+		if (!st.current) return;
+		st.current.started = true;
+		setDragKey(st.current.key);
+	};
+	function onMove(e: PointerEvent) {
+		const c = st.current;
+		if (!c) return;
+		if (!c.started) {
+			const moved = Math.hypot(e.clientX - c.x, e.clientY - c.y);
+			if (e.pointerType === "mouse" && moved > 6) begin();
+			else if (e.pointerType !== "mouse" && moved > 10) {
+				stop(); // 꾹 누르기 전에 움직였으면 스크롤로 보고 끌기 취소
+				return;
+			}
+			if (!st.current?.started) return;
+		}
+		e.preventDefault();
+		edgeScroll(e.clientY);
+		const grid = gridRef.current;
+		if (!grid) return;
+		const g = grid.getBoundingClientRect();
+		const px = e.clientX - g.left;
+		const py = e.clientY - g.top;
+		const items = Array.from(grid.querySelectorAll<HTMLElement>("[data-photo-item]"));
+		const { photos: list, onChange: change } = latest.current;
+		const from = list.findIndex((p) => p.key === c.key);
+		// 사진 칸의 제자리 위치로 판단 (움직이는 중인 모습 말고)
+		const to = items.findIndex((el) => {
+			const r = layoutRect(el, grid);
+			return px >= r.left && px <= r.right && py >= r.top && py <= r.bottom;
+		});
+		if (from < 0 || to < 0 || to === from) return;
+		const next = [...list];
+		const [x] = next.splice(from, 1);
+		next.splice(to, 0, x);
+		change(next);
+	}
+
+	const onPointerDown = (e: React.PointerEvent<HTMLElement>, key: string) => {
+		if ((e.target as HTMLElement).closest("button")) return; // 사진 빼기(X) 버튼은 그대로
+		if (e.pointerType === "mouse") {
+			if (e.button !== 0) return;
+			e.preventDefault(); // 브라우저 기본 이미지 끌기 막기
+		}
+		st.current = { key, x: e.clientX, y: e.clientY, started: false };
+		if (e.pointerType !== "mouse") st.current.timer = window.setTimeout(begin, 350);
+		window.addEventListener("pointermove", onMove, { passive: false });
+		window.addEventListener("pointerup", stop);
+		window.addEventListener("pointercancel", stop);
+		window.addEventListener("touchmove", blockTouch, { passive: false });
+	};
+	return { dragKey, onPointerDown };
 }
 
 export function PhotoGrid({
@@ -591,17 +952,28 @@ export function PhotoGrid({
 	coverLabel?: string;
 }) {
 	const picker = useFilePicker((files) => onChange([...photos, ...files.map(photoFromFile)]), true);
+	const gridRef = useRef<HTMLDivElement>(null);
+	const [flash, setFlash] = useState<{ key: string; at: number } | null>(null);
+	useFlip(gridRef, photos.map((p) => p.key).join(","), flash);
 	const move = (i: number, d: number) => {
 		const next = [...photos];
 		const [item] = next.splice(i, 1);
 		next.splice(i + d, 0, item);
 		onChange(next);
+		setFlash({ key: photos[i].key, at: Date.now() });
 	};
+	const drag = usePhotoDrag(gridRef, photos, onChange);
 	return (
-		<div className="adm-photos">
+		<div className="adm-photos" ref={gridRef}>
 			{photos.map((p, i) => (
-				<div key={p.key} className={`adm-photo ${i === 0 && coverLabel ? "cover" : ""}`}>
-					<div className="adm-photo-thumb">
+				<div
+					key={p.key}
+					className={`adm-photo ${i === 0 && coverLabel ? "cover" : ""} ${drag.dragKey === p.key ? "dragging" : ""}`}
+					data-flip={p.key}
+					data-photo-item
+					data-flip-skip={drag.dragKey === p.key ? "" : undefined}
+				>
+					<div className="adm-photo-thumb" onPointerDown={(e) => drag.onPointerDown(e, p.key)}>
 						<SmartImg src={photoSrc(p)} rawBase={rawBase} alt={`${i + 1}번 사진`} />
 						<button
 							type="button"
@@ -619,28 +991,29 @@ export function PhotoGrid({
 						</span>
 						{i === 0 && coverLabel && <span className="adm-tag positive">{coverLabel}</span>}
 						{p.file && <NewDot />}
-					</div>
-					<div className="adm-photo-actions">
-						<button
-							type="button"
-							className="adm-btn small"
-							disabled={i === 0}
-							onClick={() => move(i, -1)}
-							aria-label="앞으로"
-							title="앞으로"
-						>
-							<Icon name="arrow_back" />
-						</button>
-						<button
-							type="button"
-							className="adm-btn small"
-							disabled={i === photos.length - 1}
-							onClick={() => move(i, 1)}
-							aria-label="뒤로"
-							title="뒤로"
-						>
-							<Icon name="arrow_forward" />
-						</button>
+						{/* 앞으로/뒤로: 뱃지와 같은 줄 오른쪽, 테두리 없는 아이콘 버튼 */}
+						<div className="adm-photo-actions">
+							<button
+								type="button"
+								className="adm-btn small"
+								disabled={i === 0}
+								onClick={() => move(i, -1)}
+								aria-label="앞으로"
+								title="앞으로"
+							>
+								<Icon name="arrow_back" />
+							</button>
+							<button
+								type="button"
+								className="adm-btn small"
+								disabled={i === photos.length - 1}
+								onClick={() => move(i, 1)}
+								aria-label="뒤로"
+								title="뒤로"
+							>
+								<Icon name="arrow_forward" />
+							</button>
+						</div>
 					</div>
 				</div>
 			))}
@@ -650,7 +1023,9 @@ export function PhotoGrid({
 				onClick={picker.open}
 				{...picker.dropProps}
 			>
-				<span className="plus"><Icon name="add" /></span>
+				<span className="plus">
+					<Icon name="add" />
+				</span>
 				사진 추가
 				<span className="adm-hint">여러 장을 한꺼번에 고를 수 있어요</span>
 			</button>
@@ -685,7 +1060,9 @@ export function SinglePhoto({
 					onClick={picker.open}
 					{...picker.dropProps}
 				>
-					<span className="plus"><Icon name="add" /></span>
+					<span className="plus">
+						<Icon name="add" />
+					</span>
 					사진 추가
 				</button>
 			)}
@@ -713,25 +1090,25 @@ export function SaveBar({
 	const [preview, setPreview] = useState<PreviewRequest | null>(null);
 	return (
 		<>
-		{preview && <PreviewScreen request={preview} onClose={() => setPreview(null)} />}
-		<div className="adm-savebar">
-			<div className="adm-savebar-inner">
-				<span className="adm-muted adm-small" style={{ marginRight: "auto" }}>
-					{dirty ? "아직 저장하지 않은 내용이 있어요" : "바뀐 내용이 없어요"}
-				</span>
-				<button type="button" className="adm-btn big" onClick={onCancel}>
-					취소
-				</button>
-				{onPreview && (
-					<button type="button" className="adm-btn secondary" onClick={() => setPreview(onPreview())}>
-						미리보기
+			{preview && <PreviewScreen request={preview} onClose={() => setPreview(null)} />}
+			<div className="adm-savebar">
+				<div className="adm-savebar-inner">
+					<span className="adm-muted adm-small" style={{ marginRight: "auto" }}>
+						{dirty ? "아직 저장하지 않은 내용이 있어요" : "바뀐 내용이 없어요"}
+					</span>
+					<button type="button" className="adm-btn big" onClick={onCancel}>
+						취소
 					</button>
-				)}
-				<button type="button" className="adm-btn big primary" onClick={onSave} disabled={!dirty}>
-					{saveLabel}
-				</button>
+					{onPreview && (
+						<button type="button" className="adm-btn secondary" onClick={() => setPreview(onPreview())}>
+							미리보기
+						</button>
+					)}
+					<button type="button" className="adm-btn big primary" onClick={onSave} disabled={!dirty}>
+						{saveLabel}
+					</button>
+				</div>
 			</div>
-		</div>
 		</>
 	);
 }
@@ -766,10 +1143,22 @@ function PreviewScreen({ request, onClose }: { request: PreviewRequest; onClose:
 					<span className="adm-muted adm-small">아직 저장되지 않았어요</span>
 				</div>
 				<div className="adm-preview-tabs" role="tablist" aria-label="화면 크기">
-					<button type="button" role="tab" aria-selected={!mobile} className={!mobile ? "on" : ""} onClick={() => setMobile(false)}>
+					<button
+						type="button"
+						role="tab"
+						aria-selected={!mobile}
+						className={!mobile ? "on" : ""}
+						onClick={() => setMobile(false)}
+					>
 						PC
 					</button>
-					<button type="button" role="tab" aria-selected={mobile} className={mobile ? "on" : ""} onClick={() => setMobile(true)}>
+					<button
+						type="button"
+						role="tab"
+						aria-selected={mobile}
+						className={mobile ? "on" : ""}
+						onClick={() => setMobile(true)}
+					>
 						휴대폰
 					</button>
 				</div>
@@ -796,7 +1185,7 @@ export function EnToggle({ showEn, setShowEn }: { showEn: boolean; setShowEn: (v
 	return (
 		<label className="adm-toggle adm-muted">
 			<input type="checkbox" checked={showEn} onChange={(e) => setShowEn(e.target.checked)} />
-			영어 번역도 같이 보기 (선택)
+			영어 번역 보기
 		</label>
 	);
 }

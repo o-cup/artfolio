@@ -21,13 +21,19 @@ import {
 } from "./model";
 import { BiField, DateField, EnToggle, Icon, PhotoGrid, SaveBar, SinglePhoto, photoSrc, useDialog } from "./ui";
 import { ListItem, PageHead } from "./WorksPages";
+import { sortExhibitionsNewestFirst } from "../shared/exhibitionOrder";
+
+/** 시작일 기준 최신순 (사이트와 같은 규칙) */
+const newestFirst = (list: Exhibition[]) => sortExhibitionsNewestFirst(list, (x) => formatDates(x).ko);
+/** 데이터 파일에는 오래된 것부터 저장해요 (사이트는 뒤집어서 최신이 위) */
+const oldestFirst = (list: Exhibition[]) => newestFirst(list).reverse();
 
 export function ExhibitionsList() {
 	const { model, setModel, go, rawBase } = useAdmin();
 	const dialog = useDialog();
 	const onError = useSaveError();
-	// 화면에는 최신 전시가 위로
-	const shown = [...model.exhibitions].reverse();
+	// 시작일 기준 최신순 (순서는 자동으로 정해져요)
+	const shown = newestFirst(model.exhibitions);
 
 	// quiet: 순서 바꾸기처럼 가벼운 저장은 글자 없이 로딩 표시만 (최소 1초)
 	const saveList = async (exhibitions: Exhibition[], message: string, deletes: string[] = [], quiet = false) => {
@@ -48,15 +54,6 @@ export function ExhibitionsList() {
 		}
 	};
 
-	const move = async (shownIndex: number, d: number) => {
-		const list = [...shown];
-		const [x] = list.splice(shownIndex, 1);
-		list.splice(shownIndex + d, 0, x);
-		if (await saveList(list.reverse(), "전시 순서 변경", [], true)) {
-			dialog.showToast(["순서를 바꿨어요.", "사이트 적용까지 2-3분 걸릴 수 있어요."]);
-		}
-	};
-
 	const remove = async (x: Exhibition) => {
 		const ok = await dialog.confirm({
 			title: `'${x.title.ko}' 전시를 지울까요?`,
@@ -67,7 +64,7 @@ export function ExhibitionsList() {
 		});
 		if (!ok) return;
 		const before: Photo[] = [...(x.poster ? [x.poster] : []), ...x.images];
-		const list = model.exhibitions.filter((e) => e.id !== x.id);
+		const list = oldestFirst(model.exhibitions.filter((e) => e.id !== x.id));
 		// 삭제는 확인 창으로 한 번 물어봤으니, 끝나면 짧은 알림(토스트)만 보여줘요
 		if (await saveList(list, `전시 '${x.title.ko}' 삭제`, removedPhotos(before, []), true)) {
 			dialog.showToast([`${withEulReul(x.title.ko)} 삭제했어요.`, "사이트에는 2-3분 후에 반영돼요."]);
@@ -76,14 +73,14 @@ export function ExhibitionsList() {
 
 	return (
 		<div className="adm-stack">
-			<PageHead title="전시" desc="사이트에 보이는 순서대로 나와 있어요." back={() => go("/admin")}>
+			<PageHead title="전시" desc="시작일 기준 최신순으로 자동 정렬돼요." back={() => go("/admin")}>
 				<button type="button" className="adm-btn big primary" onClick={() => go("/admin/exhibitions/new")}>
 					<Icon name="add" />
 					새 전시
 				</button>
 			</PageHead>
 			<div className="adm-list">
-				{shown.map((x, i) => (
+				{shown.map((x) => (
 					<ListItem
 						key={x.id}
 						img={x.poster ? photoSrc(x.poster) : ""}
@@ -99,8 +96,6 @@ export function ExhibitionsList() {
 						rawBase={rawBase}
 						onEdit={() => go(`/admin/exhibitions/${x.id}`)}
 						onDelete={() => remove(x)}
-						onUp={i > 0 ? () => move(i, -1) : undefined}
-						onDown={i < shown.length - 1 ? () => move(i, 1) : undefined}
 					/>
 				))}
 			</div>
@@ -179,9 +174,9 @@ export function ExhibitionEdit() {
 			const photosUp = await uploadPhotos(value.images, folder, progress);
 
 			dialog.setProgress({ title: "저장하는 중이에요…" });
-			const list = isNew
-				? [...model.exhibitions, value]
-				: model.exhibitions.map((x) => (x.id === value.id ? value : x));
+			const list = oldestFirst(
+				isNew ? [...model.exhibitions, value] : model.exhibitions.map((x) => (x.id === value.id ? value : x))
+			);
 			const before = [...(original.poster ? [original.poster] : []), ...original.images];
 			const after = [...(value.poster ? [value.poster] : []), ...value.images];
 			await api.save({
@@ -249,7 +244,6 @@ export function ExhibitionEdit() {
 								<DateField label="종료일" value={ex.end} openAt={ex.start} onChange={(end) => set({ end })} />
 							</div>
 						</div>
-						{ex.start && <p className="adm-muted">사이트에는 이렇게 보여요: {formatDates(ex).ko}</p>}
 						<div>
 							<button
 								type="button"
