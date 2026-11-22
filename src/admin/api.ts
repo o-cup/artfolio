@@ -41,7 +41,10 @@ export const api = {
 		const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
 			redirectTo: `${window.location.origin}/admin/reset`,
 		});
-		if (error && /rate limit|seconds/i.test(error.message)) {
+		if (error && /seconds/i.test(error.message)) {
+			throw new ApiError("방금 메일을 보냈어요. 1분쯤 뒤에 다시 해 주세요.", 429);
+		}
+		if (error && /rate limit/i.test(error.message)) {
 			throw new ApiError("메일을 너무 자주 보냈어요. 1시간쯤 뒤에 다시 해 주세요.", 429);
 		}
 		if (error) fail(error, "메일을 보내지 못했어요. 잠시 뒤 다시 해 주세요.");
