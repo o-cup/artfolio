@@ -64,13 +64,15 @@ function linkError(): string {
 	return "메일 속 링크가 만료됐어요. 아래 '비밀번호가 생각나지 않으세요?'를 눌러 메일을 다시 받아 주세요.";
 }
 
+/** 비밀번호 재설정 메일을 받는 관리자 이메일 */
+const ADMIN_EMAIL = "parkmejung.art@gmail.com";
+
 export function LoginPage({ onLoggedIn }: { onLoggedIn: () => void }) {
+	const dialog = useDialog();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(linkError);
 	const [busy, setBusy] = useState(false);
-	const [forgot, setForgot] = useState(false);
-	const [mailSent, setMailSent] = useState(false);
 
 	const submit = async () => {
 		if (!email.trim() || !password) {
@@ -88,20 +90,29 @@ export function LoginPage({ onLoggedIn }: { onLoggedIn: () => void }) {
 		}
 	};
 
+	// 비밀번호를 잊었을 때: 관리자 이메일로 바로 재설정 메일을 보내요
 	const sendMail = async () => {
-		if (!email.trim()) {
-			setError("이메일을 넣어 주세요.");
-			return;
-		}
-		setBusy(true);
 		setError("");
+		const ok = await dialog.confirm({
+			title: "재설정 메일을 전송할까요?",
+			message: `전송 버튼을 누르면 ${ADMIN_EMAIL}으로 비밀번호 재설정 메일을 발송할게요.`,
+			ok: "전송",
+			cancel: "취소",
+		});
+		if (!ok) return;
+		dialog.setProgress({ title: "메일을 보내는 중이에요…" });
 		try {
-			await api.sendResetMail(email);
-			setMailSent(true);
+			await api.sendResetMail(ADMIN_EMAIL);
+			dialog.setProgress(null);
+			await dialog.showDone({
+				title: "재설정 메일을 전송했어요",
+				message: `${ADMIN_EMAIL}에서 확인해 주세요.`,
+				button: "확인",
+			});
 		} catch (e) {
+			dialog.setProgress(null);
 			setError(e instanceof Error ? e.message : "다시 시도해 주세요.");
 		}
-		setBusy(false);
 	};
 
 	return (
@@ -126,59 +137,23 @@ export function LoginPage({ onLoggedIn }: { onLoggedIn: () => void }) {
 						onChange={(e) => setEmail(e.target.value)}
 					/>
 				</div>
-				{!forgot && (
-					<PasswordInput
-						label="비밀번호"
-						value={password}
-						onChange={setPassword}
-						autoComplete="current-password"
-						onEnter={submit}
-					/>
-				)}
+				<PasswordInput
+					label="비밀번호"
+					value={password}
+					onChange={setPassword}
+					autoComplete="current-password"
+					onEnter={submit}
+				/>
 				{error && <div className="adm-error">{error}</div>}
-				{!forgot && (
-					<button type="button" className="adm-btn big primary block" onClick={submit} disabled={busy}>
-						{busy ? "확인하는 중…" : "로그인"}
-					</button>
-				)}
-				{forgot && mailSent && (
-					<div className="adm-notice">
-						<b>메일을 보냈어요.</b> 메일함을 열고, 메일 속 링크를 누르면 새 비밀번호를 만들 수 있어요. 메일이
-						안 보이면 스팸함도 확인해 주세요.
-					</div>
-				)}
-				{forgot && !mailSent && (
-					<button type="button" className="adm-btn big primary block" onClick={sendMail} disabled={busy}>
-						{busy ? "보내는 중…" : "비밀번호 재설정 메일 받기"}
-					</button>
-				)}
+				<button type="button" className="adm-btn big primary block" onClick={submit} disabled={busy}>
+					{busy ? "확인하는 중…" : "로그인"}
+				</button>
 			</div>
 
 			<div className="adm-stack adm-login-forgot">
-				{!forgot ? (
-					<button
-						type="button"
-						className="adm-linkbtn"
-						onClick={() => {
-							setForgot(true);
-							setError("");
-						}}
-					>
-						비밀번호가 생각나지 않으세요?
-					</button>
-				) : (
-					<button
-						type="button"
-						className="adm-linkbtn"
-						onClick={() => {
-							setForgot(false);
-							setMailSent(false);
-							setError("");
-						}}
-					>
-						로그인으로 돌아가기
-					</button>
-				)}
+				<button type="button" className="adm-linkbtn" onClick={sendMail}>
+					비밀번호가 생각나지 않으세요?
+				</button>
 			</div>
 		</div>
 	);
