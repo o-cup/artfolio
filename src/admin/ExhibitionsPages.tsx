@@ -4,7 +4,7 @@
 import React, { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "./api";
-import { SAVED_MESSAGE, useAdmin, useDirty, useSaveError } from "./context";
+import { useAdmin, useDirty, useSaveError } from "./context";
 import {
 	autoTranslate,
 	bi,
@@ -67,7 +67,7 @@ export function ExhibitionsList() {
 		const list = oldestFirst(model.exhibitions.filter((e) => e.id !== x.id));
 		// 삭제는 확인 창으로 한 번 물어봤으니, 끝나면 짧은 알림(토스트)만 보여줘요
 		if (await saveList(list, `전시 '${x.title.ko}' 삭제`, removedPhotos(before, []), true)) {
-			dialog.showToast([`${withEulReul(x.title.ko)} 삭제했어요.`, "사이트에도 바로 반영돼요."]);
+			dialog.showToast([`${withEulReul(x.title.ko)} 삭제했어요.`]);
 		}
 	};
 
@@ -191,7 +191,6 @@ export function ExhibitionEdit() {
 			await go("/admin/exhibitions");
 			dialog.showDone({
 				title: isNew ? "새 전시를 올렸어요" : "저장했어요",
-				message: SAVED_MESSAGE,
 				button: "닫기",
 			});
 		} catch (e) {
@@ -297,9 +296,10 @@ export function ExhibitionEdit() {
 				onCancel={() => go("/admin/exhibitions")}
 				onPreview={() => {
 					const draft = exhibitionForPreview(ex);
-					const list = isNew
-						? [...model.exhibitions, draft]
-						: model.exhibitions.map((x) => (x.id === draft.id ? draft : x));
+					// 저장할 때와 같은 순서로 (사이트는 시작일 기준 최신순으로 보여줘요)
+					const list = oldestFirst(
+						isNew ? [...model.exhibitions, draft] : model.exhibitions.map((x) => (x.id === draft.id ? draft : x))
+					);
 					return { path: `/exhibitions/${draft.id}`, data: { exhibitions: exhibitionsToRaw(list) } };
 				}}
 			/>

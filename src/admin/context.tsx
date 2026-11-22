@@ -52,5 +52,3 @@ export function useSaveError() {
 	);
 }
 
-export const SAVED_MESSAGE = <p>사이트에도 바로 반영돼요.</p>;
-

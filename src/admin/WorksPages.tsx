@@ -3,7 +3,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "./api";
-import { SAVED_MESSAGE, useAdmin, useDirty, useSaveError } from "./context";
+import { useAdmin, useDirty, useSaveError } from "./context";
 import {
 	autoTranslate,
 	bi,
@@ -288,7 +288,7 @@ export function WorksList() {
 	const saveOrder = async () => {
 		if (await saveList(order.list, "작업 순서 변경", [], true)) {
 			order.stop();
-			dialog.showToast(["순서를 바꿨어요.", "사이트에도 바로 반영돼요."]);
+			dialog.showToast(["순서를 바꿨어요."]);
 		}
 	};
 
@@ -304,7 +304,7 @@ export function WorksList() {
 		const works = model.works.filter((x) => x.id !== w.id);
 		// 삭제는 확인 창으로 한 번 물어봤으니, 끝나면 짧은 알림(토스트)만 보여줘요
 		if (await saveList(works, `작업 '${w.title.ko}' 삭제`, removedPhotos(w.images, []), true)) {
-			dialog.showToast([`${withEulReul(w.title.ko)} 삭제했어요.`, "사이트에도 바로 반영돼요."]);
+			dialog.showToast([`${withEulReul(w.title.ko)} 삭제했어요.`]);
 		}
 	};
 
@@ -444,7 +444,6 @@ export function WorkEdit() {
 			await go("/admin/works");
 			dialog.showDone({
 				title: isNew ? "새 작업을 올렸어요" : "저장했어요",
-				message: SAVED_MESSAGE,
 				button: "닫기",
 			});
 		} catch (e) {
@@ -510,7 +509,8 @@ export function WorkEdit() {
 				onCancel={() => go("/admin/works")}
 				onPreview={() => {
 					const draft = workForPreview(work);
-					const list = isNew ? [...model.works, draft] : model.works.map((x) => (x.id === draft.id ? draft : x));
+					// 저장할 때처럼 새 작업은 맨 앞에 넣어요
+					const list = isNew ? [draft, ...model.works] : model.works.map((x) => (x.id === draft.id ? draft : x));
 					return { path: `/works/${draft.id}`, data: { works: worksToRaw(list) } };
 				}}
 			/>
