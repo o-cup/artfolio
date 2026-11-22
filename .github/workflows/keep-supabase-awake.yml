@@ -1,0 +1,18 @@
+# Supabase 무료 프로젝트는 7일 동안 요청이 없으면 멈춰요.
+# 사흘에 한 번 사이트 내용을 한 번 읽어서 깨어 있게 해요. (공개 키만 써요, 비밀 아님)
+name: Supabase 깨우기
+
+on:
+  schedule:
+    - cron: "17 3 */3 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 사이트 내용 읽기
+        run: |
+          curl -fsS "https://nadchkvnwrvitiskjiwv.supabase.co/rest/v1/site_content?select=key" \
+            -H "apikey: sb_publishable_qp4RAxqCQfaNPwy83u72Cg_-v2l1u6d" > /dev/null
+          echo "깨어 있어요"

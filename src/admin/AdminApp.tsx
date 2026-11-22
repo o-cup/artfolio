@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./admin.css";
 import { api, ApiError, RawContent } from "./api";
-import { fromRaw, Model } from "./model";
+import { fromRaw, Model, moveOldPhotos, oldPhotoCount } from "./model";
 import { DialogProvider, Icon, loadIconFont, useDialog } from "./ui";
 import { Ctx, useAdmin } from "./context";
 import { WorkEdit, WorksList } from "./WorksPages";
@@ -79,7 +79,7 @@ function Home() {
 			</div>
 			<hr className="adm-divider" />
 			<div className="adm-notice">
-				저장한 내용은 <b>2~3분 뒤</b>에 사이트에 반영돼요. 한국어만 쓰면 영어는 자동으로 번역돼요.
+				저장한 내용은 사이트에 <b>바로</b> 반영돼요. 한국어만 쓰면 영어는 자동으로 번역돼요.
 			</div>
 			<div className="adm-row">
 				<button type="button" className="adm-btn" onClick={() => go("/admin/password")}>
@@ -102,19 +102,43 @@ function LoggedIn({ onLogout }: { onLogout: () => void }) {
 	useEffect(() => setShowEn(false), [pathname]);
 	const dirtyRef = useRef(false);
 
+	const loadingRef = useRef(false);
 	const load = useCallback(() => {
+		// 개발 모드에서 두 번 불려도 한 번만 불러와요 (사진을 두 번 옮기지 않게)
+		if (loadingRef.current) return;
+		loadingRef.current = true;
 		setLoadError("");
 		api
 			.content()
-			.then((r) => {
+			.then(async (loaded) => {
+				let r = loaded;
+				// 예전 사진이 남아 있으면 한 번만 Supabase로 옮겨요
+				if (oldPhotoCount(r) > 0) {
+					try {
+						const moved = await moveOldPhotos(r, (done, total) =>
+							dialog.setProgress({
+								title: "예전 사진을 옮기는 중이에요…",
+								detail: `${total}장 중 ${done}장 끝났어요`,
+							})
+						);
+						dialog.setProgress({ title: "저장하는 중이에요…" });
+						await api.save({ message: "예전 사진 옮기기", files: moved });
+						r = { ...r, ...moved };
+					} finally {
+						dialog.setProgress(null);
+					}
+				}
 				setRaw(r);
 				setModel(fromRaw(r));
 			})
 			.catch((e: ApiError) => {
 				if (e.status === 401) onLogout();
 				else setLoadError(e.message);
+			})
+			.finally(() => {
+				loadingRef.current = false;
 			});
-	}, [onLogout]);
+	}, [onLogout, dialog]);
 
 	useEffect(load, [load]);
 
@@ -218,15 +242,15 @@ type AuthState = "loading" | "out" | "in" | "mustSet" | "error";
 
 function Gate() {
 	const [state, setState] = useState<AuthState>("loading");
-	const [googleClientId, setGoogleClientId] = useState<string | null>(null);
+	const navigate = useNavigate();
 
 	const check = useCallback(() => {
 		api
 			.me()
-			.then((me) => {
-				setGoogleClientId(me.googleClientId);
-				if (!me.loggedIn) setState("out");
-				else setState(me.mustSetPassword ? "mustSet" : "in");
+			.then((email) => {
+				if (!email) setState("out");
+				// 비밀번호 재설정 메일의 링크로 들어온 경우: 새 비밀번호부터 만들어요
+				else setState(window.location.pathname === "/admin/reset" ? "mustSet" : "in");
 			})
 			.catch(() => setState("error"));
 	}, []);
@@ -245,11 +269,17 @@ function Gate() {
 			</div>
 		);
 	}
-	if (state === "out") return <LoginPage googleClientId={googleClientId} onLoggedIn={check} />;
+	if (state === "out") return <LoginPage onLoggedIn={check} />;
 	if (state === "mustSet") {
 		return (
 			<main className="adm-main">
-				<SetPasswordPage mode="reset" onDone={() => setState("in")} />
+				<SetPasswordPage
+					mode="reset"
+					onDone={() => {
+						navigate("/admin", { replace: true });
+						setState("in");
+					}}
+				/>
 			</main>
 		);
 	}

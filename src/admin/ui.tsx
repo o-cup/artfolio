@@ -807,7 +807,7 @@ export function photoSrc(p: Photo) {
 	return p.preview || p.url || "";
 }
 
-/** 사이트에 아직 반영되기 전 사진은 GitHub에서 대신 보여줘요. */
+/** 사진 미리보기 (rawBase가 있으면 못 불러온 사진을 거기서 다시 찾아요) */
 export function SmartImg({
 	src,
 	rawBase,

@@ -52,5 +52,5 @@ export function useSaveError() {
 	);
 }
 
-export const SAVED_MESSAGE = <p>사이트에는 2-3분 후에 반영돼요.</p>;
+export const SAVED_MESSAGE = <p>사이트에도 바로 반영돼요.</p>;
 

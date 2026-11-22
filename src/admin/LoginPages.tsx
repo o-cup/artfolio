@@ -1,59 +1,8 @@
 // 로그인 화면, 비밀번호 만들기/바꾸기 화면
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { api } from "./api";
 import { Icon, useDialog } from "./ui";
-
-declare global {
-	interface Window {
-		google?: any;
-	}
-}
-
-function loadGoogleScript(): Promise<void> {
-	if (window.google?.accounts?.id) return Promise.resolve();
-	return new Promise((resolve, reject) => {
-		const s = document.createElement("script");
-		s.src = "https://accounts.google.com/gsi/client";
-		s.async = true;
-		s.onload = () => resolve();
-		s.onerror = () => reject(new Error("google script"));
-		document.head.appendChild(s);
-	});
-}
-
-function GoogleButton({ clientId, onCredential }: { clientId: string; onCredential: (c: string) => void }) {
-	const ref = useRef<HTMLDivElement>(null);
-	const [failed, setFailed] = useState(false);
-	const cbRef = useRef(onCredential);
-	cbRef.current = onCredential;
-	useEffect(() => {
-		let cancelled = false;
-		loadGoogleScript()
-			.then(() => {
-				if (cancelled || !ref.current) return;
-				window.google.accounts.id.initialize({
-					client_id: clientId,
-					callback: (r: { credential: string }) => cbRef.current(r.credential),
-				});
-				window.google.accounts.id.renderButton(ref.current, {
-					type: "standard",
-					theme: "outline",
-					size: "large",
-					text: "continue_with",
-					shape: "rectangular",
-					locale: "ko",
-					width: 320,
-				});
-			})
-			.catch(() => setFailed(true));
-		return () => {
-			cancelled = true;
-		};
-	}, [clientId]);
-	if (failed) return <div className="adm-error">구글 버튼을 불러오지 못했어요. 인터넷 연결을 확인해 주세요.</div>;
-	return <div ref={ref} style={{ minHeight: 44 }} />;
-}
 
 function PasswordInput({
 	value,
@@ -108,21 +57,30 @@ function PasswordInput({
 	);
 }
 
-export function LoginPage({ googleClientId, onLoggedIn }: { googleClientId: string | null; onLoggedIn: () => void }) {
+/** 비밀번호 재설정 링크가 만료됐을 때 등, 주소에 담겨 온 오류 */
+function linkError(): string {
+	const params = new URLSearchParams(window.location.hash.slice(1) || window.location.search);
+	if (!params.get("error")) return "";
+	return "메일 속 링크가 만료됐어요. 아래 '비밀번호가 생각나지 않으세요?'를 눌러 메일을 다시 받아 주세요.";
+}
+
+export function LoginPage({ onLoggedIn }: { onLoggedIn: () => void }) {
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
+	const [error, setError] = useState(linkError);
 	const [busy, setBusy] = useState(false);
 	const [forgot, setForgot] = useState(false);
+	const [mailSent, setMailSent] = useState(false);
 
 	const submit = async () => {
-		if (!password) {
-			setError("비밀번호를 넣어 주세요.");
+		if (!email.trim() || !password) {
+			setError("이메일과 비밀번호를 넣어 주세요.");
 			return;
 		}
 		setBusy(true);
 		setError("");
 		try {
-			await api.login(password);
+			await api.login(email, password);
 			onLoggedIn();
 		} catch (e) {
 			setError(e instanceof Error ? e.message : "다시 시도해 주세요.");
@@ -130,14 +88,20 @@ export function LoginPage({ googleClientId, onLoggedIn }: { googleClientId: stri
 		}
 	};
 
-	const onGoogle = async (credential: string) => {
+	const sendMail = async () => {
+		if (!email.trim()) {
+			setError("이메일을 넣어 주세요.");
+			return;
+		}
+		setBusy(true);
 		setError("");
 		try {
-			await api.google(credential);
-			onLoggedIn();
+			await api.sendResetMail(email);
+			setMailSent(true);
 		} catch (e) {
 			setError(e instanceof Error ? e.message : "다시 시도해 주세요.");
 		}
+		setBusy(false);
 	};
 
 	return (
@@ -148,39 +112,74 @@ export function LoginPage({ googleClientId, onLoggedIn }: { googleClientId: stri
 				</p>
 			</div>
 			<div className="adm-stack">
-				<PasswordInput
-					label="비밀번호"
-					value={password}
-					onChange={setPassword}
-					autoComplete="current-password"
-					autoFocus
-					onEnter={submit}
-				/>
+				<div className="adm-field">
+					<label className="adm-label" htmlFor="adm-email">
+						이메일
+					</label>
+					<input
+						id="adm-email"
+						className="adm-input"
+						type="email"
+						inputMode="email"
+						autoComplete="username"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</div>
+				{!forgot && (
+					<PasswordInput
+						label="비밀번호"
+						value={password}
+						onChange={setPassword}
+						autoComplete="current-password"
+						onEnter={submit}
+					/>
+				)}
 				{error && <div className="adm-error">{error}</div>}
-				<button type="button" className="adm-btn big primary block" onClick={submit} disabled={busy}>
-					{busy ? "확인하는 중…" : "로그인"}
-				</button>
+				{!forgot && (
+					<button type="button" className="adm-btn big primary block" onClick={submit} disabled={busy}>
+						{busy ? "확인하는 중…" : "로그인"}
+					</button>
+				)}
+				{forgot && mailSent && (
+					<div className="adm-notice">
+						<b>메일을 보냈어요.</b> 메일함을 열고, 메일 속 링크를 누르면 새 비밀번호를 만들 수 있어요. 메일이
+						안 보이면 스팸함도 확인해 주세요.
+					</div>
+				)}
+				{forgot && !mailSent && (
+					<button type="button" className="adm-btn big primary block" onClick={sendMail} disabled={busy}>
+						{busy ? "보내는 중…" : "비밀번호 재설정 메일 받기"}
+					</button>
+				)}
 			</div>
 
-			{/* 비밀번호 찾기(구글 확인)는 Vercel에 GOOGLE_CLIENT_ID를 넣었을 때만 보여요 */}
-			{googleClientId && (
-				<div className="adm-stack adm-login-forgot">
-					{!forgot ? (
-						<button type="button" className="adm-linkbtn" onClick={() => setForgot(true)}>
-							비밀번호가 생각나지 않으세요?
-						</button>
-					) : (
-						<>
-							<h3>비밀번호가 생각나지 않을 때</h3>
-							<p>
-								아래 <b>구글 버튼</b>을 눌러 본인 구글 계정(Gmail)으로 확인하면, 새 비밀번호를 만들 수
-								있어요.
-							</p>
-							<GoogleButton clientId={googleClientId} onCredential={onGoogle} />
-						</>
-					)}
-				</div>
-			)}
+			<div className="adm-stack adm-login-forgot">
+				{!forgot ? (
+					<button
+						type="button"
+						className="adm-linkbtn"
+						onClick={() => {
+							setForgot(true);
+							setError("");
+						}}
+					>
+						비밀번호가 생각나지 않으세요?
+					</button>
+				) : (
+					<button
+						type="button"
+						className="adm-linkbtn"
+						onClick={() => {
+							setForgot(false);
+							setMailSent(false);
+							setError("");
+						}}
+					>
+						로그인으로 돌아가기
+					</button>
+				)}
+			</div>
 		</div>
 	);
 }
@@ -238,7 +237,7 @@ export function SetPasswordPage({
 				<h1>{mode === "reset" ? "새 비밀번호 만들기" : "비밀번호 변경"}</h1>
 				<p className="adm-muted" style={{ marginTop: 8 }}>
 					{mode === "reset"
-						? "구글 계정 확인이 끝났어요. 앞으로 쓸 새 비밀번호를 만들어 주세요."
+						? "앞으로 쓸 새 비밀번호를 만들어 주세요."
 						: "변경할 비밀번호를 입력해 주세요."}
 				</p>
 			</div>
