@@ -67,7 +67,7 @@ export function ExhibitionsList() {
 		const list = oldestFirst(model.exhibitions.filter((e) => e.id !== x.id));
 		// 삭제는 확인 창으로 한 번 물어봤으니, 끝나면 짧은 알림(토스트)만 보여줘요
 		if (await saveList(list, `전시 '${x.title.ko}' 삭제`, removedPhotos(before, []), true)) {
-			dialog.showToast([`${withEulReul(x.title.ko)} 삭제했어요.`, "사이트에는 2-3분 후에 반영돼요."]);
+			dialog.showToast([`${withEulReul(x.title.ko)} 삭제했어요.`, "사이트에도 바로 반영돼요."]);
 		}
 	};
 
@@ -170,8 +170,8 @@ export function ExhibitionEdit() {
 			const folder = `exhibitions/${value.id}`;
 			const progress = (done: number, total: number) =>
 				dialog.setProgress({ title: "사진을 올리는 중이에요…", detail: `${total}장 중 ${done}장 끝났어요` });
-			const posterUp = value.poster ? await uploadPhotos([value.poster], folder, progress, "0_poster_") : [];
-			const photosUp = await uploadPhotos(value.images, folder, progress);
+			if (value.poster) await uploadPhotos([value.poster], folder, progress, "0_poster_");
+			await uploadPhotos(value.images, folder, progress);
 
 			dialog.setProgress({ title: "저장하는 중이에요…" });
 			const list = oldestFirst(
@@ -182,7 +182,6 @@ export function ExhibitionEdit() {
 			await api.save({
 				message: `전시 '${value.title.ko}' ${isNew ? "추가" : "수정"}`,
 				files: { exhibitions: exhibitionsToRaw(list) },
-				images: [...posterUp, ...photosUp],
 				deletes: isNew ? [] : removedPhotos(before, after),
 			});
 			setDirty(false);

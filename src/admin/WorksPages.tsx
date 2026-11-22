@@ -158,7 +158,7 @@ export function PageHead({
 
 /**
  * [순서 변경] 모드: 위로/아래로는 화면에서만 바꾸고, [저장하기]를 눌러야 한 번에 저장해요.
- * (누를 때마다 저장하면 그때마다 사이트가 다시 배포돼서)
+ * (여러 번 옮기는 도중의 순서가 사이트에 보이지 않게)
  */
 export function useReorder<T>(items: T[]) {
 	const { setDirty } = useAdmin();
@@ -288,7 +288,7 @@ export function WorksList() {
 	const saveOrder = async () => {
 		if (await saveList(order.list, "작업 순서 변경", [], true)) {
 			order.stop();
-			dialog.showToast(["순서를 바꿨어요.", "사이트에는 2-3분 후에 반영돼요."]);
+			dialog.showToast(["순서를 바꿨어요.", "사이트에도 바로 반영돼요."]);
 		}
 	};
 
@@ -304,7 +304,7 @@ export function WorksList() {
 		const works = model.works.filter((x) => x.id !== w.id);
 		// 삭제는 확인 창으로 한 번 물어봤으니, 끝나면 짧은 알림(토스트)만 보여줘요
 		if (await saveList(works, `작업 '${w.title.ko}' 삭제`, removedPhotos(w.images, []), true)) {
-			dialog.showToast([`${withEulReul(w.title.ko)} 삭제했어요.`, "사이트에는 2-3분 후에 반영돼요."]);
+			dialog.showToast([`${withEulReul(w.title.ko)} 삭제했어요.`, "사이트에도 바로 반영돼요."]);
 		}
 	};
 
@@ -427,7 +427,7 @@ export function WorkEdit() {
 		try {
 			dialog.setProgress({ title: "영어로 번역하는 중이에요…" });
 			const { value } = await autoTranslate(work, isNew ? null : original);
-			const uploaded = await uploadPhotos(value.images, `works/${value.id}`, (done, total) =>
+			await uploadPhotos(value.images, `works/${value.id}`, (done, total) =>
 				dialog.setProgress({ title: "사진을 올리는 중이에요…", detail: `${total}장 중 ${done}장 끝났어요` })
 			);
 			dialog.setProgress({ title: "저장하는 중이에요…" });
@@ -435,7 +435,6 @@ export function WorkEdit() {
 			await api.save({
 				message: `작업 '${value.title.ko}' ${isNew ? "추가" : "수정"}`,
 				files: { works: worksToRaw(works) },
-				images: uploaded,
 				deletes: isNew ? [] : removedPhotos(original.images, value.images),
 			});
 			setDirty(false);

@@ -225,7 +225,7 @@ export async function autoTranslate<T>(current: T, orig: unknown): Promise<{ val
 		);
 		failed = Boolean(skipped);
 		todo.forEach((b, i) => {
-			// 번역이 안 되면 일단 한국어를 그대로 넣어요. 저장 뒤 GitHub 자동 번역(scripts/translate-data.js)이 이런 칸을 영어로 채워요.
+			// 번역이 안 되면 일단 한국어를 그대로 넣어요. 다음에 저장할 때 이런 칸을 다시 번역해요.
 			// eslint-disable-next-line no-param-reassign
 			b.en = translations[i] || b.ko;
 		});
@@ -261,8 +261,14 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 	});
 }
 
-/** 사진을 웹용 크기(긴 쪽 2400px, JPG)로 줄여서 base64 글자로 돌려줘요. */
-export async function shrinkPhoto(file: File): Promise<string> {
+function canvasToJpeg(canvas: HTMLCanvasElement, quality: number): Promise<Blob | null> {
+	return new Promise((resolve) => {
+		canvas.toBlob((b) => resolve(b), "image/jpeg", quality);
+	});
+}
+
+/** 사진을 웹용 크기(긴 쪽 2400px, JPG)로 줄여요. */
+export async function shrinkPhoto(file: File): Promise<Blob> {
 	const src = URL.createObjectURL(file);
 	let img: HTMLImageElement;
 	try {
@@ -290,46 +296,104 @@ export async function shrinkPhoto(file: File): Promise<string> {
 		ctx.fillStyle = "#fff";
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-		const base64 = canvas.toDataURL("image/jpeg", quality).split(",")[1];
-		if (base64.length < 3_000_000) return base64;
+		// eslint-disable-next-line no-await-in-loop
+		const blob = await canvasToJpeg(canvas, quality);
+		if (blob && blob.size < 2_300_000) return blob;
 	}
 	throw new Error(`'${file.name}' 사진이 너무 커요. 다른 사진으로 골라 주세요.`);
 }
 
-export type Uploaded = { path: string; blobId: string };
-
 /**
- * 새로 고른 사진들을 올리고, 사이트 주소(url)를 붙여줘요.
- * folder 예: "works/04" → /works/04/1731650000-1.jpg
+ * 새로 고른 사진들을 Supabase 사진 보관함에 올리고, 주소(url)를 붙여줘요.
+ * folder 예: "works/04" → https://…/photos/works/04/lq3k9x-1.jpg
  */
 export async function uploadPhotos(
 	photos: Photo[],
 	folder: string,
 	onProgress: (done: number, total: number) => void,
 	namePrefix = ""
-): Promise<Uploaded[]> {
+): Promise<void> {
 	const pending = photos.filter((p) => p.file && !p.url);
 	const stamp = Date.now().toString(36);
-	const uploaded: Uploaded[] = [];
 	for (let i = 0; i < pending.length; i += 1) {
 		onProgress(i, pending.length);
 		const photo = pending[i];
-		const base64 = await shrinkPhoto(photo.file as File);
-		const { blobId } = await api.upload(base64);
-		const url = `/${folder}/${namePrefix}${stamp}-${i + 1}.jpg`;
-		photo.url = url;
-		uploaded.push({ path: `public${url}`, blobId });
+		const blob = await shrinkPhoto(photo.file as File);
+		photo.url = await api.upload(blob, `${folder}/${namePrefix}${stamp}-${i + 1}.jpg`);
 	}
 	onProgress(pending.length, pending.length);
-	return uploaded;
 }
 
-/** 원래 있던 사진 중 빠진 것들 → 지울 파일 목록 */
+/** 원래 있던 사진 중 빠진 것들의 주소 (보관함에 있는 사진만 실제로 지워져요) */
 export function removedPhotos(before: Photo[], after: Photo[]): string[] {
 	const keep = new Set(urls(after));
-	return urls(before)
-		.filter((u) => !keep.has(u) && /^\/(works|exhibitions)\//.test(u))
-		.map((u) => `public${u}`);
+	return urls(before).filter((u) => !keep.has(u));
+}
+
+// ---------- 예전 사진 옮기기 (한 번만) ----------
+/** 사이트 폴더(public)에 있던 예전 사진 주소: "/works/01/1.jpeg" 처럼 / 로 시작해요 */
+const isOldPhoto = (u: string) => u.startsWith("/");
+
+function allPhotoUrls(raw: RawContent): string[] {
+	const out: string[] = [];
+	[...raw.works.ko, ...raw.works.en].forEach((w) => out.push(...w.images));
+	[...raw.exhibitions.ko, ...raw.exhibitions.en].forEach((x) => {
+		if (x.posterUrl) out.push(x.posterUrl);
+		out.push(...(x.images || []));
+	});
+	return out;
+}
+
+export const oldPhotoCount = (raw: RawContent) => new Set(allPhotoUrls(raw).filter(isOldPhoto)).size;
+
+/**
+ * 예전 사진을 웹용 크기로 줄여서 Supabase 사진 보관함으로 옮기고, 주소를 바꾼 새 데이터를 돌려줘요.
+ * 중간에 멈춰도 다시 하면 처음부터 덮어써요.
+ */
+export async function moveOldPhotos(
+	raw: RawContent,
+	onProgress: (done: number, total: number) => void
+): Promise<Pick<RawContent, "works" | "exhibitions">> {
+	const todo = Array.from(new Set(allPhotoUrls(raw).filter(isOldPhoto)));
+	const moved = new Map<string, string>();
+	let done = 0;
+	onProgress(0, todo.length);
+
+	const moveOne = async (url: string) => {
+		const res = await fetch(url);
+		if (!res.ok) throw new Error(`예전 사진(${url})을 찾지 못했어요.`);
+		const name = url.split("/").pop() || "photo";
+		const blob = await shrinkPhoto(new File([await res.blob()], name));
+		// "/works/01/1.jpeg" → "works/01/1.jpg"
+		const path = `${url.slice(1).replace(/\.(jpe?g|png)$/i, "")}.jpg`;
+		moved.set(url, await api.upload(blob, path, true));
+		done += 1;
+		onProgress(done, todo.length);
+	};
+
+	// 두 장씩 같이 옮겨요 (너무 많이 하면 컴퓨터가 버거워요)
+	let next = 0;
+	const worker = async () => {
+		while (next < todo.length) {
+			const url = todo[next];
+			next += 1;
+			await moveOne(url); // eslint-disable-line no-await-in-loop
+		}
+	};
+	await Promise.all([worker(), worker()]);
+
+	const swap = (u: string) => moved.get(u) || u;
+	const works = {
+		ko: raw.works.ko.map((w) => ({ ...w, images: w.images.map(swap) })),
+		en: raw.works.en.map((w) => ({ ...w, images: w.images.map(swap) })),
+	};
+	const fixEx = (x: RawExhibition) => ({
+		...x,
+		posterUrl: x.posterUrl ? swap(x.posterUrl) : "",
+		images: (x.images || []).map(swap),
+	});
+	const exhibitions = { ko: raw.exhibitions.ko.map(fixEx), en: raw.exhibitions.en.map(fixEx) };
+	return { works, exhibitions };
 }
 
 // ---------- 미리보기 ----------
