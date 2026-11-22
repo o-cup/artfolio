@@ -2,7 +2,7 @@
 
 import React, { useMemo, useRef, useState } from "react";
 import { api } from "./api";
-import { SAVED_MESSAGE, useAdmin, useDirty, useSaveError } from "./context";
+import { useAdmin, useDirty, useSaveError } from "./context";
 import { About, aboutToRaw, autoTranslate, bi, Bi, newKey } from "./model";
 import { BiField, DragHandle, EnToggle, Icon, SaveBar, useDialog, useFlip, useGroupDragSort } from "./ui";
 import { PageHead } from "./WorksPages";
@@ -98,7 +98,6 @@ export default function AboutEdit() {
 			dialog.setProgress(null);
 			await dialog.showDone({
 				title: "저장했어요",
-				message: SAVED_MESSAGE,
 				button: "처음 화면으로",
 			});
 			go("/admin");
